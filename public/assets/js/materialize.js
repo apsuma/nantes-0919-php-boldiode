@@ -2331,7 +2331,7 @@ $jscomp.polyfill = function (e, r, p, m) {
         // Trigger keydown handler
         this.el.addEventListener('keydown', this._handleTriggerKeydownBound);
 
-        // Item click handler
+        // Room click handler
         this.dropdownEl.addEventListener('click', this._handleDropdownClickBound);
 
         // Hover event handlers
