@@ -13,10 +13,15 @@ use App\Model\RoomManager;
  */
 class RoomController extends AbstractController
 {
-    public function edit(int $id): string
+    public function edit(int $id = null): string
     {
         $roomEdit = new RoomManager();
-        $room = $roomEdit->selectOneById($id);
-        return $this->twig->render('Room/edit.html.twig', ['room' => $room]);
+        if ($id) {
+            $room = $roomEdit->selectOneById($id);
+            return $this->twig->render('Room/edit.html.twig', ['room' => $room]);
+        } else {
+            $roomList = $roomEdit->selectAll();
+            return $this->twig->render('Room/editList.html.twig', ['roomList' => $roomList]);
+        }
     }
 }

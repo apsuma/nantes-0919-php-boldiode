@@ -1,0 +1,8 @@
+{% extends 'layout.html.twig' %}
+{% block content %}
+    <p>
+    {% for room in roomList %}
+        <a href="edit/{{ room.id }}">{{ room.name }}</a><br>
+    {% endfor %}
+    </p>
+{% endblock %}
