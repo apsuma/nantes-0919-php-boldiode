@@ -1,0 +1,18 @@
+<form method="post">
+    <input type="hidden" value="{{ room.id }}" name="id">
+    <label for="name">Nom chambre</label>
+    <input type="text" id="name" value="{{ room.name }}" name="name">
+    <label for="description">Description</label>
+    <input type="text" id="description" value="{{ room.description }}" name="description">
+    <label for="nb_beb">Nombre de lits</label>
+    <input type="text" id="nb_bed" value="{{ room.nb_bed }}" name="nb_bed">
+    <label for="surface">Surface</label>
+    <input type="text" id="surface" value="{{ room.surface }}" name="surface">
+    <label for="id_price">Prix</label>
+    <input type="text" id="id_price" value="{{ room.id_price }}" name="id_price">
+    <label for="id_view">Vue</label>
+    <input type="text" id="id_view" value="{{ room.id_view }}" name="id_view">
+    <label for="id_theme">Theme</label>
+    <input type="text" id="id_theme" value="{{ room.id_theme }}" name="id_theme">
+    <input type="submit" value="Valider">
+</form>
