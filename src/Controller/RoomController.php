@@ -17,7 +17,7 @@ class RoomController extends AbstractController
     {
         $roomEdit = new RoomManager();
         if ($id) {
-            $room = $roomEdit->selectOneById($id);
+            $room = $roomEdit->selectRoomById($id);
             return $this->twig->render('Room/edit.html.twig', ['room' => $room]);
         } else {
             $roomList = $roomEdit->selectAll();
