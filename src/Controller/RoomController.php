@@ -36,5 +36,11 @@ class RoomController extends AbstractController
             'prices' => $prices,
             'themes' => $themes
         ]);
+
+    public function show()
+    {
+        $roomManager = new RoomManager();
+        $rooms = $roomManager->selectAllRooms();
+        return $this->twig->render("Room/show.html.twig", ['rooms'=>$rooms]);
     }
 }
