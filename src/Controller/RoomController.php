@@ -13,5 +13,10 @@ use App\Model\RoomManager;
  */
 class RoomController extends AbstractController
 {
-
+    public function show()
+    {
+        $roomManager = new RoomManager();
+        $rooms = $roomManager->selectAllRooms();
+        return $this->twig->render("Room/show.html.twig", ['rooms'=>$rooms]);
+    }
 }
