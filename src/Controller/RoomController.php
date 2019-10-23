@@ -13,5 +13,7 @@ use App\Model\RoomManager;
  */
 class RoomController extends AbstractController
 {
-
+    public function edit()
+    {
+    }
 }
