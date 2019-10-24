@@ -23,28 +23,26 @@
         <div class="col s12">
             <label>Prix de la chambre</label>
             <select>
-                <option value="" disabled selected>Sélectionner prix</option>
-                <option value="1">Prix 1</option>
-                <option value="2">Prix 2</option>
-                <option value="3">Prix 3</option>
+                {% for price in prices %}
+                    <option value="{{ price.id }}"{% if price.id == room.roomPriceId %}selected="selected"{% endif %}>{{ price.name|e }} ({{ price.price_summer }}/{{ price.price_winter }}€)</option>
+                {% endfor %}
+
             </select>
         </div>
         <div class="col s12">
             <label>Vue de la chambre</label>
             <select>
-                <option value="" disabled selected>Sélectionner vue</option>
-                <option value="1">Vue 1</option>
-                <option value="2">Vue 2</option>
-                <option value="3">Vue 3</option>
+                {% for view in views %}
+                <option value="{{ view.id }}"{% if view.id == room.roomViewId %}selected="selected"{% endif %}>{{ view.name|e }}</option>
+                {% endfor %}
             </select>
         </div>
         <div class="col s12">
             <label>Thème de la chambre</label>
             <select>
-                <option value="" disabled selected>Sélectionner thème</option>
-                <option value="1">Thème 1</option>
-                <option value="2">Thème 2</option>
-                <option value="3">Thème 3</option>
+                {% for theme in themes %}
+                    <option value="{{ theme.id }}"{% if theme.id == room.roomThemeId %}selected="selected"{% endif %}>{{ theme.name|e }}</option>
+                {% endfor %}
             </select>
         </div>
         <input type="hidden" value="{{ room.id }}" name="id">
