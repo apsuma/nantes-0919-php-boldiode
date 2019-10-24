@@ -29,6 +29,16 @@ class RoomController extends AbstractController
             $prices = $priceManager->selectAll();
             $themeManager = new ThemeManager();
             $themes = $themeManager->selectAll();
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $room['roomName'] = $_POST['roomName'];
+                $room['description'] = $_POST['description'];
+                $room['nb_bed'] = $_POST['nbBed'];
+                $room['surface'] = $_POST['surface'];
+                $room['front_page'] = $_POST['frontPage'];
+                $room['roomPriceId'] = $_POST['priceId'];
+                $room['roomViewId'] = $_POST['viewId'];
+                $room['roomThemeId'] = $_POST['themeId'];
+            }
             return $this->twig->render('Room/edit.html.twig', [
                 'room' => $room,
                 'views' => $views,
