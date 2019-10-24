@@ -40,10 +40,9 @@
         <div class="col s12">
             <label>Thème de la chambre</label>
             <select>
-                <option value="" disabled selected>Sélectionner thème</option>
-                <option value="1">Thème 1</option>
-                <option value="2">Thème 2</option>
-                <option value="3">Thème 3</option>
+                {% for theme in themes %}
+                    <option value="{{ theme.id }}"{% if theme.id == room.roomThemeId %}selected="selected"{% endif %}>{{ theme.name|e }}</option>
+                {% endfor %}
             </select>
         </div>
         <input type="hidden" value="{{ room.id }}" name="id">
