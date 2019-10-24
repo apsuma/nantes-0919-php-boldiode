@@ -24,7 +24,7 @@ class RoomManager extends AbstractManager
 
     public function selectRoomById(int $id)
     {
-        $query = "SELECT r.name roomName, r.description, r.nb_bed, 
+        $query = "SELECT r.id roomId, r.name roomName, r.description, r.nb_bed, 
             r.surface, r.front_page, r.id_view roomViewId, 
             r.id_theme roomThemeId, r.id_price roomPriceId, 
             p.price_summer, p.price_winter, p.name priceName,  
@@ -80,5 +80,32 @@ class RoomManager extends AbstractManager
             JOIN theme ON room.id_theme = theme.id
             JOIN picture ON picture.id_room = room.id";
         return $this->pdo->query($query)->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function updateRoom(array $room):bool
+    {
+        // prepared request
+        $query = "UPDATE " . self::TABLE .
+            " SET name = :name,
+            description = :description,
+            surface = :surface,
+            nb_bed = :nbBed,
+            front_page = :frontPage,
+            id_price = :priceId,
+            id_view = :viewId,
+            id_theme = :themeId 
+            WHERE id=:id";
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue('id', $room['roomId'], \PDO::PARAM_INT);
+        $statement->bindValue('name', $room['roomName'], \PDO::PARAM_STR);
+        $statement->bindValue('description', $room['description'], \PDO::PARAM_STR);
+        $statement->bindValue('surface', $room['surface'], \PDO::PARAM_INT);
+        $statement->bindValue('nbBed', $room['nb_bed'], \PDO::PARAM_INT);
+        $statement->bindValue('frontPage', $room['front_page'], \PDO::PARAM_INT);
+        $statement->bindValue('priceId', $room['roomPriceId'], \PDO::PARAM_INT);
+        $statement->bindValue('viewId', $room['roomViewId'], \PDO::PARAM_INT);
+        $statement->bindValue('themeId', $room['roomThemeId'], \PDO::PARAM_INT);
+
+        return $statement->execute();
     }
 }
