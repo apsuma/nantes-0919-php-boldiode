@@ -1,5 +1,9 @@
 <form method="post">
     <input type="hidden" value="{{ room.id }}" name="id">
+    <label for="picture">Image chambre</label>
+    <input type="url" id="picture" value="{{ picture.image }}" name="image">
+    <label for="pictureDescription">Description image</label>
+    <input type="text" id="pictureDescription" value="{{ picture.description }}" name="pictureDescription">
     <label for="name">Nom chambre</label>
     <input type="text" id="name" value="{{ room.name }}" name="name">
     <label for="description">Description</label>
