@@ -9,6 +9,7 @@ use App\Model\RoomManager;
 use App\Model\ViewManager;
 use App\Model\PriceManager;
 use App\Model\ThemeManager;
+use App\Model\PictureManager;
 
 /**
  * Class RoomController
@@ -37,10 +38,12 @@ class RoomController extends AbstractController
         $prices = $priceManager->selectAll();
         $themeManager = new ThemeManager();
         $themes = $themeManager->selectAll();
+        $pictureManager = new PictureManager();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $roomManager = new RoomManager();
-            $roomManager->insert($_POST);
+            $id = $roomManager->insert($_POST);
+            $pictureManager->insert($_POST, $id);
             header('Location:/room/show');
         }
 
