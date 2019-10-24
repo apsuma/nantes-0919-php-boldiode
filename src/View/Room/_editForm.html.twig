@@ -23,10 +23,10 @@
         <div class="col s12">
             <label>Prix de la chambre</label>
             <select>
-                <option value="" disabled selected>Sélectionner prix</option>
-                <option value="1">Prix 1</option>
-                <option value="2">Prix 2</option>
-                <option value="3">Prix 3</option>
+                {% for price in prices %}
+                    <option value="{{ price.id }}"{% if price.id == room.roomPriceId %}selected="selected"{% endif %}>{{ price.name|e }} ({{ price.price_summer }}/{{ price.price_winter }}€)</option>
+                {% endfor %}
+
             </select>
         </div>
         <div class="col s12">
