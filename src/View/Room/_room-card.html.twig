@@ -1,32 +1,30 @@
 <div class="row">
-    <div class="col s12 m7">
+    <div class="col">
         <div class="card">
-            <div class="card-image">
-                <img class="responsive-img" src="{{ room.picture }}">
-                <span class="card-title teal lighten-2">{{ room.name }}</span>
-            </div>
-            <div class="card-content">
-                <p>{{ room.description }}</p>
-            </div>
-            <table>
-                <thead>
-                <tr>
-                    <th>Prix été*</th>
-                    <th>Prix hiver*</th>
-                    <th>Theme</th>
-                    <th>Vue</th>
-                </tr>
-                </thead>
+            <img class="card-img-top" src="{{ room.picture }}">
+        <h5 class="card-title">{{ room.name }}</h5>
+        <div class="card-text">
+            <p>{{ room.description }}</p>
+        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Prix été*</th>
+                <th scope="col">Prix hiver*</th>
+                <th scope="col">Theme</th>
+                <th scope="col">Vue</th>
+            </tr>
+            </thead>
 
-                <tbody>
-                <tr>
-                    <td>{{ room.priceSummer }} €</td>
-                    <td>{{ room.priceWinter }} €</td>
-                    <td>{{ room.theme }}</td>
-                    <td>{{ room.view }}</td>
-                </tr>
-                </tbody>
-            </table>
+            <tbody>
+            <tr>
+                <td>{{ room.priceSummer }} €</td>
+                <td>{{ room.priceWinter }} €</td>
+                <td>{{ room.theme }}</td>
+                <td>{{ room.view }}</td>
+            </tr>
+            </tbody>
+        </table>
 
             <p style="font-size: small">*les prix sont indiqués par nuit et par personne</p>
         </div>
