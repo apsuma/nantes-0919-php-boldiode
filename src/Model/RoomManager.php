@@ -28,7 +28,7 @@ class RoomManager extends AbstractManager
     public function insert(array $room): int
     {
         // prepared request
-        $statement = $this->pdo->prepare("INSERT INTO ". self::TABLE .
+        $statement = $this->pdo->prepare("INSERT INTO " . self::TABLE .
             "(name,description,nb_bed,surface,id_price,id_view,id_theme) 
             VALUES (:name,:description,:nb_bed,:surface,:id_price,:id_view,:id_theme)");
         $statement->bindValue('name', $room['name'], \PDO::PARAM_STR);
@@ -42,6 +42,7 @@ class RoomManager extends AbstractManager
         if ($statement->execute()) {
             return (int)$this->pdo->lastInsertId();
         }
+    }
 
     public function selectAllRooms(): array
     {

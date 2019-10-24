@@ -36,6 +36,7 @@ class RoomController extends AbstractController
             'prices' => $prices,
             'themes' => $themes
         ]);
+    }
 
     public function show()
     {
