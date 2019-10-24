@@ -27,8 +27,8 @@ class RoomController extends AbstractController
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $roomManager = new RoomManager();
-            $id = $roomManager->insert($_POST);
-            header('Location:/room/show/' . $id);
+            $roomManager->insert($_POST);
+            header('Location:/room/show');
         }
 
         return $this->twig->render('Room/add.html.twig', [
