@@ -1,0 +1,49 @@
+<form method="post">
+    <input type="hidden" value="{{ room.id }}" name="id">
+    <label for="name">Nom chambre</label>
+    <input type="text" id="name" value="{{ room.name }}" name="name">
+    <label for="description">Description</label>
+    <input type="text" id="description" value="{{ room.description }}" name="description">
+    <label for="nb_bed">Nombre de lits</label>
+    <input type="text" id="nb_bed" value="{{ room.nb_bed }}" name="nb_bed">
+    <label for="surface">Surface</label>
+    <input type="text" id="surface" value="{{ room.surface }}" name="surface">
+
+    <div class="input-field col s12">
+        <select id="id_price" name="id_price">
+            <option value="" disabled selected>Choisir un prix</option>
+            {% for price in prices %}
+                <option value="{{ price.id }}">{{ price.name }}</option>
+            {% endfor %}
+        </select>
+        <label for="id_price">Prix</label>
+    </div>
+
+    <div class="input-field col s12">
+        <select id="id_view" name="id_view">
+            <option value="" disabled selected>Choisir une vue</option>
+            {% for view in views %}
+                <option value="{{ view.id }}">{{ view.name }}</option>
+            {% endfor %}
+        </select>
+        <label for="id_view">Vue</label>
+    </div>
+
+    <div class="input-field col s12">
+        <select id="id_theme" name="id_theme">
+            <option value="" disabled selected>Choisir un theme</option>
+            {% for theme in themes %}
+                <option value="{{ theme.id }}">{{ theme.name }}</option>
+            {% endfor %}
+        </select>
+        <label for="id_theme">Theme</label>
+    </div>
+    <input type="submit" value="Valider">
+</form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('select');
+        var instances = M.FormSelect.init(elems);
+    });
+</script>
