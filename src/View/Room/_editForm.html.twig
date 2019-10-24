@@ -32,10 +32,9 @@
         <div class="col s12">
             <label>Vue de la chambre</label>
             <select>
-                <option value="" disabled selected>Sélectionner vue</option>
-                <option value="1">Vue 1</option>
-                <option value="2">Vue 2</option>
-                <option value="3">Vue 3</option>
+                {% for view in views %}
+                <option value="{{ view.id }}"{% if view.id == room.roomViewId %}selected="selected"{% endif %}>{{ view.name|e }}</option>
+                {% endfor %}
             </select>
         </div>
         <div class="col s12">

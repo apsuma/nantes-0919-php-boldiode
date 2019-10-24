@@ -25,7 +25,7 @@ class RoomManager extends AbstractManager
     public function selectRoomById(int $id)
     {
         $query = "SELECT r.name roomName, r.description, r.nb_bed, r.surface, r.front_page, 
-        p.price_summer, p.price_winter, p.name priceName, 
+        r.id_view roomViewId, p.price_summer, p.price_winter, p.name priceName, v.id viewId, 
         v.name viewName, t.name themeName FROM room r INNER JOIN price p ON r.id_price = p.id 
         INNER JOIN view v ON r.id_view = v.id 
         INNER JOIN theme t ON r.id_theme = t.id 
