@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col s6">
             <label for="first_name">Nom de la chambre</label>
-            <input value="{{ room.name }}" id="first_name" type="text">
+            <input value="{{ room.room_name }}" id="first_name" type="text">
         </div>
         <div class="col s6">
             <label for="textarea1">Description</label>
@@ -17,7 +17,7 @@
             <input value="{{ room.surface }}" id="first_name" type="text" class="validate">
         </div>
         <div class="col s6">
-            <input type="checkbox" name="front_page"/>
+            <input type="checkbox" name="front_page" {% if room.front_page == 1 %}checked{% endif %}/>
             <label for="front_page">Haut de page</label>
         </div>
         <div class="col s12">
