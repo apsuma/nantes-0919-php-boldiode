@@ -2,19 +2,19 @@
     <div class="row">
         <div class="col s6">
             <label for="roomName">Nom de la chambre</label>
-            <input value="{{ room.roomName }}" id="roomName" type="text" name="roomName">
+            <input value="{{ room.roomName|e }}" id="roomName" type="text" name="roomName">
         </div>
         <div class="col s6">
             <label for="description">Description</label>
-            <textarea id="description" class="materialize-textarea" name="description">{{ room.description }}</textarea>
+            <textarea id="description" class="materialize-textarea" name="description">{{ room.description|e }}</textarea>
         </div>
         <p>
             <label for="nbBed">Nombre de lits</label>
-            <input type="range" id="nbBed" min="0" max="10" value="{{ room.nb_bed }}" name="nbBed"/>
+            <input type="range" id="nbBed" min="0" max="10" value="{{ room.nb_bed|e }}" name="nbBed"/>
         </p>
         <div class="col s6">
             <label for="surface">Surface chambre</label>
-            <input value="{{ room.surface }}" id="surface" type="text" class="validate" name="surface">
+            <input value="{{ room.surface|e }}" id="surface" type="text" class="validate" name="surface">
         </div>
         <div class="col s6">
             <input type="checkbox" id="frontPage" name="frontPage" {% if room.front_page == 1 %}checked{% endif %}/>
@@ -24,7 +24,7 @@
             <label for="priceId">Prix de la chambre</label>
             <select name="priceId">
                 {% for price in prices %}
-                    <option value="{{ price.id }}"{% if price.id == room.roomPriceId %}selected="selected"{% endif %}>{{ price.name|e }} ({{ price.price_summer }}/{{ price.price_winter }}€)</option>
+                    <option value="{{ price.id }}" {% if price.id == room.roomPriceId %}selected="selected"{% endif %}>{{ price.name|e }} ({{ price.price_summer }}/{{ price.price_winter }}€)</option>
                 {% endfor %}
 
             </select>
