@@ -9,6 +9,7 @@ use App\Model\RoomManager;
 use App\Model\ViewManager;
 use App\Model\PriceManager;
 use App\Model\ThemeManager;
+use App\Model\PictureManager;
 
 /**
  * Class RoomController
@@ -16,6 +17,19 @@ use App\Model\ThemeManager;
  */
 class RoomController extends AbstractController
 {
+
+    public function edit(int $id = null): string
+    {
+        $roomEdit = new RoomManager();
+        if ($id) {
+            $room = $roomEdit->selectRoomById($id);
+            return $this->twig->render('Room/edit.html.twig', ['room' => $room]);
+        } else {
+            $roomList = $roomEdit->selectAll();
+            return $this->twig->render('Room/editList.html.twig', ['roomList' => $roomList]);
+        }
+    }
+
     public function add()
     {
         $viewManager = new ViewManager();
@@ -24,10 +38,12 @@ class RoomController extends AbstractController
         $prices = $priceManager->selectAll();
         $themeManager = new ThemeManager();
         $themes = $themeManager->selectAll();
+        $pictureManager = new PictureManager();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $roomManager = new RoomManager();
-            $roomManager->insert($_POST);
+            $id = $roomManager->insert($_POST);
+            $pictureManager->insert($_POST, $id);
             header('Location:/room/show');
         }
 
@@ -42,6 +58,6 @@ class RoomController extends AbstractController
     {
         $roomManager = new RoomManager();
         $rooms = $roomManager->selectAllRooms();
-        return $this->twig->render("Room/show.html.twig", ['rooms'=>$rooms]);
+        return $this->twig->render("Room/show.html.twig", ['rooms' => $rooms]);
     }
 }
