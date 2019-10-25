@@ -1,6 +1,6 @@
 <?php
 /**
- * Controller for the room interaction
+ *
  */
 
 namespace App\Controller;
@@ -12,8 +12,8 @@ use App\Model\ThemeManager;
 use App\Model\PictureManager;
 
 /**
+ * Controller for the room interaction
  * Class RoomController
- * @package App\Controller
  */
 class RoomController extends AbstractController
 {
