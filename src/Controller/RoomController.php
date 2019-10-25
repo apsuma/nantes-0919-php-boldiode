@@ -18,31 +18,33 @@ use App\Model\PictureManager;
 class RoomController extends AbstractController
 {
 
-    public function edit(int $id = null): string
+    public function edit(int $id): string
     {
         $roomEdit = new RoomManager();
-        if ($id) {
-            $room = $roomEdit->selectRoomById($id);
-            $viewManager = new ViewManager();
-            $views = $viewManager->selectAll();
-            $priceManager = new PriceManager();
-            $prices = $priceManager->selectAll();
-            $themeManager = new ThemeManager();
-            $themes = $themeManager->selectAll();
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $roomEdit->updateRoom($_POST);
-                header('Location:/room/edit/' . $_POST['id']);
-            }
-            return $this->twig->render('Room/edit.html.twig', [
-                'room' => $room,
-                'views' => $views,
-                'prices' => $prices,
-                'themes' => $themes,
-            ]);
-        } else {
-            $roomList = $roomEdit->selectAll();
-            return $this->twig->render('Room/editList.html.twig', ['roomList' => $roomList]);
+        $room = $roomEdit->selectRoomById($id);
+        $viewManager = new ViewManager();
+        $views = $viewManager->selectAll();
+        $priceManager = new PriceManager();
+        $prices = $priceManager->selectAll();
+        $themeManager = new ThemeManager();
+        $themes = $themeManager->selectAll();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $roomEdit->updateRoom($_POST);
+            header('Location:/room/edit/' . $_POST['id']);
         }
+        return $this->twig->render('Room/edit.html.twig', [
+            'room' => $room,
+            'views' => $views,
+            'prices' => $prices,
+            'themes' => $themes,
+        ]);
+    }
+
+    public function editList()
+    {
+        $roomEdit = new RoomManager();
+        $roomList = $roomEdit->selectAll();
+        return $this->twig->render('Room/editList.html.twig', ['roomList' => $roomList]);
     }
 
     public function add()
