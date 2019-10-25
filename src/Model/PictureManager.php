@@ -1,11 +1,10 @@
 <?php
 
+namespace App\Model;
+
 /**
  * Picture manager, interact with the table picture in the boldiode database
  */
-
-namespace App\Model;
-
 class PictureManager extends AbstractManager
 {
     /**
