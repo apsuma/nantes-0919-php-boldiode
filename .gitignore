@@ -4,4 +4,3 @@
 *.cache
 db.php
 .idea
-initBDD.sql
