@@ -1,51 +1,49 @@
 <form method="post">
-    <div class="row">
-        <div class="col s6">
-            <label for="roomName">Nom de la chambre</label>
-            <input value="{{ room.roomName|e }}" id="roomName" type="text" name="roomName">
-        </div>
-        <div class="col s6">
-            <label for="description">Description</label>
-            <textarea id="description" class="materialize-textarea" name="description">{{ room.description|e }}</textarea>
-        </div>
-        <p>
-            <label for="nbBed">Nombre de lits</label>
-            <input type="range" id="nbBed" min="0" max="10" value="{{ room.nb_bed|e }}" name="nbBed"/>
-        </p>
-        <div class="col s6">
-            <label for="surface">Surface chambre</label>
-            <input value="{{ room.surface|e }}" id="surface" type="text" class="validate" name="surface">
-        </div>
-        <div class="col s6">
-            <input type="checkbox" id="frontPage" name="frontPage" {% if room.front_page == 1 %}checked{% endif %}/>
-            <label for="frontPage">Haut de page</label>
-        </div>
-        <div class="col s12">
-            <label for="priceId">Prix de la chambre</label>
-            <select name="priceId">
-                {% for price in prices %}
-                    <option value="{{ price.id }}" {% if price.id == room.roomPriceId %}selected="selected"{% endif %}>{{ price.name|e }} ({{ price.price_summer }}/{{ price.price_winter }}€)</option>
-                {% endfor %}
+    <div class="form-group">
+        <label for="roomName">Nom de la chambre</label>
+        <input value="{{ room.roomName }}" id="roomName" class="form-control" type="text" name="roomName">
 
-            </select>
-        </div>
-        <div class="col s12">
-            <label for="viewId">Vue de la chambre</label>
-            <select name="viewId">
-                {% for view in views %}
-                <option value="{{ view.id }}" id="viewId" {% if view.id == room.roomViewId %}selected="selected"{% endif %}>{{ view.name|e }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="col s12">
-            <label for="themeId">Thème de la chambre</label>
-            <select name="themeId">
-                {% for theme in themes %}
-                    <option value="{{ theme.id }}"{% if theme.id == room.roomThemeId %}selected="selected"{% endif %}>{{ theme.name|e }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <input type="hidden" value="{{ room.roomId }}" name="id">
-        <input type="submit" value="Modifier chambre">
     </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" class="form-control" name="description">{{ room.description }}</textarea>
+    </div>
+    <div class="form-group">
+        <label for="nbBed">Nombre de lits</label>
+        <input type="range" id="nbBed" class="form-control" min="0" max="10" value="{{ room.nb_bed }}" name="nbBed"/>
+    </div>
+    <div class="form-group">
+        <label for="surface">Surface chambre</label>
+        <input value="{{ room.surface }}" id="surface" class="form-control" type="text" name="surface">
+    </div>
+    <div class="form-group">
+        <input type="checkbox" id="frontPage" name="frontPage" class="form-control" {% if room.front_page == 1 %}checked{% endif %}/>
+        <label for="frontPage">Haut de page</label>
+    </div>
+    <div class="form-group">
+        <label for="priceId">Prix de la chambre</label>
+        <select id="priceId" name="priceId" class="form-control">
+            {% for price in prices %}
+                <option value="{{ price.id }}"{% if price.id == room.roomPriceId %}selected="selected"{% endif %}>{{ price.name|e }} ({{ price.price_summer }}/{{ price.price_winter }}€)</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="viewId">Vue de la chambre</label>
+        <select id="viewId" name="viewId" class="form-control">
+            {% for view in views %}
+            <option value="{{ view.id }}" id="viewId" {% if view.id == room.roomViewId %}selected="selected"{% endif %}>{{ view.name|e }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="themeId">Thème de la chambre</label>
+        <select id="themeId" name="themeId" class="form-control">
+            {% for theme in themes %}
+                <option value="{{ theme.id }}"{% if theme.id == room.roomThemeId %}selected="selected"{% endif %}>{{ theme.name|e }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <input type="hidden" value="{{ room.roomId }}" name="id">
+    <input type="submit" class="btn btn-primary" value="Modifier chambre">
 </form>
