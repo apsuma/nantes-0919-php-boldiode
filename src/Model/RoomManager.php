@@ -1,11 +1,10 @@
 <?php
 
+namespace App\Model;
+
 /**
  * Room manager, interact with the table room in the boldiode database
  */
-
-namespace App\Model;
-
 class RoomManager extends AbstractManager
 {
     /**
@@ -20,7 +19,6 @@ class RoomManager extends AbstractManager
     {
         parent::__construct(self::TABLE);
     }
-
 
     public function selectRoomById(int $id)
     {

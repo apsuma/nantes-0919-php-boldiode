@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Model;
 
 class ThemeManager extends AbstractManager
