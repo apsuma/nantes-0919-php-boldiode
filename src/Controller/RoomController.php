@@ -54,8 +54,10 @@ class RoomController extends AbstractController
         $themeManager = new ThemeManager();
         $themes = $themeManager->selectAll();
         $pictureManager = new PictureManager();
-        $nameError = $descriptionError = $nbBedError = $surfaceError =
+
+        $nameError = $descriptionError = $nbBedError = $surfaceError = null;
         $idPriceError = $idViewError = $idThemeError = null;
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $formCheck = new FormCheck($_POST);
             $nameError = $formCheck->shortText('name');
@@ -77,7 +79,15 @@ class RoomController extends AbstractController
         return $this->twig->render('Room/add.html.twig', [
             'views' => $views,
             'prices' => $prices,
-            'themes' => $themes
+            'themes' => $themes,
+            'nameError' => $nameError,
+            'descriptionError' => $descriptionError,
+            'nbBedError' => $nbBedError,
+            'surfaceError' => $surfaceError,
+            'idPriceError' => $idPriceError,
+            'idViewError' => $idViewError,
+            'idThemeError' => $idThemeError,
+            'post' =>$_POST,
         ]);
     }
 
