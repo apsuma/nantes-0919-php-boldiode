@@ -1,0 +1,25 @@
+<form action="Contact/sendMail" method="post">
+    <div class="form-group">
+        <label for="contactName" >Name :</label>
+        <input type="text" class="form-control" id="contactName" value="{{ contactName }}" name="contactName" required >
+    </div>
+    <div class="form-group">
+        <label for="subject" >Subject :</label>
+        <input type="text" class="form-control" id="subject" value="{{ subject }}" name="subject" required >
+    </div>
+    <div class="form-group">
+        <label for="phone" >French Phone Number :</label>
+        <input type="number" class="form-control" id="phone" value="{{ phone }}" name="phone" required >
+    </div>
+    <div class="form-group">
+        <label for="contactEmail" >Email :</label>
+        <input type="email" class="form-control" id="contactEmail" value="{{ contactEmail }}" name="contactEmail" >
+    </div>
+    <div class="form-group">
+        <label for="content" >Message :</label>
+        <textarea name="content" class="form-control" id="content" value="{{ content }}" rows="3" required></textarea>
+    </div>
+    <div>
+        <button class="btn btn-primary" type="submit">Send</button>
+    </div>
+</form>
