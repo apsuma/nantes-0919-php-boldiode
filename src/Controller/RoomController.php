@@ -78,7 +78,9 @@ class RoomController extends AbstractController
     public function delete(int $id)
     {
         $roomManager = new RoomManager();
+        $pictureManager = new PictureManager();
+        $pictureManager->delete($id);
         $roomManager->delete($id);
-        header("Location:/room/edit");
+        header("Location:/room/editList");
     }
 }

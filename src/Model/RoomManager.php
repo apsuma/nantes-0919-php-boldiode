@@ -113,4 +113,11 @@ class RoomManager extends AbstractManager
         $statement->bindValue('themeId', $room['themeId'], \PDO::PARAM_INT);
         return $statement->execute();
     }
+
+    public function delete(int $id)
+    {
+        $query =$this->pdo->prepare("DELETE FROM " . self::TABLE . " WHERE id=:id");
+        $query->bindValue(':id', $id, \PDO::PARAM_INT);
+        $query->execute();
+    }
 }
