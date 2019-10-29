@@ -82,7 +82,7 @@ class RoomController extends AbstractController
     {
         $roomManager = new RoomManager();
         $pictureManager = new PictureManager();
-        $pictureManager->delete($id);
+        $pictureManager->deleteRoomId($id);
         $roomManager->delete($id);
         header("Location:/room/editList");
     }

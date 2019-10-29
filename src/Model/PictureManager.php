@@ -37,10 +37,17 @@ class PictureManager extends AbstractManager
         $statement->execute();
     }
 
-    public function delete(int $id)
+    public function deleteRoomId(int $id)
     {
         $query = $this->pdo->prepare("DELETE FROM " . self::TABLE . " WHERE id_room=:id");
         $query->bindValue(':id', $id, \PDO::PARAM_INT);
+        $query->execute();
+    }
+
+    public function deletePictureId(int $id): void
+    {
+        $query = $this->pdo->prepare("DELETE FROM " . self::TABLE . " WHERE id=:id");
+        $query->bindValue('id', $id, \PDO::PARAM_INT);
         $query->execute();
     }
 

@@ -1,9 +1,11 @@
 <form method="post">
     <input type="hidden" value="{{ room.roomId }}" name="id">
-    <div class="form-group">
-        <label for="picture">Image chambre</label>
-        <input type="url" id="picture" class="form-control" value="{{ room.pictureImage }}" name="image">
-    </div>
+    {% for picture in pictures %}
+        <div class="form-group">
+            <img src="{{ picture.image }}" width="300px" alt="">
+            <input type="url" id="picture" class="form-control" value="{{ picture.image }}" name="image{{ picture.id }}">
+        </div>
+    {% endfor %}
     <div class="form-group">
         <label for="name">Nom chambre</label>
         <input type="text" id="name" class="form-control" value="{{ room.roomName }}" name="name">
