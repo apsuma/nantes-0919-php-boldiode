@@ -16,7 +16,8 @@ class FormCheck
      */
     private $post;
     /**
-     * used to validate if no error is present in the form, if an arror is returned the variable will be changed to false
+     * used to validate if no error is present in the form
+     * if an error is returned the variable will be changed to false
      * @var bool
      */
     private $valid = true;
@@ -35,7 +36,8 @@ class FormCheck
         if (!isset($this->post[$postField]) || empty($this->post[$postField])) {
             $error = "Please enter a $postField";
             $this->valid = false;
-        } elseif (!preg_match("/^[a-zA-Zéèùôûêîâç' -]*$/", $this->post[$postField]) || strlen($this->post[$postField]) <= 255 ) {
+        } elseif (!preg_match("/^[a-zA-Zéèùôûêîâç' -]*$/", $this->post[$postField])
+            || strlen($this->post[$postField]) <= 255) {
             $error = "Please use a valid $postField and max 255 characters";
             $this->valid = false;
         }
@@ -47,7 +49,7 @@ class FormCheck
         if (!isset($this->post[$postField]) || empty($this->post[$postField])) {
             $error = "Please enter a $postField";
             $this->valid = false;
-        } elseif (!preg_match("/^[a-zA-Zéèùôûêîâç' -]*$/")) {
+        } elseif (!preg_match("/^[a-zA-Zéèùôûêîâç' -]*$/", $this->post[$postField])) {
             $error = "Please use only letters for the $postField";
             $this->valid = false;
         }
@@ -68,7 +70,8 @@ class FormCheck
 
     public function email(string $postField): ?string
     {
-        if (!isset($_POST[$postField]) || (empty($_POST[$postField] || (!filter_var($_POST[$postField], FILTER_VALIDATE_EMAIL))))) {
+        if (!isset($_POST[$postField]) || (empty($_POST[$postField]
+                || (!filter_var($_POST[$postField], FILTER_VALIDATE_EMAIL))))) {
             $error = "Compléter votre email";
             $this->valid = false;
         }
