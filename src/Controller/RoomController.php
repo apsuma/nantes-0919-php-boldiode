@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Model\FormCheck;
 use App\Model\RoomManager;
 use App\Model\ViewManager;
 use App\Model\PriceManager;
@@ -53,12 +54,24 @@ class RoomController extends AbstractController
         $themeManager = new ThemeManager();
         $themes = $themeManager->selectAll();
         $pictureManager = new PictureManager();
-
+        $nameError = $descriptionError = $nbBedError = $surfaceError =
+        $idPriceError = $idViewError = $idThemeError = null;
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $roomManager = new RoomManager();
-            $id = $roomManager->insert($_POST);
-            $pictureManager->insert($_POST, $id);
-            header('Location:/room/show');
+            $formCheck = new FormCheck($_POST);
+            $nameError = $formCheck->shortText('name');
+            $descriptionError = $formCheck->text('description');
+            $nbBedError = $formCheck->number('nb_bed');
+            $surfaceError = $formCheck->number('surface');
+            $idPriceError = $formCheck->shortText('id_price');
+            $idViewError = $formCheck->shortText('id_view');
+            $idThemeError = $formCheck->shortText('id_theme');
+
+            if ($formCheck->getValid()) {
+                $roomManager = new RoomManager();
+                $id = $roomManager->insert($_POST);
+                $pictureManager->insert($_POST, $id);
+                header('Location:/room/show');
+            }
         }
 
         return $this->twig->render('Room/add.html.twig', [

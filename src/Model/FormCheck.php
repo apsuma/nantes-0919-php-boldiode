@@ -31,7 +31,7 @@ class FormCheck
         $this->post = $post;
     }
 
-    public function shortText(string $postField): ?string //$nameError = $formCheck->shortText('name')
+    public function shortText(string $postField): ?string
     {
         if (!isset($this->post[$postField]) || empty($this->post[$postField])) {
             $error = "Please enter a $postField";
