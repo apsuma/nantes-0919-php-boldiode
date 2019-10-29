@@ -25,6 +25,8 @@ class RoomController extends AbstractController
         $prices = $priceManager->selectAll();
         $themeManager = new ThemeManager();
         $themes = $themeManager->selectAll();
+        $pictureManager = new PictureManager();
+        $pictures = $pictureManager->selectPicturesByRoom($id);
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $roomEdit->updateRoom($_POST);
             header('Location:/room/edit/' . $_POST['id']);
@@ -34,6 +36,7 @@ class RoomController extends AbstractController
             'views' => $views,
             'prices' => $prices,
             'themes' => $themes,
+            'pictures' => $pictures,
         ]);
     }
 

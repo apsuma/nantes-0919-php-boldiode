@@ -39,8 +39,17 @@ class PictureManager extends AbstractManager
 
     public function delete(int $id)
     {
-        $query =$this->pdo->prepare("DELETE FROM " . self::TABLE . " WHERE id_room=:id");
+        $query = $this->pdo->prepare("DELETE FROM " . self::TABLE . " WHERE id_room=:id");
         $query->bindValue(':id', $id, \PDO::PARAM_INT);
         $query->execute();
+    }
+
+    public function selectPicturesByRoom(int $id): array
+    {
+        $query = "SELECT * FROM " . self::TABLE . " WHERE id_room= :id";
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue(':id', $id, \PDO::PARAM_INT);
+        $statement->execute();
+        return $statement->fetchAll(\PDO::FETCH_ASSOC);
     }
 }
