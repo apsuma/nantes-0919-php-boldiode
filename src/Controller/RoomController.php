@@ -61,6 +61,7 @@ class RoomController extends AbstractController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $formCheck = new FormCheck($_POST);
             $nameError = $formCheck->shortText('name');
+            var_dump($nameError);
             $descriptionError = $formCheck->text('description');
             $nbBedError = $formCheck->number('nb_bed');
             $surfaceError = $formCheck->number('surface');
