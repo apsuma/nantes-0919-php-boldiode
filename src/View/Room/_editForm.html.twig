@@ -4,7 +4,7 @@
         <div class="form-group">
             <img src="{{ picture.image }}" width="300px" alt="">
             {% if pictures|length > 1 %}
-            <a class="btn btn-danger" href="/Picture/delete/{{ picture.id }}" role="button">X</a>
+            <a class="btn btn-danger" href="/Picture/delete/{{ picture.id }}/{{ room.roomId }}" role="button">X</a>
             {% endif %}
             <input type="url" id="picture" class="form-control" value="{{ picture.image }}" name="image{{ picture.id }}">
         </div>

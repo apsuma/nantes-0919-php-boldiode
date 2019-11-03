@@ -6,10 +6,10 @@ use App\Model\PictureManager;
 
 class PictureController extends AbstractController
 {
-    public function delete(int $id)
+    public function delete(int $id, int $idRoom)
     {
         $pictureManager = new PictureManager();
         $pictureManager->deletePictureId($id);
-        header('location:/room/editList');
+        header('location:/room/edit/'.$idRoom);
     }
 }
