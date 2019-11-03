@@ -6,7 +6,7 @@
             {% if pictures|length > 1 %}
             <a class="btn btn-danger" href="/Picture/delete/{{ picture.id }}/{{ room.roomId }}" role="button">X</a>
             {% endif %}
-            <input type="url" id="picture" class="form-control" value="{{ picture.image }}" name="image{{ picture.id }}">
+            <input type="url" id="picture" class="form-control" value="{{ picture.image }}" name="image-{{ picture.id }}">
         </div>
     {% endfor %}
     <div class="form-group">
@@ -39,7 +39,7 @@
         <select id="id_view" name="id_view" class="form-control">
             <option value="" disabled>Choisir une vue</option>
             {% for view in views %}
-                <option value="{{ view.id }} {% if view.id == room.roomViewId %}selected="selected"{% endif %}">{{ view.name|e }}</option>
+                <option value="{{ view.id }}" {% if view.id == room.roomViewId %}selected="selected"{% endif %}">{{ view.name|e }}</option>
             {% endfor %}
         </select>
     </div>
