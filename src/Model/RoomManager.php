@@ -26,8 +26,6 @@ class RoomManager extends AbstractManager
             r.surface, r.front_page, r.id_view roomViewId, 
             r.id_theme roomThemeId, r.id_price roomPriceId, 
             p.price_summer, p.price_winter, p.name priceName, 
-            picture.id pictureId, picture.description pictureDescription, 
-            picture.image pictureImage, 
             v.name viewName, t.name themeName FROM room r INNER JOIN price p ON r.id_price = p.id 
             INNER JOIN view v ON r.id_view = v.id 
             INNER JOIN theme t ON r.id_theme = t.id 
