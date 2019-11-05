@@ -13,6 +13,12 @@
 <body>
 {% include 'Home/_navigation.html.twig' %}
 
+{% if get.message is defined %}
+    <div class="alert alert-primary" role="alert">
+        {{ get.message }}
+    </div>
+{% endif %}
+
 {% block content %}
 {% endblock %}
 

@@ -80,7 +80,7 @@ class RoomController extends AbstractController
                 $roomManager = new RoomManager();
                 $id = $roomManager->insert($_POST);
                 $pictureManager->insert($_POST, $id);
-                header('Location:/room/show');
+                header('Location:/room/show/?message=une chambre à bien été ajoutée');
             }
         }
 
