@@ -63,8 +63,8 @@ class PictureManager extends AbstractManager
     public function updatePicturesByRoom(array $pictures): void
     {
         foreach ($pictures as $keyPicture => $picture) {
-            if (preg_match("#^image#", $keyPicture)) {
-                $idPicture = preg_replace("#(image-)([0-9])*#", '$2', $keyPicture);
+            if (preg_match("#^image-#", $keyPicture)) {
+                $idPicture = preg_replace("#(image-)([0-9]*)#", '$2', $keyPicture);
                 $idPicture = intval($idPicture);
                 $query = $this->pdo->prepare("UPDATE " . self::TABLE . " SET image = :image
                     WHERE id = :idPicture");
