@@ -15,6 +15,12 @@
 {% include 'Home/_navigation.html.twig' %}
 {% endblock %}
 
+{% if get.message is defined %}
+    <div class="alert alert-primary" role="alert">
+        {{ get.message }}
+    </div>
+{% endif %}
+
 {% block content %}
 {% endblock %}
 
