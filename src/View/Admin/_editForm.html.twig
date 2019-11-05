@@ -6,53 +6,100 @@
             {% if pictures|length > 1 %}
             <a class="btn btn-danger" href="/Picture/delete/{{ picture.id }}/{{ room.roomId }}" role="button">X</a>
             {% endif %}
-            <input type="url" id="picture" class="form-control" value="{{ picture.image }}" name="image-{{ picture.id }}">
+            <input
+                type="url"
+                id="picture"
+                class="form-control"
+                value="{{ picture.image }}"
+                name="image-{{ picture.id }}"
+            >
         </div>
     {% endfor %}
     <div class="form-group">
         <label for="picture">Image chambre</label>
-        <input type="url" id="picture" class="form-control" name="image">
+        <input
+            type="url"
+            id="picture"
+            class="form-control"
+            name="image"
+        >
     </div>
     <div class="form-group">
         <label for="name">Nom chambre</label>
-        <input type="text" id="name" class="form-control" value="{{ room.roomName }}" name="name">
+        <input
+            type="text"
+            id="name"
+            class="form-control"
+            value="{{ room.roomName }}"
+            name="name"
+        >
     </div>
     <div class="form-group">
         <label for="description">Description Chambre</label>
-        <input type="text" id="description" class="form-control" value="{{ room.description }}" name="description">
+        <input
+            type="text"
+            id="description"
+            class="form-control"
+            value="{{ room.description }}"
+            name="description"
+        >
     </div>
     <div class="form-group">
         <label for="nb_bed">Nombre de lits</label>
-        <input type="text" id="nb_bed" class="form-control" value="{{ room.nb_bed }}" name="nb_bed">
+        <input
+            type="text"
+            id="nb_bed"
+            class="form-control"
+            value="{{ room.nb_bed }}"
+            name="nb_bed"
+        >
     </div>
     <div class="form-group">
         <label for="surface">Surface</label>
-        <input type="text" id="surface" class="form-control" value="{{ room.surface }}" name="surface">
+        <input
+            type="text"
+            id="surface"
+            class="form-control"
+            value="{{ room.surface }}"
+            name="surface"
+        >
     </div>
     <div class="form-group">
         <label for="id_price">Prix</label>
-        <select id="id_price" name="id_price" class="form-control">
+        <select
+            id="id_price"
+            name="id_price"
+            class="form-control"
+        >
             <option value="" disabled>Choisir un prix</option>
             {% for price in prices %}
-                <option value="{{ price.id }}"{% if price.id == room.roomPriceId %}selected="selected"{% endif %}>{{ price.name|e }}</option>
+                <option value="{{ price.id }}"{{ (price.id == room.roomPriceId) ? 'selected="selected"' }} >{{ price.name|e }}</option>
             {% endfor %}
         </select>
     </div>
     <div class="form-group">
         <label for="id_view">Vue</label>
-        <select id="id_view" name="id_view" class="form-control">
+        <select
+            id="id_view"
+            name="id_view"
+            class="form-control"
+        >
             <option value="" disabled>Choisir une vue</option>
             {% for view in views %}
-                <option value="{{ view.id }}" {% if view.id == room.roomViewId %}selected="selected"{% endif %}">{{ view.name|e }}</option>
+                <option value="{{ view.id }}" {{ (view.id == room.roomViewId) ? 'selected="selected"' }}>{{ view.name|e }}</option>
             {% endfor %}
         </select>
     </div>
     <div class="form-group">
         <label for="id_theme">Theme</label>
-        <select id="id_theme" name="id_theme" class="form-control">
+        <select
+            id="id_theme"
+            name="id_theme"
+            class="form-control"
+        >
             <option value="" disabled>Choisir un theme</option>
             {% for theme in themes %}
-                <option value="{{ theme.id }}"{% if theme.id == room.roomThemeId %}selected="selected"{% endif %}>{{ theme.name|e }}</option>
+                <option value="{{ theme.id }}"{{ (theme.id == room.roomThemeId) ? 'selected="selected"' }}>{{ theme.name|e }}</option>
             {% endfor %}
         </select>
     </div>
