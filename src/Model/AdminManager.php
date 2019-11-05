@@ -22,7 +22,7 @@ class AdminManager extends AbstractManager
             $statement->execute();
             return "a été ajouté";
         }
-        return "n'a pas ete ajouté";
+        return "existe déjà";
     }
 
     public function selectByName(string $name)
