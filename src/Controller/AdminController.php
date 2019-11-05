@@ -19,7 +19,7 @@ class AdminController extends AbstractController
         foreach ($admins as $admin) {
             if ($_POST['login'] === $admin['login'] && $_POST['pwd'] === $admin['pwd']) {
                 $_SESSION['admin'] = $admin['login'];
-                header("Location:/room/editlist");
+                header("Location:/admin/editlist");
             } else {
                 header("location:/admin/login");
             }
