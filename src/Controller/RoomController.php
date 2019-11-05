@@ -46,13 +46,6 @@ class RoomController extends AbstractController
         ]);
     }
 
-    public function editList()
-    {
-        $roomEdit = new RoomManager();
-        $roomList = $roomEdit->selectAll();
-        return $this->twig->render('Room/editList.html.twig', ['roomList' => $roomList]);
-    }
-
     public function add()
     {
         $viewManager = new ViewManager();

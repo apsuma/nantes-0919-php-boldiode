@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Model\AdminManager;
+use App\Model\RoomManager;
 
 class AdminController extends AbstractController
 {
@@ -17,10 +18,26 @@ class AdminController extends AbstractController
         $admins = $adminManager->selectAll();
         foreach ($admins as $admin) {
             if ($_POST['login'] === $admin['login'] && $_POST['pwd'] === $admin['pwd']) {
-                echo "coucou";
+                $_SESSION['admin'] = $admin['login'];
+                header("Location:/room/editlist");
             } else {
-                echo "pas coucou";
+                header("location:/admin/login");
             }
         }
+    }
+
+    public function checkAdmin()
+    {
+        if (!isset($_SESSION['admin'])) {
+            header("location:/");
+        }
+    }
+
+    public function editList()
+    {
+        $this->checkAdmin();
+        $roomEdit = new RoomManager();
+        $roomList = $roomEdit->selectAll();
+        return $this->twig->render('Room/editList.html.twig', ['roomList' => $roomList]);
     }
 }
