@@ -76,14 +76,29 @@ class AdminController extends AbstractController
         $themes = $themeManager->selectAll();
         $pictureManager = new PictureManager();
         $pictures = $pictureManager->selectPicturesByRoom($id);
+
+        $nameError = $descriptionError = $nbBedError = $surfaceError = null;
+        $idPriceError = $idViewError = $idThemeError = null;
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $roomEdit->updateRoom($_POST);
-            $pictureManager->updatePicturesByRoom($_POST);
-            if (isset($_POST['image']) && !empty($_POST['image'])) {
-                $picture = ['image' => $_POST['image'], 'description' => ""];
-                $pictureManager->insert($picture, $_POST['id']);
+            $formUpdateCheck = new FormCheck($_POST);
+            $nameError = $formUpdateCheck->shortText('name');
+            $descriptionError = $formUpdateCheck->text('description');
+            $nbBedError = $formUpdateCheck->number('nb_bed');
+            $surfaceError = $formUpdateCheck->number('surface');
+            $idPriceError = $formUpdateCheck->number('id_price');
+            $idViewError = $formUpdateCheck->number('id_view');
+            $idThemeError = $formUpdateCheck->number('id_theme');
+
+            if ($formUpdateCheck->getValid()) {
+                $roomEdit->updateRoom($_POST);
+                $pictureManager->updatePicturesByRoom($_POST);
+                if (isset($_POST['image']) && !empty($_POST['image'])) {
+                    $picture = ['image' => $_POST['image'], 'description' => ""];
+                    $pictureManager->insert($picture, $_POST['id']);
+                }
+                header('Location:/admin/edit/' . $_POST['id'] . '/?message=la chambre a bien été modifiée');
             }
-            header('Location:/admin/edit/' . $_POST['id'] . '/?message=la chambre a bien été modifiée');
         }
         return $this->twig->render('Admin/edit.html.twig', [
             'room' => $room,
@@ -91,6 +106,13 @@ class AdminController extends AbstractController
             'prices' => $prices,
             'themes' => $themes,
             'pictures' => $pictures,
+            'nameError' => $nameError,
+            'descriptionError' => $descriptionError,
+            'nbBedError' => $nbBedError,
+            'surfaceError' => $surfaceError,
+            'idPriceError' => $idPriceError,
+            'idViewError' => $idViewError,
+            'idThemeError' => $idThemeError,
         ]);
     }
 
@@ -137,7 +159,7 @@ class AdminController extends AbstractController
             'idPriceError' => $idPriceError,
             'idViewError' => $idViewError,
             'idThemeError' => $idThemeError,
-            'post' =>$_POST,
+            'post' => $_POST,
         ]);
     }
 
