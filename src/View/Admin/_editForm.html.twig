@@ -1,4 +1,4 @@
-<form method="post">
+<form action="/admin/edit/{{ room.roomId }}" method="post">
     <input type="hidden" value="{{ room.roomId }}" name="id">
     {% for picture in pictures %}
         <div class="form-group">
