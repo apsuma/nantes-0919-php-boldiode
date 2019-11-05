@@ -1,14 +1,14 @@
 <form action="/Contact/sendMail" method="post">
     <div class="form-group">
-        <label for="contactName" >Name :</label>
+        <label for="contactName" >Nom :</label>
         <input type="text" class="form-control" id="contactName" value="{{ contactForm.contactName }}" name="contactName" required >
     </div>
     <div class="form-group">
-        <label for="subject" >Subject :</label>
+        <label for="subject" >Sujet :</label>
         <input type="text" class="form-control" id="subject" value="{{ contactForm.subject }}" name="subject" required >
     </div>
     <div class="form-group">
-        <label for="phone" >French Phone Number :</label>
+        <label for="phone" >Telephone :</label>
         <input type="number" class="form-control" id="phone" value="{{ contactForm.phone }}" name="phone" required >
     </div>
     <div class="form-group">
