@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Model\FormCheck;
 use App\Model\RoomManager;
 use App\Model\ViewManager;
 use App\Model\PriceManager;
@@ -58,17 +59,39 @@ class RoomController extends AbstractController
         $themes = $themeManager->selectAll();
         $pictureManager = new PictureManager();
 
+        $nameError = $descriptionError = $nbBedError = $surfaceError = null;
+        $idPriceError = $idViewError = $idThemeError = null;
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $roomManager = new RoomManager();
-            $id = $roomManager->insert($_POST);
-            $pictureManager->insert($_POST, $id);
-            header('Location:/room/show');
+            $formCheck = new FormCheck($_POST);
+            $nameError = $formCheck->shortText('name');
+            $descriptionError = $formCheck->text('description');
+            $nbBedError = $formCheck->number('nb_bed');
+            $surfaceError = $formCheck->number('surface');
+            $idPriceError = $formCheck->number('id_price');
+            $idViewError = $formCheck->number('id_view');
+            $idThemeError = $formCheck->number('id_theme');
+
+            if ($formCheck->getValid()) {
+                $roomManager = new RoomManager();
+                $id = $roomManager->insert($_POST);
+                $pictureManager->insert($_POST, $id);
+                header('Location:/room/show');
+            }
         }
 
         return $this->twig->render('Room/add.html.twig', [
             'views' => $views,
             'prices' => $prices,
-            'themes' => $themes
+            'themes' => $themes,
+            'nameError' => $nameError,
+            'descriptionError' => $descriptionError,
+            'nbBedError' => $nbBedError,
+            'surfaceError' => $surfaceError,
+            'idPriceError' => $idPriceError,
+            'idViewError' => $idViewError,
+            'idThemeError' => $idThemeError,
+            'post' =>$_POST,
         ]);
     }
 

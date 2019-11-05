@@ -31,13 +31,13 @@ class FormCheck
         $this->post = $post;
     }
 
-    public function shortText(string $postField): ?string //$nameError = $formCheck->shortText('name')
+    public function shortText(string $postField): ?string
     {
         if (!isset($this->post[$postField]) || empty($this->post[$postField])) {
             $error = "Please enter a $postField";
             $this->valid = false;
         } elseif (!preg_match("/^[a-zA-Zéèùôûêîâç' -]*$/", $this->post[$postField])
-            || strlen($this->post[$postField]) <= 255) {
+            || strlen($this->post[$postField]) >= 255) {
             $error = "Please use a valid $postField and max 255 characters";
             $this->valid = false;
         }
