@@ -77,10 +77,11 @@ class RoomController extends AbstractController
         $roomManager = new RoomManager();
         $pictureManager = new PictureManager();
         $rooms = $roomManager->selectAllRooms();
-        $pictures = $pictureManager->selectAll();
+        foreach ($rooms as $key => $room) {
+            $rooms[$key]['images'] = $pictureManager->selectPicturesByRoom($room['id']);
+        }
         return $this->twig->render("Room/show.html.twig", [
             'rooms' => $rooms,
-            'pictures' => $pictures,
         ]);
     }
 
