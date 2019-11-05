@@ -63,6 +63,7 @@ class RoomManager extends AbstractManager
     public function selectAllRooms(): array
     {
         $query = "SELECT
+            room.id,
             room.name,
             room.description,
             room.nb_bed nbBed,
@@ -70,14 +71,11 @@ class RoomManager extends AbstractManager
             price.price_summer priceSummer,
             price.price_winter priceWinter,
             view.name view,
-            theme.name theme,
-            picture.image picture,
-            picture.description pictureDescription
+            theme.name theme
             FROM room
             JOIN price ON room.id_price = price.id
             JOIN view ON room.id_view = view.id
-            JOIN theme ON room.id_theme = theme.id
-            JOIN picture ON picture.id_room = room.id";
+            JOIN theme ON room.id_theme = theme.id";
         return $this->pdo->query($query)->fetchAll(\PDO::FETCH_ASSOC);
     }
 
