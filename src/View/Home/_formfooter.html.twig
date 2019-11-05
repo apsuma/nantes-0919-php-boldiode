@@ -3,7 +3,7 @@
         <label for="contactName" class="col-sm-3 col-form-label">Nom :</label>
         <input
            type="text"
-           class="form-control-sm {{ (contactNameError is null) ? '':'is-invalid' }}"
+           class="form-control-sm-9 {{ (contactNameError is null) ? '':'is-invalid' }}"
            id="contactName"
            value="{{ (contactNameError is null) ? contactForm.contactName }}"
            name="contactName"
@@ -14,7 +14,7 @@
         <label for="subject" class="col-sm-3 col-form-label">Sujet :</label>
         <input
             type="text"
-            class="form-control-sm {{ (subjectError is null) ? '':'is-invalid' }}"
+            class="form-control-sm-9 {{ (subjectError is null) ? '':'is-invalid' }}"
             id="subject"
             value="{{ (subjectError is null) ? contactForm.subject }}"
             name="subject"
@@ -25,7 +25,7 @@
         <label for="phone" class="col-sm-3 col-form-label">Telephone :</label>
         <input
             type="number"
-            class="form-control-sm {{ (phoneError is null) ? '':'is-invalid' }}"
+            class="form-control-sm-9 {{ (phoneError is null) ? '':'is-invalid' }}"
             id="phone"
             value="{{ (phoneError is null) ? contactForm.phone }}"
             name="phone"
@@ -36,7 +36,7 @@
         <label for="contactEmail" class="col-sm-3 col-form-label">Email :</label>
         <input
             type="email"
-            class="form-control-sm {{ (contactPhoneError is null) ? '':'is-invalid' }}"
+            class="form-control-sm-9 {{ (contactPhoneError is null) ? '':'is-invalid' }}"
             id="contactEmail"
             value="{{ (contactPhoneError is null) ? contactForm.contactEmail }}"
             name="contactEmail"
@@ -45,7 +45,7 @@
     <div class="form-group row">
         <label for="content" class="col-sm-3 col-form-label">Message :</label>
         <textarea
-            name="content" class="form-control-sm"  id="content" rows="3" required>
+            name="content" class="form-control-sm-9"  id="content" rows="3" required>
             {{ (contentError is null) ? contactForm.content }}
         </textarea>
     </div>
