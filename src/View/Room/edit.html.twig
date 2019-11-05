@@ -1,9 +1,0 @@
-{% extends 'layout.html.twig' %}
-
-{% block content %}
-<div class="container-fluid">
-    <h1>Editer la chambre "{{ room.roomName }}"</h1>
-    {% include 'Room/_editForm.html.twig' %}
-    <a href="/Room/editList">Back</a>
-</div>
-{% endblock %}

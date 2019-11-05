@@ -1,0 +1,19 @@
+{% extends 'layout.html.twig' %}
+
+{% block navigation %}
+    <a href="/admin/logout">Déconnexion</a>
+    <a href="/admin/editlist">Liste chambres</a>
+    <a href="/admin/add">Ajouter chambre</a>
+{% endblock %}
+
+
+{% block content %}
+    <div class="container-fluid">
+        <h1>Ajouter une nouvelle chambre</h1>
+        {% include 'Admin/_addForm.html.twig' %}
+    </div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
