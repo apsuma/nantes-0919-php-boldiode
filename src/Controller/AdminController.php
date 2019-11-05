@@ -33,6 +33,12 @@ class AdminController extends AbstractController
         }
     }
 
+    public function logOut()
+    {
+        session_destroy();
+        header("location:/admin/login");
+    }
+
     public function editList()
     {
         $this->checkAdmin();
