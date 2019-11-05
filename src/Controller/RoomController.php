@@ -25,8 +25,11 @@ class RoomController extends AbstractController
         $prices = $priceManager->selectAll();
         $themeManager = new ThemeManager();
         $themes = $themeManager->selectAll();
+        $pictureManager = new PictureManager();
+        $pictures = $pictureManager->selectPicturesByRoom($id);
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $roomEdit->updateRoom($_POST);
+            $pictureManager->updatePicturesByRoom($_POST);
             header('Location:/room/edit/' . $_POST['id']);
         }
         return $this->twig->render('Room/edit.html.twig', [
@@ -34,6 +37,7 @@ class RoomController extends AbstractController
             'views' => $views,
             'prices' => $prices,
             'themes' => $themes,
+            'pictures' => $pictures,
         ]);
     }
 
@@ -79,7 +83,7 @@ class RoomController extends AbstractController
     {
         $roomManager = new RoomManager();
         $pictureManager = new PictureManager();
-        $pictureManager->delete($id);
+        $pictureManager->deleteRoomId($id);
         $roomManager->delete($id);
         header("Location:/room/editList");
     }

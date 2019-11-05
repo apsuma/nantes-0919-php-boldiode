@@ -26,8 +26,6 @@ class RoomManager extends AbstractManager
             r.surface, r.front_page, r.id_view roomViewId, 
             r.id_theme roomThemeId, r.id_price roomPriceId, 
             p.price_summer, p.price_winter, p.name priceName, 
-            picture.id pictureId, picture.description pictureDescription, 
-            picture.image pictureImage, 
             v.name viewName, t.name themeName FROM room r INNER JOIN price p ON r.id_price = p.id 
             INNER JOIN view v ON r.id_view = v.id 
             INNER JOIN theme t ON r.id_theme = t.id 
@@ -85,10 +83,8 @@ class RoomManager extends AbstractManager
 
     public function updateRoom(array $room): bool
     {
-        if (isset($room['frontPage'])) {
-            $frontPage = 1;
-        } else {
-            $frontPage = 0;
+        if (!isset($room['front_page'])) {
+            $room['front_page'] = 0;
         }
         // prepared request
         $query = "UPDATE " . self::TABLE .
@@ -103,14 +99,14 @@ class RoomManager extends AbstractManager
             WHERE id=:id";
         $statement = $this->pdo->prepare($query);
         $statement->bindValue('id', $room['id'], \PDO::PARAM_INT);
-        $statement->bindValue('name', $room['roomName'], \PDO::PARAM_STR);
+        $statement->bindValue('name', $room['name'], \PDO::PARAM_STR);
         $statement->bindValue('description', $room['description'], \PDO::PARAM_STR);
         $statement->bindValue('surface', $room['surface'], \PDO::PARAM_INT);
-        $statement->bindValue('nbBed', $room['nbBed'], \PDO::PARAM_INT);
-        $statement->bindValue('frontPage', $frontPage, \PDO::PARAM_INT);
-        $statement->bindValue('priceId', $room['priceId'], \PDO::PARAM_INT);
-        $statement->bindValue('viewId', $room['viewId'], \PDO::PARAM_INT);
-        $statement->bindValue('themeId', $room['themeId'], \PDO::PARAM_INT);
+        $statement->bindValue('nbBed', $room['nb_bed'], \PDO::PARAM_INT);
+        $statement->bindValue('frontPage', $room['front_page'], \PDO::PARAM_INT);
+        $statement->bindValue('priceId', $room['id_price'], \PDO::PARAM_INT);
+        $statement->bindValue('viewId', $room['id_view'], \PDO::PARAM_INT);
+        $statement->bindValue('themeId', $room['id_theme'], \PDO::PARAM_INT);
         return $statement->execute();
     }
 

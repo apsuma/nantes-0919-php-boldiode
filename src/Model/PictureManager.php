@@ -37,10 +37,41 @@ class PictureManager extends AbstractManager
         $statement->execute();
     }
 
-    public function delete(int $id)
+    public function deleteRoomId(int $id)
     {
-        $query =$this->pdo->prepare("DELETE FROM " . self::TABLE . " WHERE id_room=:id");
+        $query = $this->pdo->prepare("DELETE FROM " . self::TABLE . " WHERE id_room=:id");
         $query->bindValue(':id', $id, \PDO::PARAM_INT);
         $query->execute();
+    }
+
+    public function deletePictureId(int $id): void
+    {
+        $query = $this->pdo->prepare("DELETE FROM " . self::TABLE . " WHERE id=:id");
+        $query->bindValue('id', $id, \PDO::PARAM_INT);
+        $query->execute();
+    }
+
+    public function selectPicturesByRoom(int $id): array
+    {
+        $query = "SELECT * FROM " . self::TABLE . " WHERE id_room= :id";
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue(':id', $id, \PDO::PARAM_INT);
+        $statement->execute();
+        return $statement->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function updatePicturesByRoom(array $pictures): void
+    {
+        foreach ($pictures as $keyPicture => $picture) {
+            if (preg_match("#^image#", $keyPicture)) {
+                $idPicture = preg_replace("#(image-)([0-9])*#", '$2', $keyPicture);
+                $idPicture = intval($idPicture);
+                $query = $this->pdo->prepare("UPDATE " . self::TABLE . " SET image = :image
+                    WHERE id = :idPicture");
+                $query->bindValue('image', $picture, \PDO::PARAM_STR);
+                $query->bindValue('idPicture', $idPicture, \PDO::PARAM_INT);
+                $query->execute();
+            }
+        }
     }
 }
