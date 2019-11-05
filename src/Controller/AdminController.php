@@ -22,10 +22,10 @@ class AdminController extends AbstractController
         $this->checkAdmin();
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $adminManager = new AdminManager();
-            $adminManager->add($_POST['name'], $_POST['pwd']);
-            header("Location: /admin/editlist/?message=un administrateur a été ajouté");
+            $result = $adminManager->add($_POST['login'], $_POST['pwd']);
+            header("Location: /admin/editlist/?message=un administrateur $result");
         }
-        $this->twig->render("Admin/addAdmin.html.twig");
+        return $this->twig->render("Admin/addAdmin.html.twig");
     }
 
     public function log()
