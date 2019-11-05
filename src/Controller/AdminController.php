@@ -49,7 +49,7 @@ class AdminController extends AbstractController
         $this->checkAdmin();
         $roomEdit = new RoomManager();
         $roomList = $roomEdit->selectAll();
-        return $this->twig->render('Room/editList.html.twig', ['roomList' => $roomList]);
+        return $this->twig->render('Admin/editList.html.twig', ['roomList' => $roomList]);
     }
 
     public function edit(int $id): string
@@ -72,9 +72,9 @@ class AdminController extends AbstractController
                 $picture = ['image' => $_POST['image'], 'description' => ""];
                 $pictureManager->insert($picture, $_POST['id']);
             }
-            header('Location:/room/edit/' . $_POST['id']);
+            header('Location:/admin/edit/' . $_POST['id']);
         }
-        return $this->twig->render('Room/edit.html.twig', [
+        return $this->twig->render('Admin/edit.html.twig', [
             'room' => $room,
             'views' => $views,
             'prices' => $prices,
@@ -111,11 +111,11 @@ class AdminController extends AbstractController
                 $roomManager = new RoomManager();
                 $id = $roomManager->insert($_POST);
                 $pictureManager->insert($_POST, $id);
-                header('Location:/room/show');
+                header('Location:/admin/show');
             }
         }
 
-        return $this->twig->render('Room/add.html.twig', [
+        return $this->twig->render('Admin/add.html.twig', [
             'views' => $views,
             'prices' => $prices,
             'themes' => $themes,
@@ -137,6 +137,6 @@ class AdminController extends AbstractController
         $pictureManager = new PictureManager();
         $pictureManager->deleteRoomId($id);
         $roomManager->delete($id);
-        header("Location:/room/editList");
+        header("Location:/admin/editList");
     }
 }
