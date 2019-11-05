@@ -30,6 +30,10 @@ class RoomController extends AbstractController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $roomEdit->updateRoom($_POST);
             $pictureManager->updatePicturesByRoom($_POST);
+            if (isset($_POST['image']) && !empty($_POST['image'])) {
+                $picture = ['image' => $_POST['image'], 'description' => ""];
+                $pictureManager->insert($picture, $_POST['id']);
+            }
             header('Location:/room/edit/' . $_POST['id']);
         }
         return $this->twig->render('Room/edit.html.twig', [
