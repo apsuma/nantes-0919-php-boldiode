@@ -75,8 +75,13 @@ class RoomController extends AbstractController
     public function show()
     {
         $roomManager = new RoomManager();
+        $pictureManager = new PictureManager();
         $rooms = $roomManager->selectAllRooms();
-        return $this->twig->render("Room/show.html.twig", ['rooms' => $rooms]);
+        $pictures = $pictureManager->selectAll();
+        return $this->twig->render("Room/show.html.twig", [
+            'rooms' => $rooms,
+            'pictures' => $pictures,
+        ]);
     }
 
     public function delete(int $id)
