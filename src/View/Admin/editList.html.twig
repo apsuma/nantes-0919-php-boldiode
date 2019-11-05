@@ -8,6 +8,11 @@
 
 {% block content %}
     <h1>Liste des chambres à éditer</h1>
+    {% if get.message is defined %}
+        <div class="alert alert-primary" role="alert">
+            {{ get.message }}
+        </div>
+    {% endif %}
     <p>
     {% for room in roomList %}
         <a href="edit/{{ room.id }}">{{ room.name }}</a><br>

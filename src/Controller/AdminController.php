@@ -24,7 +24,7 @@ class AdminController extends AbstractController
         foreach ($admins as $admin) {
             if ($_POST['login'] === $admin['login'] && $_POST['pwd'] === $admin['pwd']) {
                 $_SESSION['admin'] = $admin['login'];
-                header("Location:/admin/editlist");
+                header("Location:/admin/editlist/?message=Vous êtes bien connecté");
             } else {
                 header("location:/admin/login");
             }
@@ -72,7 +72,7 @@ class AdminController extends AbstractController
                 $picture = ['image' => $_POST['image'], 'description' => ""];
                 $pictureManager->insert($picture, $_POST['id']);
             }
-            header('Location:/admin/edit/' . $_POST['id']);
+            header('Location:/admin/edit/' . $_POST['id'] . '/?message=la chambre a bien été modifiée');
         }
         return $this->twig->render('Admin/edit.html.twig', [
             'room' => $room,
@@ -111,7 +111,7 @@ class AdminController extends AbstractController
                 $roomManager = new RoomManager();
                 $id = $roomManager->insert($_POST);
                 $pictureManager->insert($_POST, $id);
-                header('Location:/admin/show/?message=une chambre à bien été ajoutée');
+                header('Location:/admin/editList/?message=une chambre a bien été ajoutée');
             }
         }
 
@@ -137,6 +137,6 @@ class AdminController extends AbstractController
         $pictureManager = new PictureManager();
         $pictureManager->deleteRoomId($id);
         $roomManager->delete($id);
-        header("Location:/admin/editList");
+        header("Location:/admin/editList/?message=une chambre a bien été supprimée");
     }
 }

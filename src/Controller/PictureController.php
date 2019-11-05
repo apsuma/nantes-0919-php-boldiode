@@ -10,6 +10,6 @@ class PictureController extends AbstractController
     {
         $pictureManager = new PictureManager();
         $pictureManager->deletePictureId($id);
-        header('location:/room/edit/'.$idRoom);
+        header('location:/admin/edit/'.$idRoom);
     }
 }
