@@ -18,7 +18,7 @@
             type="text"
             id="name"
             class="form-control {{ (nameError is null) ? '':'is-invalid' }}"
-
+            value="{{ (descriptionError is null) ? post.name :'' }}"
             name="name"
             required
         >
@@ -63,6 +63,7 @@
         >
         <div class="invalid-feedback">Entrez une surface</div>
     </div>
+
     <div class="form-group">
         <label for="id_price">Prix</label>
         <select
@@ -71,11 +72,11 @@
             class="form-control {{ (idPriceError is null) ? '':'is-invalid' }}"
             required
         >
-            <option value="{{ (idPriceError is null) ? post.id_price :'' }}" disabled selected>
+            <option value="" disabled selected>
                 Choisir un prix
             </option>
             {% for price in prices %}
-                <option value="{{ price.id }} {{ (price.id == post.id_price) ? 'selected' : '' }}">
+                <option value="{{ price.id }}" {{ (price.id == post.id_price) ? 'selected' : '' }}>
                     {{ price.name }}
                 </option>
             {% endfor %}
@@ -91,11 +92,11 @@
             class="form-control {{ (idViewError is null) ? '':'is-invalid' }}"
             required
         >
-            <option value="{{ (idViewError is null) ? post.id_view :'' }}" disabled selected>
+            <option value="" disabled selected>
                 Choisir une vue
             </option>
             {% for view in views %}
-                <option value="{{ view.id }} {{ (view.id == post.id_view) ? 'selected' : '' }}">
+                <option value="{{ view.id }}" {{ (view.id == post.id_view) ? 'selected' : '' }}>
                     {{ view.name }}
                 </option>
             {% endfor %}
@@ -111,7 +112,9 @@
             class="form-control {{ (idThemeError is null) ? '':'is-invalid' }}"
             required
         >
-            <option value="" disabled selected>Choisir un theme</option>
+            <option value="" disabled selected>
+                Choisir un theme
+            </option>
             {% for theme in themes %}
                 <option value="{{ theme.id }}" {{ (theme.id == post.id_theme) ? 'selected' : '' }}>
                     {{ theme.name }}
