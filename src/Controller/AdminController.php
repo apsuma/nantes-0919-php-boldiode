@@ -111,7 +111,7 @@ class AdminController extends AbstractController
                 $roomManager = new RoomManager();
                 $id = $roomManager->insert($_POST);
                 $pictureManager->insert($_POST, $id);
-                header('Location:/admin/show');
+                header('Location:/admin/show/?message=une chambre à bien été ajoutée');
             }
         }
 
