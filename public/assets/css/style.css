@@ -1,3 +1,4 @@
+
 .lightblue {
     background-color: #46b1c9;
 }
@@ -6,6 +7,7 @@
 }
 .darkblue-bg {
     background-color: #2e5266;
+    color: aliceblue;
 }
 .sand {
     background-color: #f3f9d2;
@@ -34,4 +36,6 @@
     }
 }
 
-
+.fa-instagram, .fa-facebook, .fa-twitter {
+    color: aliceblue;
+}

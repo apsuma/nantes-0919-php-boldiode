@@ -18,7 +18,7 @@
             type="text"
             id="name"
             class="form-control {{ (nameError is null) ? '':'is-invalid' }}"
-            value="{{ (descriptionError is null) ? post.name :'' }}"
+            value="{{ (nameError is null) ? post.name :'' }}"
             name="name"
             required
         >

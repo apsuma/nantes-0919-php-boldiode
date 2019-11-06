@@ -1,31 +1,38 @@
-<footer class="container-fluid bg-secondary text-white">
+<footer class="container-fluid darkblue">
     <div class="row d-flex justify-content-around">
-        <div class="col-sm text-center">
+        <div class="col-sm text-center darkblue">
             <h3>Hôtel Boldiode </h3>
-            <p>3 rue des Pecheurs</p>
+            <p>3 rue des Pêcheurs</p>
             <p>56170 Quiberon</p>
             <p>Tel. 02 77 77 77 77</p>
-            <iframe src="https://tinyurl.com/yycnft9s" width="300" height="300" frameborder="0" style="border:0;" ></iframe>
+            <a href="Home/Contact/sendMail">
+            <img
+                    src="/assets/images/cartoQuiberon.png"
+                    alt="Plan de Quiberon avec localisation de l'hôtel rue des pecheurs"
+                    width="300px"
+            /></a>
         </div>
-        <div class="col-sm">
-            <h3 class="text-center">Nous contacter</h3>
+        <div class="col-sm darkblue">
+            <h3>Contactez-nous</h3>
             {% include "Home/_formfooter.html.twig" %}
         </div>
-        <div class="col-sm">
-            <ul class="list-group bg-secondary text-white text-center">
-                <li class="list-group-item bg-secondary text-white"><a href="/" title="home">Accueil </a></li>
-                <li class="list-group-item bg-secondary text-white"><a href="/room/show" title="rooms">Nos chambres</a></li>
-                <li class="list-group-item bg-secondary text-white"><a href="#" title="hotel">Notre hôtel</a></li>
-                <li class="list-group-item bg-secondary text-white"><a href="#" title="stay"> Votre séjour</a></li>
-                <li class="list-group-item bg-secondary text-white"><a href="/Contact/sendMail" title="contact">Contact</a></li>
-                <li class="list-group-item bg-secondary text-white"><a href="#" title="legal_mentions">Mentions légales</a></li>
+        <div class="col-sm darkblue">
+            <ul class="list-group list-group-flush text-center">
+                <li class="list-group-item darkblue "><a href="/" title="home">Accueil </a></li>
+                <li class="list-group-item darkblue"><a href="/room/show" title="rooms">Nos chambres</a></li>
+                <li class="list-group-item darkblue"><a href="#" title="hotel">Notre hôtel</a></li>
+                <li class="list-group-item darkblue"><a href="#" title="stay"> Votre séjour</a></li>
+                <li class="list-group-item darkblue"><a href="/Contact/sendMail" title="contact">Contact</a></li>
+                <li class="list-group-item darkblue"><a href="#" title="legal_mentions">Mentions légales</a></li>
             </ul>
-            <ul class="list-group bg-secondary text-white text-center">
-                <li class="list-group-item bg-secondary text-white">Réseaux sociaux</a></li>
-                <li class="list-group-item bg-secondary text-white"><a href="https://www.instagram.com/" title="instagram">Instagram</a></li>
-                <li class="list-group-item bg-secondary text-white"><a href="https://www.facebook.com/" title="facebook">Facebook</a></li>
-                <li class="list-group-item bg-secondary text-white"><a href="https://twitter.com" title="twitter">Twitter</a></li>
-            </ul>
+            <div>
+                <h5 class="text-center">Réseaux sociaux</h5>
+                <div class="d-flex flex-row justify-content-around">
+                    <a href="https://www.instagram.com/" title="instagram"><i class="fab fa-instagram fa-2x"></i></a>
+                    <a href="https://www.facebook.com/" title="facebook"><i class="fab fa-facebook fa-2x"></i></a>
+                    <a href="https://twitter.com" title="twitter"><i class="fab fa-twitter fa-2x"></i></a>
+                </div>
+            </div>
         </div>
     </div>
 </footer>

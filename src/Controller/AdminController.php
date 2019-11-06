@@ -14,7 +14,24 @@ class AdminController extends AbstractController
 {
     public function logIn()
     {
+        if (isset($_SESSION['admin'])) {
+            header("Location:/admin/editlist/?message=Vous êtes déjà connecté");
+        }
         return $this->twig->render("Admin/logIn.html.twig");
+    }
+
+    public function addAdmin()
+    {
+        if ($_SESSION['admin'] == 'admin') {
+            $this->checkAdmin();
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $adminManager = new AdminManager();
+                $result = $adminManager->add($_POST['login'], $_POST['pwd']);
+                header("Location: /admin/editlist/?message=cet administrateur $result");
+            }
+            return $this->twig->render("Admin/addAdmin.html.twig");
+        }
+        header("Location:/admin/editlist/?message=Vous ne pouvez pas ajouter de nouvel administrateur");
     }
 
     public function log()
@@ -22,9 +39,9 @@ class AdminController extends AbstractController
         $adminManager = new AdminManager();
         $admins = $adminManager->selectAll();
         foreach ($admins as $admin) {
-            if ($_POST['login'] === $admin['login'] && $_POST['pwd'] === $admin['pwd']) {
+            if ($_POST['login'] === $admin['login'] && password_verify($_POST['pwd'], $admin['pwd'])) {
                 $_SESSION['admin'] = $admin['login'];
-                header("Location:/admin/editlist");
+                header("Location:/admin/editlist/?message=Vous êtes bien connecté");
             } else {
                 header("location:/admin/login");
             }
@@ -65,14 +82,29 @@ class AdminController extends AbstractController
         $themes = $themeManager->selectAll();
         $pictureManager = new PictureManager();
         $pictures = $pictureManager->selectPicturesByRoom($id);
+
+        $nameError = $descriptionError = $nbBedError = $surfaceError = null;
+        $idPriceError = $idViewError = $idThemeError = null;
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $roomEdit->updateRoom($_POST);
-            $pictureManager->updatePicturesByRoom($_POST);
-            if (isset($_POST['image']) && !empty($_POST['image'])) {
-                $picture = ['image' => $_POST['image'], 'description' => ""];
-                $pictureManager->insert($picture, $_POST['id']);
+            $formUpdateCheck = new FormCheck($_POST);
+            $nameError = $formUpdateCheck->shortText('name');
+            $descriptionError = $formUpdateCheck->text('description');
+            $nbBedError = $formUpdateCheck->number('nb_bed');
+            $surfaceError = $formUpdateCheck->number('surface');
+            $idPriceError = $formUpdateCheck->number('id_price');
+            $idViewError = $formUpdateCheck->number('id_view');
+            $idThemeError = $formUpdateCheck->number('id_theme');
+
+            if ($formUpdateCheck->getValid()) {
+                $roomEdit->updateRoom($_POST);
+                $pictureManager->updatePicturesByRoom($_POST);
+                if (isset($_POST['image']) && !empty($_POST['image'])) {
+                    $picture = ['image' => $_POST['image'], 'description' => ""];
+                    $pictureManager->insert($picture, $_POST['id']);
+                }
+                header('Location:/admin/edit/' . $_POST['id'] . '/?message=la chambre a bien été modifiée');
             }
-            header('Location:/admin/edit/' . $_POST['id']);
         }
         return $this->twig->render('Admin/edit.html.twig', [
             'room' => $room,
@@ -80,6 +112,13 @@ class AdminController extends AbstractController
             'prices' => $prices,
             'themes' => $themes,
             'pictures' => $pictures,
+            'nameError' => $nameError,
+            'descriptionError' => $descriptionError,
+            'nbBedError' => $nbBedError,
+            'surfaceError' => $surfaceError,
+            'idPriceError' => $idPriceError,
+            'idViewError' => $idViewError,
+            'idThemeError' => $idThemeError,
         ]);
     }
 
@@ -111,7 +150,7 @@ class AdminController extends AbstractController
                 $roomManager = new RoomManager();
                 $id = $roomManager->insert($_POST);
                 $pictureManager->insert($_POST, $id);
-                header('Location:/admin/show');
+                header('Location:/admin/editList/?message=une chambre a bien été ajoutée');
             }
         }
 
@@ -126,7 +165,7 @@ class AdminController extends AbstractController
             'idPriceError' => $idPriceError,
             'idViewError' => $idViewError,
             'idThemeError' => $idThemeError,
-            'post' =>$_POST,
+            'post' => $_POST,
         ]);
     }
 
@@ -137,6 +176,6 @@ class AdminController extends AbstractController
         $pictureManager = new PictureManager();
         $pictureManager->deleteRoomId($id);
         $roomManager->delete($id);
-        header("Location:/admin/editList");
+        header("Location:/admin/editList/?message=une chambre a bien été supprimée");
     }
 }
