@@ -4,7 +4,9 @@
     <a href="/admin/logout">Déconnexion</a>
     <a href="/admin/editlist">Liste chambres</a>
     <a href="/admin/add">Ajouter chambre</a>
-    <a href="/admin/addAdmin">Ajouter un nouvel administrateur</a>
+    {% if session.admin == 'admin' %}
+        <a href="/admin/addAdmin">Ajouter un nouvel administrateur</a>
+    {% endif %}
 {% endblock %}
 
 {% block content %}
