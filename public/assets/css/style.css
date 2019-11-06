@@ -16,3 +16,12 @@
 .darksand {
     background-color: #e4d6a7;
 }
+
+.navbar-brand {
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.nav-item {
+    border-radius: 5px;
+}
