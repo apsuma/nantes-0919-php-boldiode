@@ -50,3 +50,6 @@ CREATE TABLE picture (
     KEY fk_picture_room (id_room),
     CONSTRAINT fk_picture_room FOREIGN KEY (id_room) REFERENCES room(id)
 );
+
+INSERT INTO admin (login,pwd)
+VALUES ('admin','$argon2i$v=19$m=65536,t=4,p=1$WlM4SDE4bVhNRXByblBSQQ$5QkPz90V8CFZbR/MlQaLVJslnAxcZi6jNpg98jZK3Hw');
