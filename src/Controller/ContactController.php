@@ -27,7 +27,14 @@ class ContactController extends AbstractController
                 print_r($sentence);
                 header("Location:/");
             }
+            return $this->twig->render('Home/contact.html.twig', [
+                'contactForm' => $_POST,
+                'contactNameError' => $contactNameError,
+                'contactEmailError' => $contactEmailError,
+                'contentError' => $contentError,
+                'subjectError' => $subjectError,
+                'phoneError' => $phoneError,
+            ]);
         }
-        return $this->twig->render('Home/contact.html.twig', ['contactForm' => $_POST]);
     }
 }
