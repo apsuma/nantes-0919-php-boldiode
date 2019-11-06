@@ -25,3 +25,13 @@
 .nav-item {
     border-radius: 5px;
 }
+
+@media all and (max-width: 992px){
+    .navbar-collapse {
+        margin-top: 1rem;
+        margin-bottom: 2px;
+
+    }
+}
+
+
