@@ -1,6 +1,10 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
+    <style type="text/css">
+        .text-center {
+        }
+    </style>
     <div class="container-fluid card mb-3">
         <img src="https://via.placeholder.com/1000x250.png" class="card-img-top" alt="...">
     </div>
@@ -14,22 +18,28 @@
                 </ol>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="https://via.placeholder.com/1000x350.png" class="d-block w-100" alt="...">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h4 class="text-body">Chambre 1</h4>
-                        </div>
+                        <a href="#">
+                            <img src="https://via.placeholder.com/1000x350.png" class="d-block w-100" alt="...">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h4 class="text-body">Chambre 1</h4>
+                            </div>
+                        </a>
                     </div>
                     <div class="carousel-item">
-                        <img src="https://via.placeholder.com/1000x350.png" class="d-block w-100" alt="...">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h4 class="text-body">Chambre 2</h4>
-                        </div>
+                        <a href="#">
+                            <img src="https://via.placeholder.com/1000x350.png" class="d-block w-100" alt="...">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h4 class="text-body">Chambre 2</h4>
+                            </div>
+                        </a>
                     </div>
                     <div class="carousel-item">
-                        <img src="https://via.placeholder.com/1000x350.png" class="d-block w-100" alt="...">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h4 class="text-body">Chambre 3</h4>
-                        </div>
+                        <a href="#">
+                            <img src="https://via.placeholder.com/1000x350.png" class="d-block w-100" alt="...">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h4 class="text-body">Chambre 3</h4>
+                            </div>
+                        </a>
                     </div>
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
@@ -52,15 +62,11 @@
         </p>
     </div>
     <div class="container-fluid card mb-3">
-        <img src="https://via.placeholder.com/1000x250.png" class="card-img" alt="...">
-        <div class="card-img-overlay d-flex flex-column align-items-center">
-            <h2 class="text-center my-auto">Nos chambres</h2>
-        </div>
+        <a href="#">
+            <img alt="..." class="card-img" src="https://via.placeholder.com/1000x250.png">
+            <div class="card-img-overlay d-flex flex-column align-items-center">
+                <h2 class="text-center my-auto text-body">Nos chambres</h2>
+            </div>
+        </a>
     </div>
-    <h1>Index</h1>
-    <a href="/room/show">Voir les chambres</a>
-    <br>
-    <a href="/room/add">Ajouter une chambre</a>
-    <br>
-    <a href="/room/editList">Editer une chambre</a>
 {% endblock %}
