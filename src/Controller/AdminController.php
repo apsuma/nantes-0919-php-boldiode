@@ -14,6 +14,9 @@ class AdminController extends AbstractController
 {
     public function logIn()
     {
+        if (isset($_SESSION['admin'])) {
+            header("Location:/admin/editlist/?message=Vous êtes déjà connecté");
+        }
         return $this->twig->render("Admin/logIn.html.twig");
     }
 
