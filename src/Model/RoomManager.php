@@ -72,7 +72,7 @@ class RoomManager extends AbstractManager
         }
     }
 
-    public function selectAllRooms(): array
+    public function selectAllRooms($nbBed = 0, $idPrice = 0): array
     {
         $query = "SELECT
             r.id roomId,
@@ -87,7 +87,11 @@ class RoomManager extends AbstractManager
             FROM " . self::TABLE . " r
             JOIN price ON r.id_price = price.id
             JOIN view ON r.id_view = view.id
-            JOIN theme ON r.id_theme = theme.id";
+            JOIN theme ON r.id_theme = theme.id
+            WHERE r.nb_bed >= $nbBed";
+        if ($idPrice != 0) {
+            $query .= " AND price.id = $idPrice";
+        }
         return $this->pdo->query($query)->fetchAll(\PDO::FETCH_ASSOC);
     }
 

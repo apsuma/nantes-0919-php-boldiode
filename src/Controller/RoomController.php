@@ -15,17 +15,17 @@ use App\Model\PictureManager;
  */
 class RoomController extends AbstractController
 {
-    public function show() : string
+    public function show($bed = 0, $priceId = 0) : string
     {
         $roomManager = new RoomManager();
-        $rooms = $roomManager->selectAllRooms();
+        $rooms = $roomManager->selectAllRooms($bed, $priceId);
         $rooms = $this->selectPicture($rooms);
         return $this->twig->render("Room/show.html.twig", [
             'rooms' => $rooms,
         ]);
     }
 
-    public function search(int $bed = 0, int $priceId = 0, int $roomId = 0)
+    public function search(int $roomId = 0)
     {
         $roomManager = new RoomManager();
         if ($roomId != 0) {
@@ -34,12 +34,6 @@ class RoomController extends AbstractController
             return $this->twig->render("Room/showOneRoom.html.twig", [
                 'room' => $room,
             ]);
-        } elseif ($bed != 0 && $priceId != 0) {
-            return $this->show();
-        } elseif ($bed != 0) {
-            return $this->show();
-        } elseif ($priceId != 0) {
-            return $this->show();
         } else {
             return $this->show();
         }
