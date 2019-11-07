@@ -17,7 +17,7 @@ class AdminManager extends AbstractManager
             $query = "INSERT INTO " . self::TABLE . " (login, pwd) VALUES (:login, :pwd)";
             $statement = $this->pdo->prepare($query);
             $statement->bindValue(":login", $name, \PDO::PARAM_STR);
-            $heavyPass = password_hash($pwd, BCRYPT);
+            $heavyPass = password_hash($pwd, PASSWORD_BCRYPT);
             $statement->bindValue(":pwd", $heavyPass, \PDO::PARAM_STR);
             $statement->execute();
             return "a été ajouté";
