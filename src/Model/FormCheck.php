@@ -68,6 +68,18 @@ class FormCheck
         return isset($error)? $error: null;
     }
 
+    public function phoneNumber(string $postField): ?string
+    {
+        if (!isset($this->post[$postField]) || empty($this->post[$postField])) {
+            $error = "Please enter a telephone number";
+            $this->valid = false;
+        } elseif (!preg_match("#^0[1-9]([-. ]?[0-9]{2}){4}$#", $this->post[$postField])) {
+            $error = "Please enter a french telephone number only";
+            $this->valid = false;
+        }
+        return isset($error)? $error: null;
+    }
+
     public function email(string $postField): ?string
     {
         if (!isset($_POST[$postField]) || (empty($_POST[$postField]
