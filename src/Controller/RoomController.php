@@ -15,7 +15,7 @@ use App\Model\PictureManager;
  */
 class RoomController extends AbstractController
 {
-    public function show()
+    public function show() : string
     {
         $roomManager = new RoomManager();
         $pictureManager = new PictureManager();
@@ -26,5 +26,10 @@ class RoomController extends AbstractController
         return $this->twig->render("Room/show.html.twig", [
             'rooms' => $rooms,
         ]);
+    }
+
+    public function search()
+    {
+        return $this->show();
     }
 }
