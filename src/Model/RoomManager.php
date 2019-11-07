@@ -130,4 +130,11 @@ class RoomManager extends AbstractManager
         $query->bindValue(':id', $id, \PDO::PARAM_INT);
         $query->execute();
     }
+
+    public function maxBed()
+    {
+        $query = "SELECT MAX(nb_bed) maxBed FROM " . self::TABLE;
+        $bed = $this->pdo->query($query)->fetch();
+        return $bed['maxBed'];
+    }
 }
