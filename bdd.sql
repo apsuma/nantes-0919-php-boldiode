@@ -52,7 +52,7 @@ CREATE TABLE picture (
 );
 
 INSERT INTO admin (login,pwd)
-VALUES ('admin','$argon2i$v=19$m=65536,t=4,p=1$WlM4SDE4bVhNRXByblBSQQ$5QkPz90V8CFZbR/MlQaLVJslnAxcZi6jNpg98jZK3Hw');
+VALUES ('admin','$2y$10$RhIFv70zMDBMkzUPUKUH2u1xSryAb.ZwBm.SRgA/Z0XQOomE8ogrG');
 
 INSERT INTO price (price_summer, price_winter, name)
 VALUES
