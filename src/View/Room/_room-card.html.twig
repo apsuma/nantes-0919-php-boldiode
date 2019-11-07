@@ -4,11 +4,11 @@
             <div id="carousel{{ room.roomId }}" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src ="{{ room.images.0.image }}" class="d-block w-100" alt="{{room.images.0.description}}">
+                        <img src ="{{ room.images.0.image }}" class="d-block w-100" alt="image d'une chambre">
                     </div>
                     {% for picture in room.images if picture.image != room.images.0.image %}
                     <div class="carousel-item">
-                        <img src ="{{ picture.image }}" class="d-block w-100" alt="{{picture.description}}">
+                        <img src ="{{ picture.image }}" class="d-block w-100" alt="image d'une chambre">
                     </div>
                     {% endfor %}
                 </div>
