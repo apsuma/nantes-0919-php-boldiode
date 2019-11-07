@@ -20,9 +20,9 @@ class ContactController extends AbstractController
             $formCheck = new FormCheck($_POST);
             $contactNameError = $formCheck->shortText('contactName');
             $contactEmailError = $formCheck->email('contactEmail');
-            $contentError = $formCheck->text('content');
+            $contentError = $formCheck->shortText('content');
             $subjectError = $formCheck->shortText('subject');
-            $phoneError = $formCheck->number('phone');
+            $phoneError = $formCheck->phoneNumber('phone');
 
             if ($formCheck->getValid()) {
                 $sentence = $_POST['contactName'] . ' -from: ' . $_POST['contactEmail'].' - ';
@@ -41,7 +41,7 @@ class ContactController extends AbstractController
                 $transport = new GmailTransport(GMAIL_USER, GMAIL_PWD);
                 $mailer = new Mailer($transport);
                 $mailer->send($email);
-                header("Location:/");
+                header('Location:/Home/index/?message=Votre message a bien été envoyé à boldiode@gmail.com');
             }
             return $this->twig->render('Home/contact.html.twig', [
                 'contactForm' => $_POST,
