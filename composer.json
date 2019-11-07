@@ -11,7 +11,10 @@
     "require": {
         "php" : ">=7.2",
         "ext-pdo" : "*",
-        "twig/twig": "^2.4"
+        "twig/twig": "^2.4",
+        "symfony/mailer": "^4.3",
+        "symfony/google-mailer": "^4.3",
+        "symfony/mime": "^4.3"
     },
     "require-dev": {
         "phpmd/phpmd": "^2.7",
