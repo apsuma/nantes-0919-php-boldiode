@@ -1,6 +1,11 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
+    {% if get.message is defined %}
+        <div class="alert alert-primary" role="alert">
+            {{ get.message }}
+        </div>
+    {% endif %}
     <style type="text/css">
         .text-center {
         }
