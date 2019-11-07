@@ -15,13 +15,16 @@ use App\Model\PictureManager;
  */
 class RoomController extends AbstractController
 {
-    public function show($bed = 0, $priceId = 0) : string
+    public function show($bed = 0, $priceId = 0)
     {
         $priceManager = new PriceManager();
         $prices = $priceManager->selectAll();
 
         $roomManager = new RoomManager();
         $rooms = $roomManager->selectAllRooms($bed, $priceId);
+        if (empty($rooms)) {
+            $rooms = $roomManager->selectAllRooms();
+        }
         $rooms = $this->selectPicture($rooms);
 
         $maxBed = $roomManager->maxBed();
@@ -39,6 +42,9 @@ class RoomController extends AbstractController
 
         if (isset($_POST['roomName'])) {
             $rooms = $roomManager->selectRoomByName($_POST['roomName']);
+            if (empty($rooms)) {
+                $rooms = $roomManager->selectAllRooms();
+            }
             $rooms = $this->selectPicture($rooms);
             $maxBed = $roomManager->maxBed();
             $priceManager = new PriceManager();
