@@ -44,13 +44,23 @@ class PictureManager extends AbstractManager
         $query->execute();
     }
 
-    public function deletePictureId(int $id): void
+    /**
+     * @param int $id
+     * @param int $idRoom
+     */
+    public function deletePictureId(int $id, int $idRoom): void
     {
-        $query = $this->pdo->prepare("DELETE FROM " . self::TABLE . " WHERE id=:id");
-        $query->bindValue('id', $id, \PDO::PARAM_INT);
-        $query->execute();
+        if (count($this->selectPicturesByRoom($idRoom)) > 1) {
+            $query = $this->pdo->prepare("DELETE FROM " . self::TABLE . " WHERE id=:id");
+            $query->bindValue('id', $id, \PDO::PARAM_INT);
+            $query->execute();
+        }
     }
 
+    /**
+     * @param int $id
+     * @return array
+     */
     public function selectPicturesByRoom(int $id): array
     {
         $query = "SELECT * FROM " . self::TABLE . " WHERE id_room= :id";
@@ -60,6 +70,9 @@ class PictureManager extends AbstractManager
         return $statement->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    /**
+     * @param array $pictures
+     */
     public function updatePicturesByRoom(array $pictures): void
     {
         foreach ($pictures as $keyPicture => $picture) {
