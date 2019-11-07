@@ -2,6 +2,36 @@
 
 {% block content %}
     <div class="container">
+        <form method="post" action="/room/search">
+            <div class="form-group">
+                <label for="roomName">Nom de la chambre</label>
+                <input class="form-control" id="roomName" type="text" name="roomName" >
+            </div>
+            <button type="submit" class="btn btn-primary">Rechercher une chambre</button>
+        </form>
+
+        <form method="post" action="/room/search">
+            <div class="form-group col">
+                <label for="priceSelect">Catégorie de prix</label>
+                <select class="form-control" id="priceSelect" name="priceId">
+                    <option value="0">Choisissez une catégorie de prix</option>
+                    {% for price in prices %}
+                        <option value="{{ price.id }}">{{ price.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group col">
+                <label for="bedSelect">Nombre de lits minimum</label>
+                <select class="form-control" id="bedSelect" name="bed">
+                    <option value="0">Choisissez un nombre minimum de lits</option>
+                    {% for bed in 1 .. maxBed %}
+                        <option value="{{ bed }}">{{ bed }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Rechercher</button>
+        </form>
     {% for room in rooms %}
         {% include 'Room/_room-card.html.twig' %}
     {% endfor %}

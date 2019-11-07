@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col">
         <div class="card">
-            <div id="carousel{{ room.id }}" class="carousel slide" data-ride="carousel">
+            <div id="carousel{{ room.roomId }}" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <img src ="{{ room.images.0.image }}" class="d-block w-100" alt="{{room.images.0.description}}">
@@ -12,16 +12,16 @@
                     </div>
                     {% endfor %}
                 </div>
-                <a class="carousel-control-prev" href="#carousel{{ room.id }}" role="button" data-slide="prev">
+                <a class="carousel-control-prev" href="#carousel{{ room.roomId }}" role="button" data-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
                 </a>
-                <a class="carousel-control-next" href="#carousel{{ room.id }}" role="button" data-slide="next">
+                <a class="carousel-control-next" href="#carousel{{ room.roomId }}" role="button" data-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="sr-only">Next</span>
                 </a>
             </div>
-        <h5 class="card-title">{{ room.name }}</h5>
+        <h5 class="card-title">{{ room.roomName }}</h5>
         <div class="card-text">
             <p>{{ room.description }}</p>
         </div>
@@ -30,6 +30,7 @@
             <tr>
                 <th scope="col">Prix été*</th>
                 <th scope="col">Prix hiver*</th>
+                <th scope="col">Nb lits</th>
                 <th scope="col">Theme</th>
                 <th scope="col">Vue</th>
             </tr>
@@ -39,8 +40,9 @@
             <tr>
                 <td>{{ room.priceSummer }} €</td>
                 <td>{{ room.priceWinter }} €</td>
-                <td>{{ room.theme }}</td>
-                <td>{{ room.view }}</td>
+                <td>{{ room.nbBed }}</td>
+                <td>{{ room.themeName }}</td>
+                <td>{{ room.viewName }}</td>
             </tr>
             </tbody>
         </table>
