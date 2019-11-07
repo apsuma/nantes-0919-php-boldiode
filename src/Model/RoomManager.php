@@ -72,7 +72,7 @@ class RoomManager extends AbstractManager
         }
     }
 
-    public function selectAllRooms($nbBed = 0, $idPrice = 0): array
+    public function selectAllRooms(int $nbBed = 0, int $idPrice = 0): array
     {
         $query = "SELECT
             r.id roomId,
@@ -136,5 +136,28 @@ class RoomManager extends AbstractManager
         $query = "SELECT MAX(nb_bed) maxBed FROM " . self::TABLE;
         $bed = $this->pdo->query($query)->fetch();
         return $bed['maxBed'];
+    }
+
+    public function selectRoomByName(string $name): array
+    {
+        $query = "SELECT
+            r.id roomId,
+            r.name roomName,
+            r.description,
+            r.nb_bed nbBed,
+            r.surface,
+            price.price_summer priceSummer,
+            price.price_winter priceWinter,
+            view.name viewName,
+            theme.name themeName
+            FROM " . self::TABLE . " r
+            JOIN price ON r.id_price = price.id
+            JOIN view ON r.id_view = view.id
+            JOIN theme ON r.id_theme = theme.id
+            WHERE r.name LIKE :name";
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue(":name", '%' . $name . '%', \PDO::PARAM_STR);
+        $statement->execute();
+        return $statement->fetchAll(\PDO::FETCH_ASSOC);
     }
 }

@@ -19,9 +19,11 @@ class RoomController extends AbstractController
     {
         $priceManager = new PriceManager();
         $prices = $priceManager->selectAll();
+
         $roomManager = new RoomManager();
         $rooms = $roomManager->selectAllRooms($bed, $priceId);
         $rooms = $this->selectPicture($rooms);
+
         $maxBed = $roomManager->maxBed();
         return $this->twig->render("Room/show.html.twig", [
             'rooms' => $rooms,
@@ -34,12 +36,18 @@ class RoomController extends AbstractController
     public function search()
     {
         $roomManager = new RoomManager();
-        $_POST['roomId'] = 0;
-        if ($_POST['roomId'] != 0) {
-            $room = $roomManager ->selectRoomById($_POST['roomId']);
-            $room = $this->selectPicture($room);
-            return $this->twig->render("Room/showOneRoom.html.twig", [
-                'room' => $room,
+
+        if (isset($_POST['roomName'])) {
+            $rooms = $roomManager->selectRoomByName($_POST['roomName']);
+            $rooms = $this->selectPicture($rooms);
+            $maxBed = $roomManager->maxBed();
+            $priceManager = new PriceManager();
+            $prices = $priceManager->selectAll();
+            return $this->twig->render("Room/show.html.twig", [
+                'rooms' => $rooms,
+                'prices' => $prices,
+                'post' => $_POST,
+                'maxBed' => $maxBed,
             ]);
         } else {
             header("location: /room/show/" . $_POST['bed'] . "/" . $_POST['priceId']);
