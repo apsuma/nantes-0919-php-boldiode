@@ -1,12 +1,7 @@
 {% extends 'layout.html.twig' %}
 
 {% block navigation %}
-    <a href="/admin/logout">Déconnexion</a>
-    <a href="/admin/editlist">Liste chambres</a>
-    <a href="/admin/add">Ajouter chambre</a>
-    {% if session.admin == 'admin' %}
-        <a href="/admin/addAdmin">Ajouter un nouvel administrateur</a>
-    {% endif %}
+    {% include 'Admin/_navigationAdmin.html.twig' %}
 {% endblock %}
 
 {% block content %}
