@@ -73,7 +73,7 @@
                 type="text"
                 id="nb_bed"
                 class="form-control {{ (nbBedError is null) ? '':'is-invalid' }}"
-                value="{{ (nbBedError is not null) ? '' : room.nb_bed|e }}"
+                value="{{ (nbBedError is not null) ? '' : room.nbBed|e }}"
                 name="nb_bed"
         >
         <div class="invalid-feedback">Entrez un nombre de lit</div>
@@ -132,7 +132,7 @@
     </div>
     <div class="form-check">
         <input type="checkbox" id="front_page" name="front_page" class="form-check-input" value=1
-               {% if room.front_page == 1 %}checked{% endif %}>
+               {% if room.frontPage == 1 %}checked{% endif %}>
         <label class="form-check-label" for="front_page">
             Chambre du moment
         </label>
