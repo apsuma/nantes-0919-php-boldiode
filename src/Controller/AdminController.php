@@ -169,7 +169,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    public function delete(int $id)
+    public function delete(int $id): void
     {
         $this->checkAdmin();
         $roomManager = new RoomManager();
