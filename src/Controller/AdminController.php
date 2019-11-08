@@ -12,15 +12,16 @@ use App\Model\ViewManager;
 
 class AdminController extends AbstractController
 {
-    public function logIn(): string
+    public function logIn(): ?string
     {
         if (isset($_SESSION['admin'])) {
             header("Location:/admin/editlist/?message=Vous êtes déjà connecté");
+            return null;
         }
         return $this->twig->render("Admin/logIn.html.twig");
     }
 
-    public function addAdmin(): string
+    public function addAdmin(): ?string
     {
         if ($_SESSION['admin'] == 'admin') {
             $this->checkAdmin();
@@ -28,6 +29,7 @@ class AdminController extends AbstractController
                 $adminManager = new AdminManager();
                 $result = $adminManager->add($_POST['login'], $_POST['pwd']);
                 header("Location: /admin/editlist/?message=cet administrateur $result");
+                return null;
             }
             return $this->twig->render("Admin/addAdmin.html.twig");
         }
@@ -68,7 +70,7 @@ class AdminController extends AbstractController
         return $this->twig->render('Admin/editList.html.twig', ['roomList' => $roomList]);
     }
 
-    public function edit(int $id): string
+    public function edit(int $id): ?string
     {
         $this->checkAdmin();
         $roomEdit = new RoomManager();
@@ -103,6 +105,7 @@ class AdminController extends AbstractController
                     $pictureManager->insert($picture, $_POST['id']);
                 }
                 header('Location:/admin/edit/' . $_POST['id'] . '/?message=la chambre a bien été modifiée');
+                return null;
             }
         }
         return $this->twig->render('Admin/edit.html.twig', [
@@ -121,7 +124,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    public function add(): string
+    public function add(): ?string
     {
         $this->checkAdmin();
         $viewManager = new ViewManager();
@@ -150,6 +153,7 @@ class AdminController extends AbstractController
                 $id = $roomManager->insert($_POST);
                 $pictureManager->insert($_POST, $id);
                 header('Location:/admin/editList/?message=une chambre a bien été ajoutée');
+                return null;
             }
         }
 
