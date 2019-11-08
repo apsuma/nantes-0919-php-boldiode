@@ -37,15 +37,14 @@ class AdminController extends AbstractController
     public function log(): void
     {
         $adminManager = new AdminManager();
-        $admins = $adminManager->selectAll();
-        foreach ($admins as $admin) {
-            if ($_POST['login'] === $admin['login'] && password_verify($_POST['pwd'], $admin['pwd'])) {
+        $admin = $adminManager->selectByName($_POST['login']);
+        if (!empty($admin)) {
+            if (password_verify($_POST['pwd'], $admin['pwd'])) {
                 $_SESSION['admin'] = $admin['login'];
                 header("Location:/admin/editlist/?message=Vous êtes bien connecté");
-            } else {
-                header("location:/admin/login");
             }
         }
+        header("location:/admin/login");
     }
 
     public function checkAdmin(): void
