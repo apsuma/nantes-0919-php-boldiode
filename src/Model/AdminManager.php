@@ -25,7 +25,7 @@ class AdminManager extends AbstractManager
         return "existe déjà";
     }
 
-    public function selectByName(string $name): array
+    public function selectByName(string $name): bool
     {
         $query = "SELECT * FROM " . self::TABLE . " WHERE login=:name";
         $statement = $this->pdo->prepare($query);
