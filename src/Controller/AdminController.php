@@ -34,7 +34,7 @@ class AdminController extends AbstractController
         header("Location:/admin/editlist/?message=Vous ne pouvez pas ajouter de nouvel administrateur");
     }
 
-    public function log()
+    public function log(): void
     {
         $adminManager = new AdminManager();
         $admins = $adminManager->selectAll();
