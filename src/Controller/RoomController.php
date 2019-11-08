@@ -36,7 +36,7 @@ class RoomController extends AbstractController
         ]);
     }
 
-    public function search(): string
+    public function search(): ?string
     {
         $roomManager = new RoomManager();
 
@@ -56,7 +56,8 @@ class RoomController extends AbstractController
                 'maxBed' => $maxBed,
             ]);
         } else {
-            return $this->show($_POST['bed'], $_POST['priceId']);
+            header("location: /room/show/" . $_POST['bed'] . "/" . $_POST['priceId']);
+            return null;
         }
     }
 
