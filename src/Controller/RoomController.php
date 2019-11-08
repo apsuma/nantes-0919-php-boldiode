@@ -56,7 +56,7 @@ class RoomController extends AbstractController
                 'maxBed' => $maxBed,
             ]);
         } else {
-            header("location: /room/show/" . $_POST['bed'] . "/" . $_POST['priceId']);
+            return $this->show($_POST['bed'], $_POST['priceId']);
         }
     }
 
