@@ -11,7 +11,7 @@ class AdminManager extends AbstractManager
         parent::__construct(self::TABLE);
     }
 
-    public function add($name, $pwd)
+    public function add($name, $pwd): string
     {
         if (!$this->selectByName($name)) {
             $query = "INSERT INTO " . self::TABLE . " (login, pwd) VALUES (:login, :pwd)";
@@ -25,7 +25,7 @@ class AdminManager extends AbstractManager
         return "existe déjà";
     }
 
-    public function selectByName(string $name)
+    public function selectByName(string $name): array
     {
         $query = "SELECT * FROM " . self::TABLE . " WHERE login=:name";
         $statement = $this->pdo->prepare($query);

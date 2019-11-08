@@ -15,7 +15,7 @@ use App\Model\PictureManager;
  */
 class RoomController extends AbstractController
 {
-    public function show($bed = 0, $priceId = 0)
+    public function show($bed = 0, $priceId = 0): string
     {
         $priceManager = new PriceManager();
         $prices = $priceManager->selectAll();
@@ -36,7 +36,7 @@ class RoomController extends AbstractController
         ]);
     }
 
-    public function search()
+    public function search(): string
     {
         $roomManager = new RoomManager();
 
@@ -65,7 +65,7 @@ class RoomController extends AbstractController
      * @param array $rooms
      * @return array
      */
-    public function selectPicture(array $rooms)
+    public function selectPicture(array $rooms): array
     {
         $pictureManager = new PictureManager();
         if (isset($rooms[0])) {

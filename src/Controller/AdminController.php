@@ -12,7 +12,7 @@ use App\Model\ViewManager;
 
 class AdminController extends AbstractController
 {
-    public function logIn()
+    public function logIn(): string
     {
         if (isset($_SESSION['admin'])) {
             header("Location:/admin/editlist/?message=Vous êtes déjà connecté");
@@ -20,7 +20,7 @@ class AdminController extends AbstractController
         return $this->twig->render("Admin/logIn.html.twig");
     }
 
-    public function addAdmin()
+    public function addAdmin(): string
     {
         if ($_SESSION['admin'] == 'admin') {
             $this->checkAdmin();
@@ -34,7 +34,7 @@ class AdminController extends AbstractController
         header("Location:/admin/editlist/?message=Vous ne pouvez pas ajouter de nouvel administrateur");
     }
 
-    public function log()
+    public function log(): void
     {
         $adminManager = new AdminManager();
         $admins = $adminManager->selectAll();
@@ -48,20 +48,20 @@ class AdminController extends AbstractController
         }
     }
 
-    public function checkAdmin()
+    public function checkAdmin(): void
     {
         if (!isset($_SESSION['admin'])) {
             header("location:/");
         }
     }
 
-    public function logOut()
+    public function logOut(): void
     {
         session_destroy();
         header("location:/admin/login");
     }
 
-    public function editList()
+    public function editList(): string
     {
         $this->checkAdmin();
         $roomEdit = new RoomManager();
@@ -122,7 +122,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    public function add()
+    public function add(): string
     {
         $this->checkAdmin();
         $viewManager = new ViewManager();
@@ -169,7 +169,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    public function delete(int $id)
+    public function delete(int $id): void
     {
         $this->checkAdmin();
         $roomManager = new RoomManager();

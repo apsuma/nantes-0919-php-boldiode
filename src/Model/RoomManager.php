@@ -124,14 +124,14 @@ class RoomManager extends AbstractManager
         return $statement->execute();
     }
 
-    public function delete(int $id)
+    public function delete(int $id): void
     {
         $query =$this->pdo->prepare("DELETE FROM " . self::TABLE . " WHERE id=:id");
         $query->bindValue(':id', $id, \PDO::PARAM_INT);
         $query->execute();
     }
 
-    public function maxBed()
+    public function maxBed(): int
     {
         $query = "SELECT MAX(nb_bed) maxBed FROM " . self::TABLE;
         $bed = $this->pdo->query($query)->fetch();

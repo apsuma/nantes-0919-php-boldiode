@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Controller;
 
 use App\Model\FormCheck;
@@ -11,7 +10,6 @@ use Symfony\Component\Mime\Email;
 
 class ContactController extends AbstractController
 {
-
     public function sendMail()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
