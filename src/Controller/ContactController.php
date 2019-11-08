@@ -28,7 +28,7 @@ class ContactController extends AbstractController
                 $sentence = $sentence . ' - tel pour rappeler : ' . $_POST['phone'];
                 $email = (new Email())
                     ->from($_POST['contactEmail'])
-                    ->to('boldiode@gmail.com')
+                    ->to(CONTACT_EMAIL_RECIPIENT)
                     ->priority(Email::PRIORITY_HIGH)
                     ->subject($_POST['subject'])
                     // If you want use text mail only
