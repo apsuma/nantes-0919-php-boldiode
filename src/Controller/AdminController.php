@@ -61,7 +61,7 @@ class AdminController extends AbstractController
         header("location:/admin/login");
     }
 
-    public function editList()
+    public function editList(): string
     {
         $this->checkAdmin();
         $roomEdit = new RoomManager();
