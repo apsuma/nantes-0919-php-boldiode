@@ -12,7 +12,7 @@ use App\Model\ViewManager;
 
 class AdminController extends AbstractController
 {
-    public function logIn()
+    public function logIn(): string
     {
         if (isset($_SESSION['admin'])) {
             header("Location:/admin/editlist/?message=Vous êtes déjà connecté");
