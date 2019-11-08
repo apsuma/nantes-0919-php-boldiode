@@ -131,7 +131,7 @@ class RoomManager extends AbstractManager
         $query->execute();
     }
 
-    public function maxBed()
+    public function maxBed(): int
     {
         $query = "SELECT MAX(nb_bed) maxBed FROM " . self::TABLE;
         $bed = $this->pdo->query($query)->fetch();
