@@ -15,7 +15,7 @@ use App\Model\PictureManager;
  */
 class RoomController extends AbstractController
 {
-    public function show($bed = 0, $priceId = 0)
+    public function show($bed = 0, $priceId = 0): string
     {
         $priceManager = new PriceManager();
         $prices = $priceManager->selectAll();
