@@ -20,7 +20,7 @@ class AdminController extends AbstractController
         return $this->twig->render("Admin/logIn.html.twig");
     }
 
-    public function addAdmin()
+    public function addAdmin(): string
     {
         if ($_SESSION['admin'] == 'admin') {
             $this->checkAdmin();
