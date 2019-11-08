@@ -55,7 +55,7 @@ class AdminController extends AbstractController
         }
     }
 
-    public function logOut()
+    public function logOut(): void
     {
         session_destroy();
         header("location:/admin/login");
