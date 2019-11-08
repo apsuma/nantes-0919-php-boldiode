@@ -36,7 +36,7 @@ class RoomController extends AbstractController
         ]);
     }
 
-    public function search()
+    public function search(): string
     {
         $roomManager = new RoomManager();
 
