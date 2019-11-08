@@ -48,7 +48,7 @@ class AdminController extends AbstractController
         }
     }
 
-    public function checkAdmin()
+    public function checkAdmin(): void
     {
         if (!isset($_SESSION['admin'])) {
             header("location:/");
