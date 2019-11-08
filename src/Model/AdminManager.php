@@ -11,7 +11,7 @@ class AdminManager extends AbstractManager
         parent::__construct(self::TABLE);
     }
 
-    public function add($name, $pwd)
+    public function add($name, $pwd): string
     {
         if (!$this->selectByName($name)) {
             $query = "INSERT INTO " . self::TABLE . " (login, pwd) VALUES (:login, :pwd)";
