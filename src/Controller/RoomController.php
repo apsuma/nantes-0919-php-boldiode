@@ -65,7 +65,7 @@ class RoomController extends AbstractController
      * @param array $rooms
      * @return array
      */
-    public function selectPicture(array $rooms)
+    public function selectPicture(array $rooms): array
     {
         $pictureManager = new PictureManager();
         if (isset($rooms[0])) {
