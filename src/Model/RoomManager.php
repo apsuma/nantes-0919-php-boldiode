@@ -124,7 +124,7 @@ class RoomManager extends AbstractManager
         return $statement->execute();
     }
 
-    public function delete(int $id)
+    public function delete(int $id): void
     {
         $query =$this->pdo->prepare("DELETE FROM " . self::TABLE . " WHERE id=:id");
         $query->bindValue(':id', $id, \PDO::PARAM_INT);
