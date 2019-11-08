@@ -122,7 +122,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    public function add()
+    public function add(): string
     {
         $this->checkAdmin();
         $viewManager = new ViewManager();
