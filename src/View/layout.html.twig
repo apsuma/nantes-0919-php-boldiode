@@ -1,21 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import bootstrap.css-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Import style.css -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- Import Font Awesome icons -->
+    <script src="https://kit.fontawesome.com/37df1f9002.js" crossorigin="anonymous"></script>
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <title>Bol d'iode</title>
 </head>
 
-<body>
+<body class="sand">
+{% block navigation %}
 {% include 'Home/_navigation.html.twig' %}
+{% endblock %}
 
 {% block content %}
 {% endblock %}
 
+{% block footer %}
 {% include 'Home/_footer.html.twig' %}
+{% endblock %}
 
 
 <!--JavaScript at end of body for optimized loading-->

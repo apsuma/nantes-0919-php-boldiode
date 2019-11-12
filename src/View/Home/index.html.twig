@@ -1,10 +1,77 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    <h1>Index</h1>
-    <a href="/room/show">Voir les chambres</a>
-    <br>
-    <a href="/room/add">Ajouter une chambre</a>
-    <br>
-    <a href="/room/editList">Editer une chambre</a>
+    {% if get.message is defined %}
+        <div class="alert alert-primary" role="alert">
+            {{ get.message }}
+        </div>
+    {% endif %}
+    <style type="text/css">
+        .text-center {
+        }
+    </style>
+    <div class="container-fluid card mb-3">
+        <img src="https://via.placeholder.com/1000x250.png" class="card-img-top" alt="...">
+    </div>
+    <div class="container-fluid">
+        <div class="bd-example">
+            <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <a href="#">
+                            <img src="https://via.placeholder.com/1000x350.png" class="d-block w-100" alt="...">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h4 class="text-body">Chambre 1</h4>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="carousel-item">
+                        <a href="#">
+                            <img src="https://via.placeholder.com/1000x350.png" class="d-block w-100" alt="...">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h4 class="text-body">Chambre 2</h4>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="carousel-item">
+                        <a href="#">
+                            <img src="https://via.placeholder.com/1000x350.png" class="d-block w-100" alt="...">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h4 class="text-body">Chambre 3</h4>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <h2 class="text-center">Notre histoire</h2>
+        <p><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad at aut autem consectetur deleniti, ducimus eos excepturi labore molestiae nisi odio, perspiciatis quia quod quos similique, tempora veritatis voluptas?</span>
+            <span>Beatae consequuntur corporis deserunt eum ex, illo reiciendis reprehenderit veniam? Accusamus ad animi cupiditate, debitis dolore doloribus dolorum, earum error eum fugit ipsam optio quisquam quos ratione rerum sint voluptatum?</span>
+            <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad at aut autem consectetur deleniti, ducimus eos excepturi labore molestiae nisi odio, perspiciatis quia quod quos similique, tempora veritatis voluptas?</span>
+            <span>Beatae consequuntur corporis deserunt eum ex, illo reiciendis reprehenderit veniam? Accusamus ad animi cupiditate, debitis dolore doloribus dolorum, earum error eum fugit ipsam optio quisquam quos ratione rerum sint voluptatum?</span>
+        </p>
+    </div>
+    <div class="container-fluid card mb-3">
+        <a href="#">
+            <img alt="..." class="card-img" src="https://via.placeholder.com/1000x250.png">
+            <div class="card-img-overlay d-flex flex-column align-items-center">
+                <h2 class="text-center my-auto text-body">Nos chambres</h2>
+            </div>
+        </a>
+    </div>
 {% endblock %}

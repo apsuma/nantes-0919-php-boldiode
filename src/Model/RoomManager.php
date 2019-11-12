@@ -22,13 +22,23 @@ class RoomManager extends AbstractManager
 
     public function selectRoomById(int $id)
     {
-        $query = "SELECT r.id roomId, r.name roomName, r.description, r.nb_bed, 
-            r.surface, r.front_page, r.id_view roomViewId, 
-            r.id_theme roomThemeId, r.id_price roomPriceId, 
-            p.price_summer, p.price_winter, p.name priceName, 
-            picture.id pictureId, picture.description pictureDescription, 
-            picture.image pictureImage, 
-            v.name viewName, t.name themeName FROM room r INNER JOIN price p ON r.id_price = p.id 
+        $query = "SELECT 
+            r.id roomId, 
+            r.name roomName,
+            r.description,
+            r.nb_bed nbBed, 
+            r.surface,
+            r.front_page frontPage,
+            r.id_view roomViewId, 
+            r.id_theme roomThemeId,
+            r.id_price roomPriceId, 
+            p.price_summer priceSummer,
+            p.price_winter priceWinter,
+            p.name priceName, 
+            v.name viewName,
+            t.name themeName 
+            FROM " . self::TABLE . " r
+            INNER JOIN price p ON r.id_price = p.id 
             INNER JOIN view v ON r.id_view = v.id 
             INNER JOIN theme t ON r.id_theme = t.id 
             INNER JOIN picture ON picture.id_room = r.id 
@@ -62,33 +72,33 @@ class RoomManager extends AbstractManager
         }
     }
 
-    public function selectAllRooms(): array
+    public function selectAllRooms(int $nbBed = 0, int $idPrice = 0): array
     {
         $query = "SELECT
-            room.name,
-            room.description,
-            room.nb_bed nbBed,
-            room.surface,
+            r.id roomId,
+            r.name roomName,
+            r.description,
+            r.nb_bed nbBed,
+            r.surface,
             price.price_summer priceSummer,
             price.price_winter priceWinter,
-            view.name view,
-            theme.name theme,
-            picture.image picture,
-            picture.description pictureDescription
-            FROM room
-            JOIN price ON room.id_price = price.id
-            JOIN view ON room.id_view = view.id
-            JOIN theme ON room.id_theme = theme.id
-            JOIN picture ON picture.id_room = room.id";
+            view.name viewName,
+            theme.name themeName
+            FROM " . self::TABLE . " r
+            JOIN price ON r.id_price = price.id
+            JOIN view ON r.id_view = view.id
+            JOIN theme ON r.id_theme = theme.id
+            WHERE r.nb_bed >= $nbBed";
+        if ($idPrice != 0) {
+            $query .= " AND price.id = $idPrice";
+        }
         return $this->pdo->query($query)->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public function updateRoom(array $room): bool
     {
-        if (isset($room['frontPage'])) {
-            $frontPage = 1;
-        } else {
-            $frontPage = 0;
+        if (!isset($room['front_page'])) {
+            $room['front_page'] = 0;
         }
         // prepared request
         $query = "UPDATE " . self::TABLE .
@@ -103,14 +113,51 @@ class RoomManager extends AbstractManager
             WHERE id=:id";
         $statement = $this->pdo->prepare($query);
         $statement->bindValue('id', $room['id'], \PDO::PARAM_INT);
-        $statement->bindValue('name', $room['roomName'], \PDO::PARAM_STR);
+        $statement->bindValue('name', $room['name'], \PDO::PARAM_STR);
         $statement->bindValue('description', $room['description'], \PDO::PARAM_STR);
         $statement->bindValue('surface', $room['surface'], \PDO::PARAM_INT);
-        $statement->bindValue('nbBed', $room['nbBed'], \PDO::PARAM_INT);
-        $statement->bindValue('frontPage', $frontPage, \PDO::PARAM_INT);
-        $statement->bindValue('priceId', $room['priceId'], \PDO::PARAM_INT);
-        $statement->bindValue('viewId', $room['viewId'], \PDO::PARAM_INT);
-        $statement->bindValue('themeId', $room['themeId'], \PDO::PARAM_INT);
+        $statement->bindValue('nbBed', $room['nb_bed'], \PDO::PARAM_INT);
+        $statement->bindValue('frontPage', $room['front_page'], \PDO::PARAM_INT);
+        $statement->bindValue('priceId', $room['id_price'], \PDO::PARAM_INT);
+        $statement->bindValue('viewId', $room['id_view'], \PDO::PARAM_INT);
+        $statement->bindValue('themeId', $room['id_theme'], \PDO::PARAM_INT);
         return $statement->execute();
+    }
+
+    public function delete(int $id): void
+    {
+        $query =$this->pdo->prepare("DELETE FROM " . self::TABLE . " WHERE id=:id");
+        $query->bindValue(':id', $id, \PDO::PARAM_INT);
+        $query->execute();
+    }
+
+    public function maxBed(): int
+    {
+        $query = "SELECT MAX(nb_bed) maxBed FROM " . self::TABLE;
+        $bed = $this->pdo->query($query)->fetch();
+        return $bed['maxBed'];
+    }
+
+    public function selectRoomByName(string $name): array
+    {
+        $query = "SELECT
+            r.id roomId,
+            r.name roomName,
+            r.description,
+            r.nb_bed nbBed,
+            r.surface,
+            price.price_summer priceSummer,
+            price.price_winter priceWinter,
+            view.name viewName,
+            theme.name themeName
+            FROM " . self::TABLE . " r
+            JOIN price ON r.id_price = price.id
+            JOIN view ON r.id_view = view.id
+            JOIN theme ON r.id_theme = theme.id
+            WHERE r.name LIKE :name";
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue(":name", '%' . $name . '%', \PDO::PARAM_STR);
+        $statement->execute();
+        return $statement->fetchAll(\PDO::FETCH_ASSOC);
     }
 }

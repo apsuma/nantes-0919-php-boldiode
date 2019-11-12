@@ -1,0 +1,22 @@
+{% extends 'layout.html.twig' %}
+
+{% block navigation %}
+    {% include 'Admin/_navigationAdmin.html.twig' %}
+{% endblock %}
+
+{% block content %}
+    <h1>Liste des chambres à éditer</h1>
+    {% if get.message is defined %}
+        <div class="alert alert-primary" role="alert">
+            {{ get.message }}
+        </div>
+    {% endif %}
+    <p>
+    {% for room in roomList %}
+        <a href="/admin/edit/{{ room.id }}">{{ room.name }}</a><br>
+    {% endfor %}
+    </p>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
