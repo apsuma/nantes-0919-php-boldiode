@@ -98,7 +98,7 @@ class RoomManager extends AbstractManager
     public function updateRoom(array $room): bool
     {
         if (!isset($room['front_page'])) {
-            $room['front_page'] = 0;
+            $room['front_page'] = null;
         }
         // prepared request
         $query = "UPDATE " . self::TABLE .
