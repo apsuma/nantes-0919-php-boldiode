@@ -16,8 +16,13 @@
             <div class="card">
                 <div class="card-body row">
                     <a href="/admin/edit/{{ room.id }}" class="col-lg-6">{{ room.name }}</a><br>
-                    <a href="/admin/edit/{{ room.id }}" class="btn btn-primary col-lg-1">&Eacute;diter</a><br>
-                    <button type="button" class="btn btn-danger col-lg-1" data-toggle="modal"
+                    {% if room.front_page == 1 %}
+                        <a href="/admin/edit/{{ room.id }}" class="btn btn-success col-lg-2">Mis en avant</a><br>
+                    {% else %}
+                        <a href="/admin/edit/{{ room.id }}" class="btn btn-secondary col-lg-2">Mettre en avant</a><br>
+                    {% endif %}
+                    <a href="/admin/edit/{{ room.id }}" class="btn btn-primary col-lg-2">&Eacute;diter</a><br>
+                    <button type="button" class="btn btn-danger col-lg-2" data-toggle="modal"
                             data-target="#deleteConfirmation-{{ room.id }}">
                         Supprimer
                     </button>
