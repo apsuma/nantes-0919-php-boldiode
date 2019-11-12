@@ -11,11 +11,15 @@
             {{ get.message }}
         </div>
     {% endif %}
-    <p>
+    <section>
     {% for room in roomList %}
-        <a href="/admin/edit/{{ room.id }}">{{ room.name }}</a><br>
+        <div class="card">
+            <div class="card-body">
+                <a href="/admin/edit/{{ room.id }}">{{ room.name }}</a><br>
+            </div>
+        </div>
     {% endfor %}
-    </p>
+    </section>
 {% endblock %}
 
 {% block footer %}
