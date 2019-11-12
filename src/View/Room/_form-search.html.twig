@@ -1,19 +1,19 @@
 <div class="row m-2">
 
-    <div class="col d-flex justify-content-center align-items-center border-right border-dark">
+    <div class="col d-flex justify-content-center align-items-center">
         <form method="post" action="/room/search">
             <div class="form-group">
-                <label for="roomName">Nom de la chambre</label>
+                <label for="roomName" class="darksand p-2 rounded-pill" >Nom de la chambre</label>
                 <input class="form-control" id="roomName" type="text" name="roomName" >
             </div>
-            <button type="submit" class="btn btn-primary">Rechercher une chambre</button>
+            <button type="submit" class="btn darkblue-bg">Rechercher une chambre</button>
         </form>
     </div>
 
     <div class="col d-flex justify-content-center">
         <form method="post" action="/room/search">
             <div class="form-group">
-                <label for="priceSelect">Catégorie de prix</label>
+                <label for="priceSelect" class="darksand p-2 rounded-pill">Catégorie de prix</label>
                 <select class="form-control" id="priceSelect" name="priceId">
                     <option value="0">Choisissez une catégorie de prix</option>
                     {% for price in prices %}
@@ -23,7 +23,7 @@
             </div>
 
             <div class="form-group">
-                <label for="bedSelect">Nombre de lits minimum</label>
+                <label for="bedSelect" class="darksand p-2 rounded-pill">Nombre de lits minimum</label>
                 <select class="form-control" id="bedSelect" name="bed">
                     <option value="0">Choisissez un nombre minimum de lits</option>
                     {% for bed in 1 .. maxBed %}
@@ -31,7 +31,7 @@
                     {% endfor %}
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary align-self-center">Rechercher</button>
+            <button type="submit" class="btn align-self-center darkblue-bg">Rechercher</button>
         </form>
     </div>
 
