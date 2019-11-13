@@ -1,12 +1,11 @@
 <form method="POST">
     <input type="hidden" value="{{ room.id }}" name="id">
-    <div class="form-group">
-        <label for="picture">Image chambre</label>
+    <div class="custom-file">
+        <label class="custom-file-label" for="image">Image chambre</label>
         <input
-            type="url"
-            id="picture"
-            class="form-control"
-            value="{{ post.image }}"
+            type="file"
+            id="image"
+            class="custom-file-input"
             name="image"
             required
         >
