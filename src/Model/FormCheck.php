@@ -89,6 +89,14 @@ class FormCheck
         return isset($error)? $error: null;
     }
 
+    /**
+     * @param array $file
+     */
+    public function image(array $file)
+    {
+        var_dump($file);
+    }
+
     public function getValid(): bool
     {
         return $this->valid;
