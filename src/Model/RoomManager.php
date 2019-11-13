@@ -164,6 +164,22 @@ class RoomManager extends AbstractManager
     public function selectAllOrderByFront(): array
     {
         return $this->pdo->query('SELECT * FROM ' . $this->table .
-                ' ORDER BY front_page DESC')->fetchAll(\PDO::FETCH_ASSOC);
+            ' ORDER BY front_page DESC')->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function updateFrontPage(int $id, $state): void
+    {
+        if (isset($state) && !empty($state)) {
+            $frontPage = null;
+        } else {
+            $frontPage = 1;
+        }
+        $query = "UPDATE " . self::TABLE .
+            " SET front_page = :frontPage
+            WHERE id = :id";
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue("id", $id, \PDO::PARAM_INT);
+        $statement->bindValue("frontPage", $frontPage, \PDO::PARAM_STR);
+        $statement->execute();
     }
 }
