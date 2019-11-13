@@ -23,7 +23,7 @@ class HomeController extends AbstractController
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-    public function index()
+    public function index(): string
     {
         $roomManager = new RoomManager();
         $priceManager = new PriceManager();
