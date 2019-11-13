@@ -4,7 +4,7 @@ namespace App\Service;
 
 class ImageUploader
 {
-    const PUBLIC_PATH = "/uploads/category-images/";
+    const PUBLIC_PATH = "/uploads/images/";
     const COMPLETE_PATH = __DIR__."/../../public".self::PUBLIC_PATH;
 
     public function uploadImage(array $file): string

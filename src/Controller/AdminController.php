@@ -9,6 +9,7 @@ use App\Model\PriceManager;
 use App\Model\RoomManager;
 use App\Model\ThemeManager;
 use App\Model\ViewManager;
+use App\Service\ImageUploader;
 
 class AdminController extends AbstractController
 {
@@ -133,7 +134,6 @@ class AdminController extends AbstractController
         $prices = $priceManager->selectAll();
         $themeManager = new ThemeManager();
         $themes = $themeManager->selectAll();
-        $pictureManager = new PictureManager();
 
         $nameError = $descriptionError = $nbBedError = $surfaceError = null;
         $idPriceError = $idViewError = $idThemeError = null;
@@ -151,7 +151,10 @@ class AdminController extends AbstractController
             if ($formCheck->getValid()) {
                 $roomManager = new RoomManager();
                 $id = $roomManager->insert($_POST);
-                $pictureManager->insert($_POST, $id);
+                $imageUploader = new ImageUploader();
+                $filename = $imageUploader->uploadImage($_FILES["image"]);
+                $pictureManager = new PictureManager();
+                $pictureManager->insert($_POST, $id, $filename);
                 header('Location:/admin/editList/?message=une chambre a bien été ajoutée');
                 return null;
             }
