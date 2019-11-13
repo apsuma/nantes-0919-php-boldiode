@@ -1,7 +1,8 @@
 <div class="card" style="width: 18rem;">
-    <img src="{{ room.picture }}" class="card-img-top" alt="image d'une chambre">
+    <img src="{{ room.picture.0.image }}" class="card-img-top" alt="image d'une chambre">
     <div class="card-body">
-        <h5 class="card-title">{{ room.name }}</h5>
+        <h5 class="card-title">{{ room.roomName }}</h5>
+        <p>{{ room.description }}</p>
         <a href="" class="btn btn-primary">Voir en détail</a>
     </div>
 </div>

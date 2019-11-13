@@ -8,6 +8,7 @@
 
 namespace App\Controller;
 
+use App\Model\PictureManager;
 use App\Model\PriceManager;
 use App\Model\RoomManager;
 
@@ -25,12 +26,20 @@ class HomeController extends AbstractController
     public function index()
     {
         $roomManager = new RoomManager();
-        $maxBed = $roomManager->maxBed();
         $priceManager = new PriceManager();
+        $pictureManager = new PictureManager();
+        $maxBed = $roomManager->maxBed();
         $prices = $priceManager->selectAll();
+
+        $rooms = $roomManager->selectRoomFavorite();
+        foreach ($rooms as $key => $room) {
+            $rooms[$key]['picture'] = $pictureManager->selectPicturesByRoom($room['roomId']);
+        }
+
         return $this->twig->render('Home/index.html.twig', [
             'maxBed' => $maxBed,
             'prices' => $prices,
+            'rooms' => $rooms,
         ]);
     }
 }
