@@ -187,6 +187,5 @@ class AdminController extends AbstractController
         $this->checkAdmin();
         $roomManager = new RoomManager();
         $roomManager->updateFrontPage($id, $state);
-        header('Location:/admin/editList/?message=Mise en avant modifée');
     }
 }

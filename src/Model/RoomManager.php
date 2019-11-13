@@ -191,6 +191,7 @@ class RoomManager extends AbstractManager
             $statement->bindValue("id", $id, \PDO::PARAM_INT);
             $statement->bindValue("frontPage", $frontPage, \PDO::PARAM_STR);
             $statement->execute();
+            header('Location:/admin/editList/?message=Mise en avant modifée');
         }
     }
 }
