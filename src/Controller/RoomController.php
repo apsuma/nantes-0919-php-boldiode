@@ -8,6 +8,8 @@ use App\Model\ViewManager;
 use App\Model\PriceManager;
 use App\Model\ThemeManager;
 use App\Model\PictureManager;
+use DateTime;
+use DateInterval;
 
 /**
  * Controller for the room interaction
@@ -19,6 +21,10 @@ class RoomController extends AbstractController
     {
         $priceManager = new PriceManager();
         $prices = $priceManager->selectAll();
+
+        $date = new DateTime();
+        $today = $date->format("Y-m-d");
+        $maxDate = $date->add(DateInterval::createFromDateString("1 year"))->format("Y-m-d");
 
         $roomManager = new RoomManager();
         $rooms = $roomManager->selectAllRooms($bed, $priceId);
@@ -33,6 +39,8 @@ class RoomController extends AbstractController
             'prices' => $prices,
             'post' => $_POST,
             'maxBed' => $maxBed,
+            'today' => $today,
+            'maxDate' =>$maxDate,
         ]);
     }
 
