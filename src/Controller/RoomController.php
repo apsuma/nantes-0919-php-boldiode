@@ -17,13 +17,18 @@ use DateInterval;
  */
 class RoomController extends AbstractController
 {
-    public function show($bed = 0, $priceId = 0): string
+    public function show($bed = 0, $priceId = 0, $tripStart = "", $tripEnd = ""): string
     {
         $priceManager = new PriceManager();
         $prices = $priceManager->selectAll();
 
         $date = new DateTime();
         $today = $date->format("Y-m-d");
+
+        if ($tripStart == "" || $tripEnd == "") {
+            $tripStart = $tripEnd =$today;
+        }
+
         $maxDate = $date->add(DateInterval::createFromDateString("1 year"))->format("Y-m-d");
 
         $roomManager = new RoomManager();
@@ -64,7 +69,11 @@ class RoomController extends AbstractController
                 'maxBed' => $maxBed,
             ]);
         } else {
-            header("location: /room/show/" . $_POST['bed'] . "/" . $_POST['priceId']);
+            header("location: /room/show/" .
+                $_POST['bed'] . "/" .
+                $_POST['priceId'] . "/" .
+                $_POST['tripStart'] . "/" .
+                $_POST['tripEnd']);
             return null;
         }
     }
