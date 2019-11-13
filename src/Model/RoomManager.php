@@ -178,17 +178,22 @@ class RoomManager extends AbstractManager
             ' WHERE front_page = 1')->fetch();
     }
 
-    public function updateFrontPage(int $id, $state)
+    public function updateFrontPage(int $id, $state = null, $front = null)
     {
-        $countFrontPages = $this->countFrontPages();
-        $countFrontPages = intval($countFrontPages['nombreFront']);
         if (isset($state) && !empty($state) && $state == 1) {
             $frontPage = null;
         } else {
             $frontPage = 1;
         }
+        if ($front == 'front') {
+            $front = 'front/';
+        } else {
+            $front = '';
+        }
+        $countFrontPages = $this->countFrontPages();
+        $countFrontPages = intval($countFrontPages['nombreFront']);
         if ($countFrontPages >= 3 && $frontPage == 1) {
-            header('Location:/admin/editList/?message=Vous ne pouvez pas mettre en avant plus de 3 chambres');
+            header('Location:/admin/editList/' . $front . '?message=Pas plus de 3 chambres en avant !');
         } else {
             $query = "UPDATE " . self::TABLE .
                 " SET front_page = :frontPage
@@ -197,7 +202,7 @@ class RoomManager extends AbstractManager
             $statement->bindValue("id", $id, \PDO::PARAM_INT);
             $statement->bindValue("frontPage", $frontPage, \PDO::PARAM_STR);
             $statement->execute();
-            header('Location:/admin/editList/?message=Mise en avant modifée');
+            header('Location:/admin/editList/' . $front . '?message=Mise en avant modifée');
         }
     }
 }
