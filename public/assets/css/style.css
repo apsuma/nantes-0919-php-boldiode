@@ -20,12 +20,27 @@
     background-color: #e4d6a7;
 }
 
+.custom-list {
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 30%;
+
+
+}
+
+.navbar {
+    position: fixed;
+    z-index: 1;
+    width: 100vw;
+}
+
 .navbar-brand {
     border-radius: 5px;
     padding: 5px;
 }
 
 .nav-item {
+    display: flex;
     border-radius: 5px;
 }
 
