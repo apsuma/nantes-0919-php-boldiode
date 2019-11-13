@@ -98,7 +98,7 @@ class RoomManager extends AbstractManager
     public function updateRoom(array $room): bool
     {
         if (!isset($room['front_page'])) {
-            $room['front_page'] = 0;
+            $room['front_page'] = null;
         }
         // prepared request
         $query = "UPDATE " . self::TABLE .
@@ -126,7 +126,7 @@ class RoomManager extends AbstractManager
 
     public function delete(int $id): void
     {
-        $query =$this->pdo->prepare("DELETE FROM " . self::TABLE . " WHERE id=:id");
+        $query = $this->pdo->prepare("DELETE FROM " . self::TABLE . " WHERE id=:id");
         $query->bindValue(':id', $id, \PDO::PARAM_INT);
         $query->execute();
     }
@@ -170,5 +170,11 @@ class RoomManager extends AbstractManager
             FROM " . self::TABLE . " r
             WHERE r.front_page = 1";
         return $this->pdo->query($query)->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function selectAllOrderByFront(): array
+    {
+        return $this->pdo->query('SELECT * FROM ' . $this->table .
+                ' ORDER BY front_page DESC')->fetchAll(\PDO::FETCH_ASSOC);
     }
 }

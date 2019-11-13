@@ -66,7 +66,7 @@ class AdminController extends AbstractController
     {
         $this->checkAdmin();
         $roomEdit = new RoomManager();
-        $roomList = $roomEdit->selectAll();
+        $roomList = $roomEdit->selectAllOrderByFront();
         return $this->twig->render('Admin/editList.html.twig', ['roomList' => $roomList]);
     }
 
