@@ -62,11 +62,11 @@ class AdminController extends AbstractController
         header("location:/admin/login");
     }
 
-    public function editList(): string
+    public function editList($front = null): string
     {
         $this->checkAdmin();
-        $roomEdit = new RoomManager();
-        $roomList = $roomEdit->selectAllOrderByFront();
+        $roomEdit = new AdminManager();
+        $roomList = $roomEdit->selectAllOrderByNameFront($front);
         return $this->twig->render('Admin/editList.html.twig', ['roomList' => $roomList]);
     }
 

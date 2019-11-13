@@ -172,12 +172,6 @@ class RoomManager extends AbstractManager
         return $this->pdo->query($query)->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function selectAllOrderByFront(): array
-    {
-        return $this->pdo->query('SELECT * FROM ' . $this->table .
-            ' ORDER BY front_page DESC')->fetchAll(\PDO::FETCH_ASSOC);
-    }
-
     private function countFrontPages()
     {
         return $this->pdo->query('SELECT COUNT(id) AS nombreFront FROM ' . $this->table .
