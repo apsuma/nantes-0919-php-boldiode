@@ -167,21 +167,22 @@ class RoomManager extends AbstractManager
             ' ORDER BY front_page DESC')->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    private function countFrontPages()
+    {
+        return $this->pdo->query('SELECT COUNT(id) AS nombreFront FROM ' . $this->table .
+            ' WHERE front_page = 1')->fetch();
+    }
+
     public function updateFrontPage(int $id, $state)
     {
-        $countFront = 0;
-        $allRooms = $this->selectAllOrderByFront();
-        foreach ($allRooms as $frontPage) {
-            if ($frontPage['front_page'] == 1) {
-                $countFront++;
-            }
-        }
+        $countFrontPages = $this->countFrontPages();
+        $countFrontPages = intval($countFrontPages['nombreFront']);
         if (isset($state) && !empty($state) && $state == 1) {
             $frontPage = null;
         } else {
             $frontPage = 1;
         }
-        if ($countFront >= 3 && $frontPage == 1) {
+        if ($countFrontPages >= 3 && $frontPage == 1) {
             header('Location:/admin/editList/?message=Vous ne pouvez pas mettre en avant plus de 3 chambres');
         } else {
             $query = "UPDATE " . self::TABLE .
