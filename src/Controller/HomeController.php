@@ -8,6 +8,9 @@
 
 namespace App\Controller;
 
+use App\Model\PriceManager;
+use App\Model\RoomManager;
+
 class HomeController extends AbstractController
 {
 
@@ -21,6 +24,13 @@ class HomeController extends AbstractController
      */
     public function index()
     {
-        return $this->twig->render('Home/index.html.twig');
+        $roomManager = new RoomManager();
+        $maxBed = $roomManager->maxBed();
+        $priceManager = new PriceManager();
+        $prices = $priceManager->selectAll();
+        return $this->twig->render('Home/index.html.twig', [
+            'maxBed' => $maxBed,
+            'prices' => $prices,
+        ]);
     }
 }
