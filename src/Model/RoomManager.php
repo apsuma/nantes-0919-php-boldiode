@@ -161,6 +161,17 @@ class RoomManager extends AbstractManager
         return $statement->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public function selectRoomFavorite(): array
+    {
+        $query = "SELECT
+            r.id roomId,
+            r.name roomName,
+            r.description
+            FROM " . self::TABLE . " r
+            WHERE r.front_page = 1";
+        return $this->pdo->query($query)->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
     public function selectAllOrderByFront(): array
     {
         return $this->pdo->query('SELECT * FROM ' . $this->table .
