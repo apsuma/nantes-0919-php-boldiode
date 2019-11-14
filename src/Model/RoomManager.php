@@ -88,7 +88,9 @@ class RoomManager extends AbstractManager
             JOIN price ON r.id_price = price.id
             JOIN view ON r.id_view = view.id
             JOIN theme ON r.id_theme = theme.id
-            WHERE r.nb_bed >= $nbBed";
+            LEFT JOIN reservation_search rs ON rs.id_room = r.id
+            WHERE r.nb_bed >= $nbBed
+            AND rs.id_room IS NULL";
         if ($idPrice != 0) {
             $query .= " AND price.id = $idPrice";
         }
@@ -161,9 +163,48 @@ class RoomManager extends AbstractManager
         return $statement->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function selectAllOrderByFront(): array
+    public function selectRoomFavorite(): array
     {
-        return $this->pdo->query('SELECT * FROM ' . $this->table .
-                ' ORDER BY front_page DESC')->fetchAll(\PDO::FETCH_ASSOC);
+        $query = "SELECT
+            r.id roomId,
+            r.name roomName,
+            r.description
+            FROM " . self::TABLE . " r
+            WHERE r.front_page = 1";
+        return $this->pdo->query($query)->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    private function countFrontPages()
+    {
+        return $this->pdo->query('SELECT COUNT(id) AS nombreFront FROM ' . $this->table .
+            ' WHERE front_page = 1')->fetch();
+    }
+
+    public function updateFrontPage(int $id, $state = null, $front = null)
+    {
+        if (isset($state) && !empty($state) && $state == 1) {
+            $frontPage = null;
+        } else {
+            $frontPage = 1;
+        }
+        if ($front == 'front') {
+            $front = 'front/';
+        } else {
+            $front = '';
+        }
+        $countFrontPages = $this->countFrontPages();
+        $countFrontPages = intval($countFrontPages['nombreFront']);
+        if ($countFrontPages >= 3 && $frontPage == 1) {
+            header('Location:/admin/editList/' . $front . '?message=Pas plus de 3 chambres en avant !');
+        } else {
+            $query = "UPDATE " . self::TABLE .
+                " SET front_page = :frontPage
+            WHERE id = :id";
+            $statement = $this->pdo->prepare($query);
+            $statement->bindValue("id", $id, \PDO::PARAM_INT);
+            $statement->bindValue("frontPage", $frontPage, \PDO::PARAM_STR);
+            $statement->execute();
+            header('Location:/admin/editList/' . $front . '?message=Mise en avant modifée');
+        }
     }
 }

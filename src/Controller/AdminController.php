@@ -6,10 +6,13 @@ use App\Model\AdminManager;
 use App\Model\FormCheck;
 use App\Model\PictureManager;
 use App\Model\PriceManager;
+use App\Model\ReservationManager;
 use App\Model\RoomManager;
 use App\Model\ThemeManager;
 use App\Model\ViewManager;
 use App\Service\ImageUploader;
+use DateInterval;
+use DateTime;
 
 class AdminController extends AbstractController
 {
@@ -63,12 +66,14 @@ class AdminController extends AbstractController
         header("location:/admin/login");
     }
 
-    public function editList(): string
+    public function editList($front = null): string
     {
         $this->checkAdmin();
-        $roomEdit = new RoomManager();
-        $roomList = $roomEdit->selectAllOrderByFront();
-        return $this->twig->render('Admin/editList.html.twig', ['roomList' => $roomList]);
+        $roomEdit = new AdminManager();
+        $roomList = $roomEdit->selectAllOrderByNameFront($front);
+        $front = $front == 'front' ? 'front' : '';
+        return $this->twig->render('Admin/editList.html.twig', ['roomList' => $roomList,
+            'front' => $front]);
     }
 
     public function edit(int $id): ?string
@@ -189,5 +194,62 @@ class AdminController extends AbstractController
         $pictureManager->deleteRoomId($id);
         $roomManager->delete($id);
         header("Location:/admin/editList/?message=une chambre a bien été supprimée");
+    }
+
+    public function editFrontPage(int $id, $state = null, $front = null)
+    {
+        $this->checkAdmin();
+        $roomManager = new RoomManager();
+        $roomManager->updateFrontPage($id, $state, $front);
+    }
+
+    public function planning(int $idRoom): string
+    {
+        $this->checkAdmin();
+        $reservationManager = new ReservationManager();
+
+        $customers = $reservationManager->selectRoom($idRoom);
+
+        $date = new DateTime();
+        $today = $date->format("Y-m-d");
+        $maxDate = $date->add(DateInterval::createFromDateString("1 year"))->format("Y-m-d");
+
+        return $this->twig->render("Admin/planning.html.twig", [
+            "customers" => $customers,
+            "today" => $today,
+            "maxDate" => $maxDate,
+            "idRoom" => $idRoom,
+            ]);
+    }
+
+    public function planningDelete(int $idRoom, string $date): ?string
+    {
+        $this->checkAdmin();
+        $reservationManager = new ReservationManager();
+        $reservationManager->deleteDate($idRoom, $date);
+        header("Location:/admin/planning/$idRoom");
+        return null;
+    }
+
+    public function planningAdd(int $idRoom)
+    {
+        $this->checkAdmin();
+
+        $dateStart = date_create_from_format("Y-m-d", $_POST['tripStart']);
+        $dateEnd = date_create_from_format("Y-m-d", $_POST['tripEnd']);
+        $dateDiff = date_diff($dateStart, $dateEnd);
+        $oneDay = new DateInterval("P1D");
+        $dates[1] = $dateStart->format("Y-m-d");
+        for ($i = $dateDiff->d; $i > 1; $i--) {
+            $dates[$i] = $dateStart->add($oneDay)->format("Y-m-d");
+        }
+
+        $reservationManager = new ReservationManager();
+        foreach ($dates as $date) {
+            $reservationManager->add($idRoom, $_POST['name'], $date);
+        }
+
+        header("Location:/admin/planning/$idRoom");
+        return null;
     }
 }
