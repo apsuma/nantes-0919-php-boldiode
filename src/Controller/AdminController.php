@@ -6,9 +6,13 @@ use App\Model\AdminManager;
 use App\Model\FormCheck;
 use App\Model\PictureManager;
 use App\Model\PriceManager;
+use App\Model\ReservationManager;
 use App\Model\RoomManager;
 use App\Model\ThemeManager;
 use App\Model\ViewManager;
+use App\Service\ImageUploader;
+use DateInterval;
+use DateTime;
 
 class AdminController extends AbstractController
 {
@@ -62,12 +66,14 @@ class AdminController extends AbstractController
         header("location:/admin/login");
     }
 
-    public function editList(): string
+    public function editList($front = null): string
     {
         $this->checkAdmin();
-        $roomEdit = new RoomManager();
-        $roomList = $roomEdit->selectAllOrderByFront();
-        return $this->twig->render('Admin/editList.html.twig', ['roomList' => $roomList]);
+        $roomEdit = new AdminManager();
+        $roomList = $roomEdit->selectAllOrderByNameFront($front);
+        $front = $front == 'front' ? 'front' : '';
+        return $this->twig->render('Admin/editList.html.twig', ['roomList' => $roomList,
+            'front' => $front]);
     }
 
     public function edit(int $id): ?string
@@ -83,6 +89,7 @@ class AdminController extends AbstractController
         $themes = $themeManager->selectAll();
         $pictureManager = new PictureManager();
         $pictures = $pictureManager->selectPicturesByRoom($id);
+        $imageUploader = new ImageUploader();
 
         $nameError = $descriptionError = $nbBedError = $surfaceError = null;
         $idPriceError = $idViewError = $idThemeError = null;
@@ -99,10 +106,11 @@ class AdminController extends AbstractController
 
             if ($formUpdateCheck->getValid()) {
                 $roomEdit->updateRoom($_POST);
-                $pictureManager->updatePicturesByRoom($_POST);
-                if (isset($_POST['image']) && !empty($_POST['image'])) {
-                    $picture = ['image' => $_POST['image'], 'description' => ""];
-                    $pictureManager->insert($picture, $_POST['id']);
+                $pictureCount = count($_FILES['image']['name']);
+                for ($i=0; $i < $pictureCount; $i++) {
+                    $fileTmpName = $_FILES['image']['tmp_name'][$i];
+                    $filename = $imageUploader->uploadImage($fileTmpName);
+                    $pictureManager->insert($_POST, $id, $filename);
                 }
                 header('Location:/admin/edit/' . $_POST['id'] . '/?message=la chambre a bien été modifiée');
                 return null;
@@ -134,6 +142,8 @@ class AdminController extends AbstractController
         $themeManager = new ThemeManager();
         $themes = $themeManager->selectAll();
         $pictureManager = new PictureManager();
+        $imageUploader = new ImageUploader();
+        $roomManager = new RoomManager();
 
         $nameError = $descriptionError = $nbBedError = $surfaceError = null;
         $idPriceError = $idViewError = $idThemeError = null;
@@ -149,9 +159,13 @@ class AdminController extends AbstractController
             $idThemeError = $formCheck->number('id_theme');
 
             if ($formCheck->getValid()) {
-                $roomManager = new RoomManager();
                 $id = $roomManager->insert($_POST);
-                $pictureManager->insert($_POST, $id);
+                $pictureCount = count($_FILES['image']['name']);
+                for ($i=0; $i < $pictureCount; $i++) {
+                    $fileTmpName = $_FILES['image']['tmp_name'][$i];
+                    $filename = $imageUploader->uploadImage($fileTmpName);
+                    $pictureManager->insert($_POST, $id, $filename);
+                }
                 header('Location:/admin/editList/?message=une chambre a bien été ajoutée');
                 return null;
             }
@@ -182,10 +196,60 @@ class AdminController extends AbstractController
         header("Location:/admin/editList/?message=une chambre a bien été supprimée");
     }
 
-    public function editFrontPage(int $id, $state = null)
+    public function editFrontPage(int $id, $state = null, $front = null)
     {
         $this->checkAdmin();
         $roomManager = new RoomManager();
-        $roomManager->updateFrontPage($id, $state);
+        $roomManager->updateFrontPage($id, $state, $front);
+    }
+
+    public function planning(int $idRoom): string
+    {
+        $this->checkAdmin();
+        $reservationManager = new ReservationManager();
+
+        $customers = $reservationManager->selectRoom($idRoom);
+
+        $date = new DateTime();
+        $today = $date->format("Y-m-d");
+        $maxDate = $date->add(DateInterval::createFromDateString("1 year"))->format("Y-m-d");
+
+        return $this->twig->render("Admin/planning.html.twig", [
+            "customers" => $customers,
+            "today" => $today,
+            "maxDate" => $maxDate,
+            "idRoom" => $idRoom,
+            ]);
+    }
+
+    public function planningDelete(int $idRoom, string $date): ?string
+    {
+        $this->checkAdmin();
+        $reservationManager = new ReservationManager();
+        $reservationManager->deleteDate($idRoom, $date);
+        header("Location:/admin/planning/$idRoom");
+        return null;
+    }
+
+    public function planningAdd(int $idRoom)
+    {
+        $this->checkAdmin();
+
+        $dateStart = date_create_from_format("Y-m-d", $_POST['tripStart']);
+        $dateEnd = date_create_from_format("Y-m-d", $_POST['tripEnd']);
+        $dateDiff = date_diff($dateStart, $dateEnd);
+        $oneDay = new DateInterval("P1D");
+        $dates[1] = $dateStart->format("Y-m-d");
+        for ($i = $dateDiff->d; $i > 1; $i--) {
+            $dates[$i] = $dateStart->add($oneDay)->format("Y-m-d");
+        }
+
+        $reservationManager = new ReservationManager();
+        foreach ($dates as $date) {
+            $reservationManager->add($idRoom, $_POST['name'], $date);
+        }
+
+        header("Location:/admin/planning/$idRoom");
+        return null;
     }
 }

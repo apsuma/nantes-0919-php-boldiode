@@ -12,14 +12,21 @@
         </div>
     {% endif %}
     <section>
+        <div class="row">
+            <div class="col-lg-6"><a href="/admin/editList">Nom</a></div>
+            <div class="col-lg-2"><a href="/admin/editList/front">Chambres en avant</a></div>
+        </div>
         {% for room in roomList %}
             <div class="card">
                 <div class="card-body row">
                     <a href="/admin/edit/{{ room.id }}" class="col-lg-6">{{ room.name }}</a><br>
+                    <a href="/admin/planning/{{ room.id }}" class="btn btn-dark col-lg-2">Planning réservation</a><br>
                     {% if room.front_page == 1 %}
-                        <a href="/admin/editFrontPage/{{ room.id }}/{{ room.front_page }}" class="btn btn-success col-lg-2">Mis en avant</a><br>
+                        <a href="/admin/editFrontPage/{{ room.id }}/{{ room.front_page }}/{{ front }}"
+                           class="btn btn-success col-lg-2">Mis en avant</a><br>
                     {% else %}
-                        <a href="/admin/editFrontPage/{{ room.id }}/{{ room.front_page }}" class="btn btn-secondary col-lg-2">Mettre en avant</a><br>
+                        <a href="/admin/editFrontPage/{{ room.id }}/{{ room.front_page }}/{{ front }}"
+                           class="btn btn-secondary col-lg-2">Mettre en avant</a><br>
                     {% endif %}
                     <a href="/admin/edit/{{ room.id }}" class="btn btn-primary col-lg-2">&Eacute;diter</a><br>
                     <button type="button" class="btn btn-danger col-lg-2" data-toggle="modal"

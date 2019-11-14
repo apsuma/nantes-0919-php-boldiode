@@ -11,6 +11,6 @@ class PriceController extends AbstractController
 {
     public function editListPrice(): string
     {
-        return $this->twig->render('Admin/editListPrice.html.twig');
+        return $this->twig->render('Price/editListPrice.html.twig');
     }
 }
