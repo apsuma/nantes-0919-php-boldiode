@@ -84,6 +84,7 @@ class AdminController extends AbstractController
         $themes = $themeManager->selectAll();
         $pictureManager = new PictureManager();
         $pictures = $pictureManager->selectPicturesByRoom($id);
+        $imageUploader = new ImageUploader();
 
         $nameError = $descriptionError = $nbBedError = $surfaceError = null;
         $idPriceError = $idViewError = $idThemeError = null;
@@ -103,14 +104,9 @@ class AdminController extends AbstractController
                 $pictureCount = count($_FILES['image']['name']);
                 for ($i=0; $i < $pictureCount; $i++) {
                     $fileTmpName = $_FILES['image']['tmp_name'][$i];
-                    $imageUploader = new ImageUploader();
                     $filename = $imageUploader->uploadImage($fileTmpName);
                     $pictureManager->insert($_POST, $id, $filename);
                 }
-
-
-
-
                 header('Location:/admin/edit/' . $_POST['id'] . '/?message=la chambre a bien été modifiée');
                 return null;
             }
@@ -140,6 +136,9 @@ class AdminController extends AbstractController
         $prices = $priceManager->selectAll();
         $themeManager = new ThemeManager();
         $themes = $themeManager->selectAll();
+        $pictureManager = new PictureManager();
+        $imageUploader = new ImageUploader();
+        $roomManager = new RoomManager();
 
         $nameError = $descriptionError = $nbBedError = $surfaceError = null;
         $idPriceError = $idViewError = $idThemeError = null;
@@ -155,12 +154,13 @@ class AdminController extends AbstractController
             $idThemeError = $formCheck->number('id_theme');
 
             if ($formCheck->getValid()) {
-                $roomManager = new RoomManager();
                 $id = $roomManager->insert($_POST);
-                $imageUploader = new ImageUploader();
-                $filename = $imageUploader->uploadImage($_FILES["image"]);
-                $pictureManager = new PictureManager();
-                $pictureManager->insert($_POST, $id, $filename);
+                $pictureCount = count($_FILES['image']['name']);
+                for ($i=0; $i < $pictureCount; $i++) {
+                    $fileTmpName = $_FILES['image']['tmp_name'][$i];
+                    $filename = $imageUploader->uploadImage($fileTmpName);
+                    $pictureManager->insert($_POST, $id, $filename);
+                }
                 header('Location:/admin/editList/?message=une chambre a bien été ajoutée');
                 return null;
             }
