@@ -1,0 +1,14 @@
+<form action="/admin/editPrice/{{ theme.id }}" method="post">
+    <input type="hidden" value="{{ theme.id }}" name="id">
+    <div class="form-group">
+        <label for="name">Thème :</label>
+        <input
+                type="text"
+                id="name"
+                class="form-control {{ (nameError is null) ? '':'is-invalid' }}"
+                value="{{ (nameError is not null) ? '' : theme.name|e }}"
+                name="name"
+        >
+        <br>
+        <input type="submit" class="btn btn-primary" value="Modifier theme">
+</form>
