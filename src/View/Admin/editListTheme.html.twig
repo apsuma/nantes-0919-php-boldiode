@@ -1,0 +1,21 @@
+{% extends 'layout.html.twig' %}
+
+{% block navigation %}
+    {% include 'Admin/_navigationAdmin.html.twig' %}
+{% endblock %}
+
+{% block content %}
+    <h1>Liste des thèmes à éditer</h1>
+
+    {% if get.message is defined %}
+        <div class="alert alert-primary" role="alert">
+            {{ get.message }}
+        </div>
+    {% endif %}
+
+    <section>
+        {% for theme in themes %}
+            <p>{{ theme.name }} </p>
+        {% endfor %}
+    </section>
+{% endblock %}

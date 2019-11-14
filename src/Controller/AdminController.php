@@ -196,4 +196,12 @@ class AdminController extends AbstractController
         $prices = $priceManager->selectAll();
         return $this->twig->render('Admin/editListPrice.html.twig', ['prices' => $prices]);
     }
+
+    public function editListTheme(): string
+    {
+        $this->checkAdmin();
+        $themeManager = new ThemeManager();
+        $themes = $themeManager->selectAll();
+        return $this->twig->render('Admin/editListTheme.html.twig', ['themes' => $themes]);
+    }
 }
