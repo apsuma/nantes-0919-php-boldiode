@@ -1,0 +1,21 @@
+{% extends 'layout.html.twig' %}
+
+{% block navigation %}
+    {% include 'Admin/_navigationAdmin.html.twig' %}
+{% endblock %}
+
+{% block content %}
+<h1>Liste des prix à éditer</h1>
+
+{% if get.message is defined %}
+    <div class="alert alert-primary" role="alert">
+        {{ get.message }}
+    </div>
+{% endif %}
+
+<section>
+{% for price in prices %}
+    <p>{{ price.name }} {{ price.price_summer }} {{ price.price_winter }}</p>
+{% endfor %}
+</section>
+{% endblock %}

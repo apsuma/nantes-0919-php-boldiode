@@ -188,4 +188,12 @@ class AdminController extends AbstractController
         $roomManager = new RoomManager();
         $roomManager->updateFrontPage($id, $state);
     }
+
+    public function editListPrice(): string
+    {
+        $this->checkAdmin();
+        $priceManager = new PriceManager();
+        $prices = $priceManager->selectAll();
+        return $this->twig->render('Admin/editListPrice.html.twig', ['prices' => $prices]);
+    }
 }
