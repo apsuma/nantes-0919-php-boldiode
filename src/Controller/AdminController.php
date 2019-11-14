@@ -62,12 +62,14 @@ class AdminController extends AbstractController
         header("location:/admin/login");
     }
 
-    public function editList(): string
+    public function editList($front = null): string
     {
         $this->checkAdmin();
-        $roomEdit = new RoomManager();
-        $roomList = $roomEdit->selectAllOrderByFront();
-        return $this->twig->render('Admin/editList.html.twig', ['roomList' => $roomList]);
+        $roomEdit = new AdminManager();
+        $roomList = $roomEdit->selectAllOrderByNameFront($front);
+        $front = $front == 'front' ? 'front' : '';
+        return $this->twig->render('Admin/editList.html.twig', ['roomList' => $roomList,
+            'front' => $front]);
     }
 
     public function edit(int $id): ?string
@@ -182,10 +184,10 @@ class AdminController extends AbstractController
         header("Location:/admin/editList/?message=une chambre a bien été supprimée");
     }
 
-    public function editFrontPage(int $id, $state = null)
+    public function editFrontPage(int $id, $state = null, $front = null)
     {
         $this->checkAdmin();
         $roomManager = new RoomManager();
-        $roomManager->updateFrontPage($id, $state);
+        $roomManager->updateFrontPage($id, $state, $front);
     }
 }
