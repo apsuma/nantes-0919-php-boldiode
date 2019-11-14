@@ -221,4 +221,12 @@ class AdminController extends AbstractController
         $theme = $themeManager->selectOneById($id);
         return $this->twig->render('Admin/editTheme.html.twig', ['theme' => $theme]);
     }
+    public function addTheme(): string
+    {
+        $this->checkAdmin();
+        $themeManager = new ThemeManager();
+        $themes = $themeManager->selectAll();
+        return $this->twig->render('Admin/addTheme.html.twig', ['themes' => $themes,
+        ]);
+    }
 }

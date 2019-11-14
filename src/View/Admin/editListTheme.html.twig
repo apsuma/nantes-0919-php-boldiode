@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Liste des thèmes à éditer</h1>
+    <h1>Liste des thèmes</h1>
 
     {% if get.message is defined %}
         <div class="alert alert-primary" role="alert">
@@ -24,4 +24,5 @@
             </div>
         {% endfor %}
     </section>
+    <a class="btn btn-success" href="/admin/addTheme">Ajouter un thème</a>
 {% endblock %}
