@@ -6,9 +6,12 @@ use App\Model\AdminManager;
 use App\Model\FormCheck;
 use App\Model\PictureManager;
 use App\Model\PriceManager;
+use App\Model\ReservationManager;
 use App\Model\RoomManager;
 use App\Model\ThemeManager;
 use App\Model\ViewManager;
+use DateInterval;
+use DateTime;
 
 class AdminController extends AbstractController
 {
@@ -189,5 +192,55 @@ class AdminController extends AbstractController
         $this->checkAdmin();
         $roomManager = new RoomManager();
         $roomManager->updateFrontPage($id, $state, $front);
+    }
+
+    public function planning(int $idRoom): string
+    {
+        $this->checkAdmin();
+        $reservationManager = new ReservationManager();
+
+        $customers = $reservationManager->selectRoom($idRoom);
+
+        $date = new DateTime();
+        $today = $date->format("Y-m-d");
+        $maxDate = $date->add(DateInterval::createFromDateString("1 year"))->format("Y-m-d");
+
+        return $this->twig->render("Admin/planning.html.twig", [
+            "customers" => $customers,
+            "today" => $today,
+            "maxDate" => $maxDate,
+            "idRoom" => $idRoom,
+            ]);
+    }
+
+    public function planningDelete(int $idRoom, string $date): ?string
+    {
+        $this->checkAdmin();
+        $reservationManager = new ReservationManager();
+        $reservationManager->deleteDate($idRoom, $date);
+        header("Location:/admin/planning/$idRoom");
+        return null;
+    }
+
+    public function planningAdd(int $idRoom)
+    {
+        $this->checkAdmin();
+
+        $dateStart = date_create_from_format("Y-m-d", $_POST['tripStart']);
+        $dateEnd = date_create_from_format("Y-m-d", $_POST['tripEnd']);
+        $dateDiff = date_diff($dateStart, $dateEnd);
+        $oneDay = new DateInterval("P1D");
+        $dates[1] = $dateStart->format("Y-m-d");
+        for ($i = $dateDiff->d; $i > 1; $i--) {
+            $dates[$i] = $dateStart->add($oneDay)->format("Y-m-d");
+        }
+
+        $reservationManager = new ReservationManager();
+        foreach ($dates as $date) {
+            $reservationManager->add($idRoom, $_POST['name'], $date);
+        }
+
+        header("Location:/admin/planning/$idRoom");
+        return null;
     }
 }

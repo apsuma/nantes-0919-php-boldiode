@@ -20,6 +20,7 @@
             <div class="card">
                 <div class="card-body row">
                     <a href="/admin/edit/{{ room.id }}" class="col-lg-6">{{ room.name }}</a><br>
+                    <a href="/admin/planning/{{ room.id }}" class="btn btn-dark col-lg-2">Planning réservation</a><br>
                     {% if room.front_page == 1 %}
                         <a href="/admin/editFrontPage/{{ room.id }}/{{ room.front_page }}/{{ front }}"
                            class="btn btn-success col-lg-2">Mis en avant</a><br>

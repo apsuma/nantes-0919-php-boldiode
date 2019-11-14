@@ -3,11 +3,14 @@
 namespace App\Controller;
 
 use App\Model\FormCheck;
+use App\Model\ReservationSearchManager;
 use App\Model\RoomManager;
 use App\Model\ViewManager;
 use App\Model\PriceManager;
 use App\Model\ThemeManager;
 use App\Model\PictureManager;
+use DateTime;
+use DateInterval;
 
 /**
  * Controller for the room interaction
@@ -15,24 +18,38 @@ use App\Model\PictureManager;
  */
 class RoomController extends AbstractController
 {
-    public function show($bed = 0, $priceId = 0): string
+    public function show($bed = 0, $priceId = 0, $tripStart = "", $tripEnd = ""): string
     {
         $priceManager = new PriceManager();
         $prices = $priceManager->selectAll();
+
+        $date = new DateTime();
+        $today = $date->format("Y-m-d");
+
+        if ($tripStart == "" || $tripEnd == "") {
+            $tripStart = $tripEnd = $today;
+        }
+        $maxDate = $date->add(DateInterval::createFromDateString("1 year"))->format("Y-m-d");
+
+        $reservationSManager = new ReservationSearchManager();
+        $reservationSManager->add($tripStart, $tripEnd);
 
         $roomManager = new RoomManager();
         $rooms = $roomManager->selectAllRooms($bed, $priceId);
         if (empty($rooms)) {
             $rooms = $roomManager->selectAllRooms();
         }
-        $rooms = $this->selectPicture($rooms);
 
+        $reservationSManager->clear();
+        $rooms = $this->selectPicture($rooms);
         $maxBed = $roomManager->maxBed();
         return $this->twig->render("Room/show.html.twig", [
             'rooms' => $rooms,
             'prices' => $prices,
             'post' => $_POST,
             'maxBed' => $maxBed,
+            'today' => $today,
+            'maxDate' =>$maxDate,
         ]);
     }
 
@@ -56,7 +73,11 @@ class RoomController extends AbstractController
                 'maxBed' => $maxBed,
             ]);
         } else {
-            header("location: /room/show/" . $_POST['bed'] . "/" . $_POST['priceId']);
+            header("location: /room/show/" .
+                $_POST['bed'] . "/" .
+                $_POST['priceId'] . "/" .
+                $_POST['tripStart'] . "/" .
+                $_POST['tripEnd']);
             return null;
         }
     }

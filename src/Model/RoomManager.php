@@ -88,7 +88,9 @@ class RoomManager extends AbstractManager
             JOIN price ON r.id_price = price.id
             JOIN view ON r.id_view = view.id
             JOIN theme ON r.id_theme = theme.id
-            WHERE r.nb_bed >= $nbBed";
+            LEFT JOIN reservation_search rs ON rs.id_room = r.id
+            WHERE r.nb_bed >= $nbBed
+            AND rs.id_room IS NULL";
         if ($idPrice != 0) {
             $query .= " AND price.id = $idPrice";
         }
