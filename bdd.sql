@@ -55,11 +55,13 @@ create table reservation
 (
     id      int auto_increment
         primary key,
-    id_room int         null,
-    date    varchar(11) not null,
+    id_room int          null,
+    date    varchar(11)  not null,
+    name    varchar(255) null,
     constraint reservation_room
         foreign key (id_room) references room (id)
 );
+
 
 create table reservation_search
 (
