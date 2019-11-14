@@ -6,6 +6,7 @@ use App\Model\AdminManager;
 use App\Model\FormCheck;
 use App\Model\PictureManager;
 use App\Model\PriceManager;
+use App\Model\ReservationManager;
 use App\Model\RoomManager;
 use App\Model\ThemeManager;
 use App\Model\ViewManager;
@@ -189,8 +190,20 @@ class AdminController extends AbstractController
         $roomManager->updateFrontPage($id, $state);
     }
 
-    public function planning(int $idRoom)
+    public function planning(int $idRoom): string
     {
-        return $this->twig->render("Admin/planning.html.twig", ["idRoom" => $idRoom]);
+        $this->checkAdmin();
+        $reservationManager = new ReservationManager();
+        $customers = $reservationManager->selectRoom($idRoom);
+        return $this->twig->render("Admin/planning.html.twig", ["customers" => $customers]);
+    }
+
+    public function planningDelete(int $idRoom, string $date): ?string
+    {
+        $this->checkAdmin();
+        $reservationManager = new ReservationManager();
+        $reservationManager->deleteDate($idRoom, $date);
+        header("Location:/admin/planning/$idRoom");
+        return null;
     }
 }

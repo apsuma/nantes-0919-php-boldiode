@@ -17,4 +17,16 @@ class ReservationManager extends AbstractManager
             WHERE date BETWEEN '$start' AND '$end'";
         return $this->pdo->query($query)->fetchAll(\PDO::FETCH_ASSOC);
     }
+
+    public function selectRoom(int $idRoom): array
+    {
+        $query = "SELECT * FROM " . self::TABLE . " WHERE id_room = $idRoom ORDER BY date";
+        return $this->pdo->query($query)->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function deleteDate(int $idRoom, string $date): void
+    {
+        $query = "DELETE FROM " . self::TABLE . " WHERE id_room = $idRoom AND date = '$date'";
+        $this->pdo->query($query);
+    }
 }
