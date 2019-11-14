@@ -5,12 +5,12 @@
 {% endblock %}
 
 {% block content %}
-<h1>Prix en cours d'édition</h1>
+<h1>Edition en cours pour {{ price.name }}</h1>
 {% if get.message is defined %}
     <div class="alert alert-primary" role="alert">
         {{ get.message }}
     </div>
 {% endif %}
-<section>
-</section>
+    {% include 'Admin/_editPriceForm.html.twig' %}
+
 {% endblock %}

@@ -202,6 +202,7 @@ class AdminController extends AbstractController
         $this->checkAdmin();
         $priceManager = new PriceManager();
         $price = $priceManager->selectOneById($id);
+
         return $this->twig->render('Admin/editPrice.html.twig', ['price' => $price]);
     }
 
