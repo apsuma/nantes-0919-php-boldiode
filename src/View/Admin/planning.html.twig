@@ -5,13 +5,12 @@
 {% endblock %}
 
 {% block content %}
-    <form method="post">
+    <form method="post" class="d-flex flex-row justify-content-around mt-2 mb-2">
         <div class="form-group">
             <label for="name">Nom client</label>
             <input
                     type="text"
                     id="name"
-                    class="col-2"
                     name="name"
             >
         </div>
@@ -27,7 +26,7 @@
                    value="{{ today }}"
                    min="{{ today }}" max="{{ maxDate }}">
         </div>
-        <button type="submit" class="btn align-self-center darkblue-bg">Ajouter réservation</button>
+        <button type="submit" class="btn btn-success">Ajouter réservation</button>
     </form>
     <table class="table">
         <thead>
