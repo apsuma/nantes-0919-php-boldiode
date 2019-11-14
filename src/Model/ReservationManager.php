@@ -29,4 +29,15 @@ class ReservationManager extends AbstractManager
         $query = "DELETE FROM " . self::TABLE . " WHERE id_room = $idRoom AND date = '$date'";
         $this->pdo->query($query);
     }
+
+    public function add(int $roomId, string $name, string $date): void
+    {
+        $query = "INSERT INTO " . self::TABLE . " (id_room, name, date) VALUES 
+            (:roomId, :name, :date)";
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue(':roomId', $roomId, \PDO::PARAM_INT);
+        $statement->bindValue(':name', $name, \PDO::PARAM_STR);
+        $statement->bindValue(':date', $date, \PDO::PARAM_STR);
+        $statement->execute();
+    }
 }

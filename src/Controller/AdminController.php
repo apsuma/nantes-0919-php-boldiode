@@ -196,6 +196,7 @@ class AdminController extends AbstractController
     {
         $this->checkAdmin();
         $reservationManager = new ReservationManager();
+
         $customers = $reservationManager->selectRoom($idRoom);
 
         $date = new DateTime();
@@ -206,6 +207,7 @@ class AdminController extends AbstractController
             "customers" => $customers,
             "today" => $today,
             "maxDate" => $maxDate,
+            "idRoom" => $idRoom,
             ]);
     }
 
@@ -214,6 +216,28 @@ class AdminController extends AbstractController
         $this->checkAdmin();
         $reservationManager = new ReservationManager();
         $reservationManager->deleteDate($idRoom, $date);
+        header("Location:/admin/planning/$idRoom");
+        return null;
+    }
+
+    public function planningAdd(int $idRoom)
+    {
+        $this->checkAdmin();
+
+        $dateStart = date_create_from_format("Y-m-d", $_POST['tripStart']);
+        $dateEnd = date_create_from_format("Y-m-d", $_POST['tripEnd']);
+        $dateDiff = date_diff($dateStart, $dateEnd);
+        $oneDay = new DateInterval("P1D");
+        $dates[1] = $dateStart->format("Y-m-d");
+        for ($i = $dateDiff->d; $i > 1; $i--) {
+            $dates[$i] = $dateStart->add($oneDay)->format("Y-m-d");
+        }
+
+        $reservationManager = new ReservationManager();
+        foreach ($dates as $date) {
+            $reservationManager->add($idRoom, $_POST['name'], $date);
+        }
+
         header("Location:/admin/planning/$idRoom");
         return null;
     }
