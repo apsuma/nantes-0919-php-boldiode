@@ -15,7 +15,13 @@
 
     <section>
         {% for theme in themes %}
-            <p>{{ theme.name }} </p>
+            <div class="card col-12 col-sm-4">
+                <div class="card-body">
+                    <h5 class="card-title"><a  class="col-lg-6">{{ theme.name }}</a></h5>
+                    <a href="/admin/editTheme/{{ theme.id }}" class="btn btn-primary col-lg-2">Editer</a>
+                    <a href="#" class="card-link">Another link</a>
+                </div>
+            </div>
         {% endfor %}
     </section>
 {% endblock %}
