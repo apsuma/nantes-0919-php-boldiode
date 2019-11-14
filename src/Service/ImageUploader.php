@@ -6,11 +6,13 @@ class ImageUploader
 {
     const PUBLIC_PATH = "/uploads/images/";
     const COMPLETE_PATH = __DIR__."/../../public".self::PUBLIC_PATH;
+    const ALLOWED_EXTENSION = ['jpg', 'jpeg', 'png', 'gif'];
 
-    public function uploadImage(array $file): string
+    public function uploadImage(string $file): string
     {
-        $filename = uniqid($file["name"], true) . '.jpg';
-        move_uploaded_file($file["tmp_name"], self::COMPLETE_PATH.$filename);
+        $rawFilename = uniqid('image') . '.jpg';
+        $filename = strtolower(str_replace(' ', '', $rawFilename));
+        move_uploaded_file($file, self::COMPLETE_PATH.$filename);
         return $filename;
     }
 }
