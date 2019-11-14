@@ -1,8 +1,8 @@
-<form action="/admin/edit/{{ room.roomId }}" method="post">
+<form action="/admin/edit/{{ room.roomId }}" method="post" enctype="multipart/form-data">
     <input type="hidden" value="{{ room.roomId }}" name="id">
     {% for picture in pictures %}
         <div class="form-group">
-            <img src="{{ picture.image }}" width="300px" alt="">
+            <img src="{{ constant('App\\Service\\ImageUploader::PUBLIC_PATH')~"/"~picture.image }}" width="300px" alt="">
             {% if pictures|length > 1 %}
                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deletePictureConfirmation-{{ picture.id }}">
                     X
@@ -27,23 +27,31 @@
                     </div>
                 </div>
             {% endif %}
-            <input
-                    type="url"
-                    id="picture"
-                    class="form-control"
-                    value="{{ picture.image }}"
-                    name="image-{{ picture.id }}"
-            >
+            <div class="custom-file">
+                <input
+                        type="file"
+                        id="image"
+                        class="custom-file-input"
+                        name="image"
+                        value="{{ picture.image }}"
+                        multiple="multiple"
+                        required
+                >
+                <label class="custom-file-label" for="image">Image chambre : {{ picture.image }}</label>
+            </div>
         </div>
     {% endfor %}
-    <div class="form-group">
-        <label for="picture">Image chambre</label>
+    <div class="custom-file">
         <input
-                type="url"
-                id="picture"
-                class="form-control"
+                type="file"
+                id="image"
+                class="custom-file-input"
                 name="image"
+                multiple="multiple"
+                value="{{ picture.image }}"
+                required
         >
+        <label class="custom-file-label" for="image">Image chambre : {{ picture.image }}</label>
     </div>
     <div class="form-group">
         <label for="name">Nom chambre</label>

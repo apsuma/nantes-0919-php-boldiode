@@ -101,10 +101,10 @@ class AdminController extends AbstractController
             if ($formUpdateCheck->getValid()) {
                 $roomEdit->updateRoom($_POST);
                 $pictureManager->updatePicturesByRoom($_POST);
-                if (isset($_POST['image']) && !empty($_POST['image'])) {
-                    $picture = ['image' => $_POST['image'], 'description' => ""];
-                    $pictureManager->insert($picture, $_POST['id']);
-                }
+                $imageUploader = new ImageUploader();
+                $filename = $imageUploader->uploadImage($_FILES['image']);
+                $pictureManager->insert($_POST, $id, $filename);
+
                 header('Location:/admin/edit/' . $_POST['id'] . '/?message=la chambre a bien été modifiée');
                 return null;
             }
