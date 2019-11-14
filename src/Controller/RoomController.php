@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Model\FormCheck;
+use App\Model\ReservationSearchManager;
 use App\Model\RoomManager;
 use App\Model\ViewManager;
 use App\Model\PriceManager;
@@ -26,18 +27,21 @@ class RoomController extends AbstractController
         $today = $date->format("Y-m-d");
 
         if ($tripStart == "" || $tripEnd == "") {
-            $tripStart = $tripEnd =$today;
+            $tripStart = $tripEnd = $today;
         }
-
         $maxDate = $date->add(DateInterval::createFromDateString("1 year"))->format("Y-m-d");
+
+        $reservationSManager = new ReservationSearchManager();
+        $reservationSManager->add($tripStart, $tripEnd);
 
         $roomManager = new RoomManager();
         $rooms = $roomManager->selectAllRooms($bed, $priceId);
         if (empty($rooms)) {
             $rooms = $roomManager->selectAllRooms();
         }
-        $rooms = $this->selectPicture($rooms);
 
+        $reservationSManager->clear();
+        $rooms = $this->selectPicture($rooms);
         $maxBed = $roomManager->maxBed();
         return $this->twig->render("Room/show.html.twig", [
             'rooms' => $rooms,
