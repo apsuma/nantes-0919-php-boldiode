@@ -10,6 +10,7 @@ use App\Model\ReservationManager;
 use App\Model\RoomManager;
 use App\Model\ThemeManager;
 use App\Model\ViewManager;
+use App\Service\ImageUploader;
 use DateInterval;
 use DateTime;
 
@@ -88,6 +89,7 @@ class AdminController extends AbstractController
         $themes = $themeManager->selectAll();
         $pictureManager = new PictureManager();
         $pictures = $pictureManager->selectPicturesByRoom($id);
+        $imageUploader = new ImageUploader();
 
         $nameError = $descriptionError = $nbBedError = $surfaceError = null;
         $idPriceError = $idViewError = $idThemeError = null;
@@ -104,10 +106,11 @@ class AdminController extends AbstractController
 
             if ($formUpdateCheck->getValid()) {
                 $roomEdit->updateRoom($_POST);
-                $pictureManager->updatePicturesByRoom($_POST);
-                if (isset($_POST['image']) && !empty($_POST['image'])) {
-                    $picture = ['image' => $_POST['image'], 'description' => ""];
-                    $pictureManager->insert($picture, $_POST['id']);
+                $pictureCount = count($_FILES['image']['name']);
+                for ($i=0; $i < $pictureCount; $i++) {
+                    $fileTmpName = $_FILES['image']['tmp_name'][$i];
+                    $filename = $imageUploader->uploadImage($fileTmpName);
+                    $pictureManager->insert($_POST, $id, $filename);
                 }
                 header('Location:/admin/edit/' . $_POST['id'] . '/?message=la chambre a bien été modifiée');
                 return null;
@@ -139,6 +142,8 @@ class AdminController extends AbstractController
         $themeManager = new ThemeManager();
         $themes = $themeManager->selectAll();
         $pictureManager = new PictureManager();
+        $imageUploader = new ImageUploader();
+        $roomManager = new RoomManager();
 
         $nameError = $descriptionError = $nbBedError = $surfaceError = null;
         $idPriceError = $idViewError = $idThemeError = null;
@@ -154,9 +159,13 @@ class AdminController extends AbstractController
             $idThemeError = $formCheck->number('id_theme');
 
             if ($formCheck->getValid()) {
-                $roomManager = new RoomManager();
                 $id = $roomManager->insert($_POST);
-                $pictureManager->insert($_POST, $id);
+                $pictureCount = count($_FILES['image']['name']);
+                for ($i=0; $i < $pictureCount; $i++) {
+                    $fileTmpName = $_FILES['image']['tmp_name'][$i];
+                    $filename = $imageUploader->uploadImage($fileTmpName);
+                    $pictureManager->insert($_POST, $id, $filename);
+                }
                 header('Location:/admin/editList/?message=une chambre a bien été ajoutée');
                 return null;
             }
