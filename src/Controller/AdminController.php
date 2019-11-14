@@ -188,4 +188,9 @@ class AdminController extends AbstractController
         $roomManager = new RoomManager();
         $roomManager->updateFrontPage($id, $state);
     }
+
+    public function planning(int $idRoom)
+    {
+        return $idRoom;
+    }
 }
