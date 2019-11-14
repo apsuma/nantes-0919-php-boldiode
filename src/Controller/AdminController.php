@@ -10,6 +10,8 @@ use App\Model\ReservationManager;
 use App\Model\RoomManager;
 use App\Model\ThemeManager;
 use App\Model\ViewManager;
+use DateInterval;
+use DateTime;
 
 class AdminController extends AbstractController
 {
@@ -195,7 +197,16 @@ class AdminController extends AbstractController
         $this->checkAdmin();
         $reservationManager = new ReservationManager();
         $customers = $reservationManager->selectRoom($idRoom);
-        return $this->twig->render("Admin/planning.html.twig", ["customers" => $customers]);
+
+        $date = new DateTime();
+        $today = $date->format("Y-m-d");
+        $maxDate = $date->add(DateInterval::createFromDateString("1 year"))->format("Y-m-d");
+
+        return $this->twig->render("Admin/planning.html.twig", [
+            "customers" => $customers,
+            "today" => $today,
+            "maxDate" => $maxDate,
+            ]);
     }
 
     public function planningDelete(int $idRoom, string $date): ?string
