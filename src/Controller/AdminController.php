@@ -191,6 +191,6 @@ class AdminController extends AbstractController
 
     public function planning(int $idRoom)
     {
-        return $idRoom;
+        return $this->twig->render("Admin/planning.html.twig", ["idRoom" => $idRoom]);
     }
 }
