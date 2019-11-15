@@ -200,14 +200,19 @@ class AdminController extends AbstractController
     public function editPrice(int $id): ?string
     {
         $this->checkAdmin();
-        $priceManager = new PriceManager();
-        $price = $priceManager->selectOneById($id);
+        $priceEdit = new PriceManager();
+        $price = $priceEdit->selectOneById($id);
         $priceNameError = $priceSummerError = $priceWinterError = null;
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $formCheck = new FormCheck($_POST);
-            $priceNameError = $formCheck->shortText('name');
-            $priceSummerError = $formCheck->number('price_summer');
-            $priceWinterError = $formCheck->number('price_winter');
+            $formEditCheck = new FormCheck($_POST);
+            $priceNameError = $formEditCheck->shortText('name');
+            $priceSummerError = $formEditCheck->number('price_summer');
+            $priceWinterError = $formEditCheck->number('price_winter');
+            if ($formEditCheck->getValid()) {
+                $priceEdit->UpdatePrice($_POST);
+                header('Location:/admin/editPrice/' . $_POST['id'] . '/?message=la catégorie prix a bien été modifiée');
+                return null;
+            }
         }
         return $this->twig->render('Admin/editPrice.html.twig', [
             'price' => $price,
@@ -228,12 +233,17 @@ class AdminController extends AbstractController
     public function editTheme(int $id): ?string
     {
         $this->checkAdmin();
-        $themeManager = new ThemeManager();
-        $theme = $themeManager->selectOneById($id);
+        $themeEdit = new ThemeManager();
+        $theme = $themeEdit->selectOneById($id);
         $themeNameError = null;
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $formCheck = new FormCheck($_POST);
-            $themeNameError = $formCheck->shortText('name');
+            $formEditCheck = new FormCheck($_POST);
+            $themeNameError = $formEditCheck->shortText('name');
+            if ($formEditCheck->getValid()) {
+                $themeEdit->UpdateTheme($_POST);
+                header('Location:/admin/editTheme/' . $_POST['id'] . '/?message=la catégorie prix a bien été modifiée');
+                return null;
+            }
         }
         return $this->twig->render('Admin/editTheme.html.twig', [
             'theme' => $theme,

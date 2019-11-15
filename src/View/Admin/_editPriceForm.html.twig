@@ -14,7 +14,7 @@
                 type="number"
                 id="price_winter"
                 class="form-control {{ (price_winterError is null) ? '':'is-invalid' }}"
-                value="{{ (price_winterError is not null) ? '' : price.price_winter|e }}"
+                value="{{ (priceWinterError is not null) ? '' : price.price_winter|e }}"
                 name="price_winter"
         >
         <label for="name">Prix été : </label>
@@ -22,7 +22,7 @@
                 type="number"
                 id="price_summer"
                 class="form-control {{ (price_summerError is null) ? '':'is-invalid' }}"
-                value="{{ (price_summerError is not null) ? '' : price.price_summer|e }}"
+                value="{{ (priceSummerError is not null) ? '' : price.price_summer|e }}"
                 name="price_summer"
         >
         <br>

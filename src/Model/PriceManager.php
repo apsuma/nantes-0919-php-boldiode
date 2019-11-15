@@ -31,4 +31,19 @@ class PriceManager extends AbstractManager
             return (int)$this->pdo->lastInsertId();
         }
     }
+
+    public function updatePrice(array $price): bool
+    {
+        $query = "UPDATE " . self::TABLE .
+            " SET name = :name,
+            price_winter = :price_winter,
+            price_summer = :price_summer
+            WHERE id=:id";
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue('id', $price['id'], \PDO::PARAM_INT);
+        $statement->bindValue('name', $price['name'], \PDO::PARAM_STR);
+        $statement->bindValue('price_summer', $price['price_summer'], \PDO::PARAM_INT);
+        $statement->bindValue('price_winter', $price['price_winter'], \PDO::PARAM_INT);
+        return $statement->execute();
+    }
 }
