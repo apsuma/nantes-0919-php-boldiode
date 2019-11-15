@@ -99,16 +99,12 @@ class RoomManager extends AbstractManager
 
     public function updateRoom(array $room): bool
     {
-        if (!isset($room['front_page'])) {
-            $room['front_page'] = null;
-        }
         // prepared request
         $query = "UPDATE " . self::TABLE .
             " SET name = :name,
             description = :description,
             surface = :surface,
             nb_bed = :nbBed,
-            front_page = :frontPage,
             id_price = :priceId,
             id_view = :viewId,
             id_theme = :themeId 
@@ -119,7 +115,6 @@ class RoomManager extends AbstractManager
         $statement->bindValue('description', $room['description'], \PDO::PARAM_STR);
         $statement->bindValue('surface', $room['surface'], \PDO::PARAM_INT);
         $statement->bindValue('nbBed', $room['nb_bed'], \PDO::PARAM_INT);
-        $statement->bindValue('frontPage', $room['front_page'], \PDO::PARAM_INT);
         $statement->bindValue('priceId', $room['id_price'], \PDO::PARAM_INT);
         $statement->bindValue('viewId', $room['id_view'], \PDO::PARAM_INT);
         $statement->bindValue('themeId', $room['id_theme'], \PDO::PARAM_INT);
