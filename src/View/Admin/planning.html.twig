@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block content %}
+    <h2>Planning de la chambre: {{ name }}</h2>
     {% if get.message is defined %}
         <div class="alert alert-primary" role="alert">
             {{ get.message }}
@@ -33,6 +34,9 @@
         </div>
         <button type="submit" class="btn btn-success">Ajouter réservation</button>
     </form>
+
+    <a type="button" class="btn btn-secondary" href="/Admin/editList/">Back</a>
+
     <table class="table">
         <thead>
         <tr>
