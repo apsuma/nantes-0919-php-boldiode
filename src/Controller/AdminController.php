@@ -265,7 +265,7 @@ class AdminController extends AbstractController
             $reservationManager->add($idRoom, $_POST['name'], $date);
         }
 
-        header("Location:/admin/planning/$idRoom");
+        header("Location:/admin/planning/$idRoom/?message=La réservation a bien été ajoutée");
         return null;
     }
 }
