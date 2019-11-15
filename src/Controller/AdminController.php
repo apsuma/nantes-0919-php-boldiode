@@ -207,6 +207,8 @@ class AdminController extends AbstractController
     {
         $this->checkAdmin();
         $reservationManager = new ReservationManager();
+        $roomManager = new RoomManager();
+        $room = $roomManager->selectOneById($idRoom);
 
         $customers = $reservationManager->selectRoom($idRoom);
 
@@ -221,6 +223,7 @@ class AdminController extends AbstractController
             "maxDate" => $maxDate,
             "tomorrow" => $tomorrow,
             "idRoom" => $idRoom,
+            "name" => $room['name'],
             ]);
     }
 
