@@ -238,34 +238,42 @@ class AdminController extends AbstractController
         $this->checkAdmin();
         $reservationManager = new ReservationManager();
 
-        //vérifie que la chambre n'est pas déjà réservée à cette date
-        $roomReserved = ($reservationManager->selectRoomBetween($_POST['tripStart'], $_POST['tripEnd']));
-        foreach ($roomReserved as $room) {
-            if ($room['id_room'] == $idRoom) {
-                header("Location:/admin/planning/$idRoom/?message=une reservation existe déjà à cette date");
-                return null;
+        //checking if the POST[name] is valid
+        $formCheck = new FormCheck($_POST);
+        $nameError = $formCheck->shortText('name');
+
+        if ($formCheck->getValid()) {
+            //vérifie que la chambre n'est pas déjà réservée à cette date
+            $roomReserved = ($reservationManager->selectRoomBetween($_POST['tripStart'], $_POST['tripEnd']));
+            foreach ($roomReserved as $room) {
+                if ($room['id_room'] == $idRoom) {
+                    header("Location:/admin/planning/$idRoom/?message=une reservation existe déjà à cette date");
+                    return null;
+                }
             }
+
+            //convert the strings from the post into DateTime object in order to have all the dates in between them
+            $dateStart = date_create_from_format("Y-m-d", $_POST['tripStart']);
+            $dateEnd = date_create_from_format("Y-m-d", $_POST['tripEnd']);
+            $dateDiff = date_diff($dateStart, $dateEnd);
+            $oneDay = new DateInterval("P1D");
+            $dates[1] = $dateStart->format("Y-m-d");
+
+            //generate all the dates in between the reservation into an array
+            for ($i = $dateDiff->d; $i > 1; $i--) {
+                $dates[$i] = $dateStart->add($oneDay)->format("Y-m-d");
+            }
+
+            //add all the dates from the previous array into the database
+
+            foreach ($dates as $date) {
+                $reservationManager->add($idRoom, $_POST['name'], $date);
+            }
+
+            header("Location:/admin/planning/$idRoom/?message=La réservation a bien été ajoutée");
+            return null;
         }
-
-        //convert the strings from the post into DateTime object in order to have all the dates in between them
-        $dateStart = date_create_from_format("Y-m-d", $_POST['tripStart']);
-        $dateEnd = date_create_from_format("Y-m-d", $_POST['tripEnd']);
-        $dateDiff = date_diff($dateStart, $dateEnd);
-        $oneDay = new DateInterval("P1D");
-        $dates[1] = $dateStart->format("Y-m-d");
-
-        //generate all the dates in between the reservation into an array
-        for ($i = $dateDiff->d; $i > 1; $i--) {
-            $dates[$i] = $dateStart->add($oneDay)->format("Y-m-d");
-        }
-
-        //add all the dates from the previous array into the database
-
-        foreach ($dates as $date) {
-            $reservationManager->add($idRoom, $_POST['name'], $date);
-        }
-
-        header("Location:/admin/planning/$idRoom/?message=La réservation a bien été ajoutée");
+        header("Location:/admin/planning/$idRoom/?message=$nameError");
         return null;
     }
 }
