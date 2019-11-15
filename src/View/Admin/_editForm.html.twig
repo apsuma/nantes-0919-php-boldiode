@@ -125,15 +125,6 @@
             {% endfor %}
         </select>
     </div>
-    <div class="form-check">
-        <input type="checkbox" id="front_page" name="front_page" class="form-check-input" value=1
-               {% if room.frontPage == 1 %}checked{% endif %}>
-        <label class="form-check-label" for="front_page">
-            Chambre du moment
-        </label>
-        <div class="invalid-feedback">Entrez un theme</div>
-    </div>
-    <br>
     <input type="submit" class="btn btn-primary" value="Modifier chambre">
 </form>
 
