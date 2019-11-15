@@ -68,11 +68,18 @@ class RoomController extends AbstractController
             $maxBed = $roomManager->maxBed();
             $priceManager = new PriceManager();
             $prices = $priceManager->selectAll();
+            $date = new DateTime();
+            $today = $date->format("Y-m-d");
+            $tomorrow = $date->add(DateInterval::createFromDateString("1 day"))->format("Y-m-d");
+            $maxDate = $date->add(DateInterval::createFromDateString("1 year"))->format("Y-m-d");
             return $this->twig->render("Room/show.html.twig", [
                 'rooms' => $rooms,
                 'prices' => $prices,
                 'post' => $_POST,
                 'maxBed' => $maxBed,
+                'today' => $today,
+                'maxDate' =>$maxDate,
+                'tomorrow' => $tomorrow,
             ]);
         } else {
             header("location: /room/show/" .
