@@ -233,7 +233,7 @@ class AdminController extends AbstractController
         return null;
     }
 
-    public function planningAdd(int $idRoom)
+    public function planningAdd(int $idRoom): ?string
     {
         $this->checkAdmin();
 
