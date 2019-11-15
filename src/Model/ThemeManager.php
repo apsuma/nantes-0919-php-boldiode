@@ -16,4 +16,17 @@ class ThemeManager extends AbstractManager
     {
         parent::__construct(self::TABLE);
     }
+
+    public function insert(array $theme): int
+    {
+        // prepared request
+        $statement = $this->pdo->prepare("INSERT INTO " . self::TABLE .
+            "(name) 
+            VALUES (:name)");
+        $statement->bindValue('name', $theme['name'], \PDO::PARAM_STR);
+
+        if ($statement->execute()) {
+            return (int)$this->pdo->lastInsertId();
+        }
+    }
 }

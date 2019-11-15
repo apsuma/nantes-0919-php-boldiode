@@ -1,4 +1,4 @@
-<form action="/admin/editPrice/{{ theme.id }}" method="post">
+<form method="post">
     <input type="hidden" value="{{ theme.id }}" name="id">
     <div class="form-group">
         <label for="name">Thème :</label>
@@ -6,11 +6,12 @@
                 type="text"
                 id="name"
                 class="form-control {{ (themeNameError is null) ? '':'is-invalid' }}"
-                value="{{ (themeNameError is not null) ? '' : theme.name|e }}"
+                value="{{ (themeNameError is not null) ? '' : post.name|e }}"
                 name="name"
+                required
         >
     </div>
     <br>
     <input type="submit" class="btn btn-primary" value="Valider">
-    <a type="button" class="btn btn-secondary" href="/Admin/editListTheme/">Back<a/>
 </form>
+<a type="button" class="btn btn-secondary" href="/admin/editListTheme/">Back<a/>

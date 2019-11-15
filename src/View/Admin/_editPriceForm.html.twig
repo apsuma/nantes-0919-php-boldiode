@@ -1,26 +1,28 @@
 <form action="/admin/editPrice/{{ price.id }}" method="post">
     <input type="hidden" value="{{ price.id }}" name="id">
     <div class="form-group">
-        <label for="name">Catégorie du prix</label>
+        <label for="name">Nom de la catégorie du prix :</label>
         <input
                 type="text"
                 id="name"
-                class="form-control {{ (nameError is null) ? '':'is-invalid' }}"
-                value="{{ (nameError is not null) ? '' : price.name|e }}"
+                class="form-control {{ (priceNameError is null) ? '':'is-invalid' }}"
+                value="{{ (priceNameError is not null) ? '' : price.name|e }}"
                 name="name"
         >
+        <label for="name">Prix hiver : </label>
         <input
                 type="number"
                 id="price_winter"
-                class="form-control {{ (nameError is null) ? '':'is-invalid' }}"
-                value="{{ (nameError is not null) ? '' : price.price_winter|e }}"
+                class="form-control {{ (price_winterError is null) ? '':'is-invalid' }}"
+                value="{{ (price_winterError is not null) ? '' : price.price_winter|e }}"
                 name="price_winter"
         >
+        <label for="name">Prix été : </label>
         <input
                 type="number"
                 id="price_summer"
-                class="form-control {{ (nameError is null) ? '':'is-invalid' }}"
-                value="{{ (nameError is not null) ? '' : price.price_summer|e }}"
+                class="form-control {{ (price_summerError is null) ? '':'is-invalid' }}"
+                value="{{ (price_summerError is not null) ? '' : price.price_summer|e }}"
                 name="price_summer"
         >
         <br>

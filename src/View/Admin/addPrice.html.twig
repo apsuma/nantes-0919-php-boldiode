@@ -5,12 +5,12 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Ajouter un prix : </h1>
+    <h1>Ajouter une catégorie de prix : </h1>
     {% if get.message is defined %}
         <div class="alert alert-primary" role="alert">
             {{ get.message }}
         </div>
     {% endif %}
-    {% include 'Admin/_editPriceForm.html.twig' %}
+    {% include 'Admin/_addPriceForm.html.twig' %}
 
 {% endblock %}

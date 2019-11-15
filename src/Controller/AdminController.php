@@ -179,7 +179,7 @@ class AdminController extends AbstractController
         $pictureManager = new PictureManager();
         $pictureManager->deleteRoomId($id);
         $roomManager->delete($id);
-        header("Location:/admin/editList/?message=une chambre a bien été supprimée");
+        header("Location:/Admin/editList/?message=une chambre a bien été supprimée");
     }
 
     public function editFrontPage(int $id, $state = null)
@@ -202,8 +202,19 @@ class AdminController extends AbstractController
         $this->checkAdmin();
         $priceManager = new PriceManager();
         $price = $priceManager->selectOneById($id);
-
-        return $this->twig->render('Admin/editPrice.html.twig', ['price' => $price]);
+        $priceNameError = $priceSummerError = $priceWinterError = null;
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $formCheck = new FormCheck($_POST);
+            $priceNameError = $formCheck->shortText('name');
+            $priceSummerError = $formCheck->number('price_summer');
+            $priceWinterError = $formCheck->number('price_winter');
+        }
+        return $this->twig->render('Admin/editPrice.html.twig', [
+            'price' => $price,
+            'priceWinterError' => $priceWinterError,
+            'priceSummerError' => $priceSummerError,
+            'priceNameError' => $priceNameError,
+        ]);
     }
 
     public function editListTheme(): ?string
@@ -214,29 +225,69 @@ class AdminController extends AbstractController
         return $this->twig->render('Admin/editListTheme.html.twig', ['themes' => $themes]);
     }
 
-    public function editTheme(int $id): string
+    public function editTheme(int $id): ?string
     {
         $this->checkAdmin();
         $themeManager = new ThemeManager();
         $theme = $themeManager->selectOneById($id);
-        return $this->twig->render('Admin/editTheme.html.twig', ['theme' => $theme]);
+        $themeNameError = null;
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $formCheck = new FormCheck($_POST);
+            $themeNameError = $formCheck->shortText('name');
+        }
+        return $this->twig->render('Admin/editTheme.html.twig', [
+            'theme' => $theme,
+            'themeNameError' => $themeNameError,
+        ]);
     }
 
-    public function addTheme(): string
+    public function addTheme(): ?string
     {
         $this->checkAdmin();
         $themeManager = new ThemeManager();
         $theme = $themeManager->selectAll();
-        return $this->twig->render('Admin/addTheme.html.twig', ['theme' => $theme,
-        ]);
+        $themeNameError = null;
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $formCheck = new FormCheck($_POST);
+            $themeNameError = $formCheck->shortText('name');
+            if ($formCheck->getValid()) {
+                $themeManager = new ThemeManager();
+                $themeManager->insert($_POST);
+                header('Location:/Admin/editListTheme/?message=un nouveau thème a bien été ajouté');
+                return null;
+            }
+        }
+            return $this->twig->render('Admin/addTheme.html.twig', [
+                'theme' => $theme,
+                'themeNameError' => $themeNameError,
+                'post' => $_POST,
+            ]);
     }
 
-    public function addPrice(): string
+    public function addPrice(): ?string
     {
         $this->checkAdmin();
         $priceManager = new PriceManager();
         $price = $priceManager->selectAll();
-        return $this->twig->render('Admin/addPrice.html.twig', ['price' => $price,
+        $priceNameError = $priceSummerError = $priceWinterError = null;
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $formCheck = new FormCheck($_POST);
+            $priceNameError = $formCheck->shortText('name');
+            $priceSummerError = $formCheck->number('priceSummer');
+            $priceWinterError = $formCheck->number('priceWinter');
+            if ($formCheck->getValid()) {
+                $priceManager = new PriceManager();
+                $priceManager->insert($_POST);
+                header('Location:/Admin/editListPrice/?message=une nouvelle catégorie de prix a bien été créée');
+                return null;
+            }
+        }
+        return $this->twig->render('Admin/addPrice.html.twig', [
+            'price' => $price,
+            'priceWinterError' => $priceWinterError,
+            'priceSummerError' => $priceSummerError,
+            'priceNameError' => $priceNameError,
+            'post' => $_POST,
         ]);
     }
 }
