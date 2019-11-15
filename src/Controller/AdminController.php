@@ -236,6 +236,17 @@ class AdminController extends AbstractController
     public function planningAdd(int $idRoom): ?string
     {
         $this->checkAdmin();
+        $reservationManager = new ReservationManager();
+
+        //vérifie que la chambre n'est pas déjà réservée à cette date
+        $roomReserved = ($reservationManager->selectRoomBetween($_POST['tripStart'], $_POST['tripEnd']));
+        foreach ($roomReserved as $room) {
+            if ($room['id_room'] == $idRoom) {
+                header("Location:/admin/planning/$idRoom/?message=une reservation existe déjà à cette date");
+                return null;
+            }
+        }
+
         //convert the strings from the post into DateTime object in order to have all the dates in between them
         $dateStart = date_create_from_format("Y-m-d", $_POST['tripStart']);
         $dateEnd = date_create_from_format("Y-m-d", $_POST['tripEnd']);
@@ -249,7 +260,7 @@ class AdminController extends AbstractController
         }
 
         //add all the dates from the previous array into the database
-        $reservationManager = new ReservationManager();
+
         foreach ($dates as $date) {
             $reservationManager->add($idRoom, $_POST['name'], $date);
         }
