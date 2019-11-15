@@ -243,7 +243,7 @@ class AdminController extends AbstractController
         $nameError = $formCheck->shortText('name');
 
         if ($formCheck->getValid()) {
-            //vérifie que la chambre n'est pas déjà réservée à cette date
+            //check if the room is avaible during the time period
             $roomReserved = ($reservationManager->selectRoomBetween($_POST['tripStart'], $_POST['tripEnd']));
             foreach ($roomReserved as $room) {
                 if ($room['id_room'] == $idRoom) {
@@ -255,6 +255,12 @@ class AdminController extends AbstractController
             //convert the strings from the post into DateTime object in order to have all the dates in between them
             $dateStart = date_create_from_format("Y-m-d", $_POST['tripStart']);
             $dateEnd = date_create_from_format("Y-m-d", $_POST['tripEnd']);
+
+            //check if the date of departure is after the date of arrival
+            if ($dateStart > $dateEnd) {
+                header("Location:/admin/planning/$idRoom/?message=Erreur: date départ avant date arrivée");
+                return null;
+            }
             $dateDiff = date_diff($dateStart, $dateEnd);
             $oneDay = new DateInterval("P1D");
             $dates[1] = $dateStart->format("Y-m-d");
