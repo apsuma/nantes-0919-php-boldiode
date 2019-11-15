@@ -29,6 +29,7 @@ class RoomController extends AbstractController
         if ($tripStart == "" || $tripEnd == "") {
             $tripStart = $tripEnd = $today;
         }
+        $tomorrow = $date->add(DateInterval::createFromDateString("1 day"))->format("Y-m-d");
         $maxDate = $date->add(DateInterval::createFromDateString("1 year"))->format("Y-m-d");
 
         $reservationSManager = new ReservationSearchManager();
@@ -50,6 +51,7 @@ class RoomController extends AbstractController
             'maxBed' => $maxBed,
             'today' => $today,
             'maxDate' =>$maxDate,
+            'tomorrow' => $tomorrow,
         ]);
     }
 

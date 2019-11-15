@@ -212,12 +212,14 @@ class AdminController extends AbstractController
 
         $date = new DateTime();
         $today = $date->format("Y-m-d");
+        $tomorrow = $date->add(DateInterval::createFromDateString("1 day"))->format("Y-m-d");
         $maxDate = $date->add(DateInterval::createFromDateString("1 year"))->format("Y-m-d");
 
         return $this->twig->render("Admin/planning.html.twig", [
             "customers" => $customers,
             "today" => $today,
             "maxDate" => $maxDate,
+            "tomorrow" => $tomorrow,
             "idRoom" => $idRoom,
             ]);
     }
