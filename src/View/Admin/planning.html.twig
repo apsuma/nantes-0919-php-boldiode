@@ -5,6 +5,11 @@
 {% endblock %}
 
 {% block content %}
+    {% if get.message is defined %}
+        <div class="alert alert-primary" role="alert">
+            {{ get.message }}
+        </div>
+    {% endif %}
     <form action="/admin/planningAdd/{{ idRoom }}" method="post" class="d-flex flex-row justify-content-around mt-2 mb-2">
         <div class="form-group">
             <label for="name">Nom client</label>
@@ -23,8 +28,8 @@
         <div class="form-group">
             <label for="start">Date de départ:</label>
             <input type="date" id="end" name="tripEnd"
-                   value="{{ today }}"
-                   min="{{ today }}" max="{{ maxDate }}">
+                   value="{{ tomorrow }}"
+                   min="{{ tomorrow }}" max="{{ maxDate }}">
         </div>
         <button type="submit" class="btn btn-success">Ajouter réservation</button>
     </form>

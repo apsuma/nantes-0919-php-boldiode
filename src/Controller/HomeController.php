@@ -34,6 +34,7 @@ class HomeController extends AbstractController
         $prices = $priceManager->selectAll();
         $date = new DateTime();
         $today = $date->format("Y-m-d");
+        $tomorrow = $date->add(DateInterval::createFromDateString("1 day"))->format("Y-m-d");
         $maxDate = $date->add(DateInterval::createFromDateString("1 year"))->format("Y-m-d");
 
         $rooms = $roomManager->selectRoomFavorite();
@@ -47,6 +48,7 @@ class HomeController extends AbstractController
             'rooms' => $rooms,
             'today' => $today,
             'maxDate' => $maxDate,
+            'tomorrow' => $tomorrow,
         ]);
     }
 }
