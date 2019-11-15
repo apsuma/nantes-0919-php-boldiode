@@ -302,7 +302,7 @@ class AdminController extends AbstractController
             $priceWinterError = $formEditCheck->number('price_winter');
             if ($formEditCheck->getValid()) {
                 $priceEdit->UpdatePrice($_POST);
-                header('Location:/admin/editPrice/' . $_POST['id'] . '/?message=la catégorie prix a bien été modifiée');
+                header('Location:/admin/editPrice/' . $_POST['id'] . '/?message=La catégorie prix a bien été modifiée');
                 return null;
             }
         }
@@ -333,7 +333,7 @@ class AdminController extends AbstractController
             $themeNameError = $formEditCheck->shortText('name');
             if ($formEditCheck->getValid()) {
                 $themeEdit->UpdateTheme($_POST);
-                header('Location:/admin/editTheme/' . $_POST['id'] . '/?message=la catégorie prix a bien été modifiée');
+                header('Location:/admin/editTheme/' . $_POST['id'] . '/?message=Catégorie thème a été modifiée');
                 return null;
             }
         }
@@ -355,7 +355,7 @@ class AdminController extends AbstractController
             if ($formCheck->getValid()) {
                 $themeManager = new ThemeManager();
                 $themeManager->insert($_POST);
-                header('Location:/Admin/editListTheme/?message=un nouveau thème a bien été ajouté');
+                header('Location:/Admin/editListTheme/?message=Un nouveau thème a bien été ajouté');
                 return null;
             }
         }
@@ -380,7 +380,7 @@ class AdminController extends AbstractController
             if ($formCheck->getValid()) {
                 $priceManager = new PriceManager();
                 $priceManager->insert($_POST);
-                header('Location:/Admin/editListPrice/?message=une nouvelle catégorie de prix a bien été créée');
+                header('Location:/Admin/editListPrice/?message=Une nouvelle catégorie de prix a bien été créée');
                 return null;
             }
         }
@@ -413,7 +413,7 @@ class AdminController extends AbstractController
             if ($formCheck->getValid()) {
                 $viewManager = new ViewManager();
                 $viewManager->insert($_POST);
-                header('Location:/Admin/editListView/?message=une nouvelle vue a bien été ajoutéé');
+                header('Location:/Admin/editListView/?message=Une nouvelle vue a bien été ajoutée');
                 return null;
             }
         }
@@ -435,7 +435,7 @@ class AdminController extends AbstractController
             $viewNameError = $formEditCheck->shortText('name');
             if ($formEditCheck->getValid()) {
                 $viewEdit->UpdateView($_POST);
-                header('Location:/admin/editView/' . $_POST['id'] . '/?message=la catégorie vue a bien été modifiée');
+                header('Location:/admin/editView/' . $_POST['id'] . '/?message=La catégorie vue a bien été modifiée');
                 return null;
             }
         }
