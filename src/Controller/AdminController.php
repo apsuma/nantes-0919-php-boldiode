@@ -193,7 +193,7 @@ class AdminController extends AbstractController
         $pictureManager = new PictureManager();
         $pictureManager->deleteRoomId($id);
         $roomManager->delete($id);
-        header("Location:/admin/editList/?message=une chambre a bien été supprimée");
+        header("Location:/Admin/editList/?message=une chambre a bien été supprimée");
     }
 
     public function editFrontPage(int $id, $state = null, $front = null)
@@ -279,5 +279,169 @@ class AdminController extends AbstractController
         }
         header("Location:/admin/planning/$idRoom/?message=$nameError");
         return null;
+    }
+
+    public function editListPrice(): string
+    {
+        $this->checkAdmin();
+        $priceManager = new PriceManager();
+        $prices = $priceManager->selectAll();
+        return $this->twig->render('Admin/editListPrice.html.twig', ['prices' => $prices]);
+    }
+
+    public function editPrice(int $id): ?string
+    {
+        $this->checkAdmin();
+        $priceEdit = new PriceManager();
+        $price = $priceEdit->selectOneById($id);
+        $priceNameError = $priceSummerError = $priceWinterError = null;
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $formEditCheck = new FormCheck($_POST);
+            $priceNameError = $formEditCheck->shortText('name');
+            $priceSummerError = $formEditCheck->number('price_summer');
+            $priceWinterError = $formEditCheck->number('price_winter');
+            if ($formEditCheck->getValid()) {
+                $priceEdit->UpdatePrice($_POST);
+                header('Location:/admin/editPrice/' . $_POST['id'] . '/?message=la catégorie prix a bien été modifiée');
+                return null;
+            }
+        }
+        return $this->twig->render('Admin/editPrice.html.twig', [
+            'price' => $price,
+            'priceWinterError' => $priceWinterError,
+            'priceSummerError' => $priceSummerError,
+            'priceNameError' => $priceNameError,
+        ]);
+    }
+
+    public function editListTheme(): ?string
+    {
+        $this->checkAdmin();
+        $themeManager = new ThemeManager();
+        $themes = $themeManager->selectAll();
+        return $this->twig->render('Admin/editListTheme.html.twig', ['themes' => $themes]);
+    }
+
+    public function editTheme(int $id): ?string
+    {
+        $this->checkAdmin();
+        $themeEdit = new ThemeManager();
+        $theme = $themeEdit->selectOneById($id);
+        $themeNameError = null;
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $formEditCheck = new FormCheck($_POST);
+            $themeNameError = $formEditCheck->shortText('name');
+            if ($formEditCheck->getValid()) {
+                $themeEdit->UpdateTheme($_POST);
+                header('Location:/admin/editTheme/' . $_POST['id'] . '/?message=la catégorie prix a bien été modifiée');
+                return null;
+            }
+        }
+        return $this->twig->render('Admin/editTheme.html.twig', [
+            'theme' => $theme,
+            'themeNameError' => $themeNameError,
+        ]);
+    }
+
+    public function addTheme(): ?string
+    {
+        $this->checkAdmin();
+        $themeManager = new ThemeManager();
+        $theme = $themeManager->selectAll();
+        $themeNameError = null;
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $formCheck = new FormCheck($_POST);
+            $themeNameError = $formCheck->shortText('name');
+            if ($formCheck->getValid()) {
+                $themeManager = new ThemeManager();
+                $themeManager->insert($_POST);
+                header('Location:/Admin/editListTheme/?message=un nouveau thème a bien été ajouté');
+                return null;
+            }
+        }
+            return $this->twig->render('Admin/addTheme.html.twig', [
+                'theme' => $theme,
+                'themeNameError' => $themeNameError,
+                'post' => $_POST,
+            ]);
+    }
+
+    public function addPrice(): ?string
+    {
+        $this->checkAdmin();
+        $priceManager = new PriceManager();
+        $price = $priceManager->selectAll();
+        $priceNameError = $priceSummerError = $priceWinterError = null;
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $formCheck = new FormCheck($_POST);
+            $priceNameError = $formCheck->shortText('name');
+            $priceSummerError = $formCheck->number('priceSummer');
+            $priceWinterError = $formCheck->number('priceWinter');
+            if ($formCheck->getValid()) {
+                $priceManager = new PriceManager();
+                $priceManager->insert($_POST);
+                header('Location:/Admin/editListPrice/?message=une nouvelle catégorie de prix a bien été créée');
+                return null;
+            }
+        }
+        return $this->twig->render('Admin/addPrice.html.twig', [
+            'price' => $price,
+            'priceWinterError' => $priceWinterError,
+            'priceSummerError' => $priceSummerError,
+            'priceNameError' => $priceNameError,
+            'post' => $_POST,
+        ]);
+    }
+
+    public function editListView(): ?string
+    {
+        $this->checkAdmin();
+        $viewManager = new ViewManager();
+        $views = $viewManager->selectAll();
+        return $this->twig->render('Admin/editListView.html.twig', ['views' => $views]);
+    }
+
+    public function addView(): ?string
+    {
+        $this->checkAdmin();
+        $viewManager = new ThemeManager();
+        $view = $viewManager->selectAll();
+        $viewNameError = null;
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $formCheck = new FormCheck($_POST);
+            $viewNameError = $formCheck->shortText('name');
+            if ($formCheck->getValid()) {
+                $viewManager = new ViewManager();
+                $viewManager->insert($_POST);
+                header('Location:/Admin/editListView/?message=une nouvelle vue a bien été ajoutéé');
+                return null;
+            }
+        }
+        return $this->twig->render('Admin/addView.html.twig', [
+            'view' => $view,
+            'viewNameError' => $viewNameError,
+            'post' => $_POST,
+        ]);
+    }
+
+    public function editView(int $id): ?string
+    {
+        $this->checkAdmin();
+        $viewEdit = new ViewManager();
+        $view = $viewEdit->selectOneById($id);
+        $viewNameError = null;
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $formEditCheck = new FormCheck($_POST);
+            $viewNameError = $formEditCheck->shortText('name');
+            if ($formEditCheck->getValid()) {
+                $viewEdit->UpdateView($_POST);
+                header('Location:/admin/editView/' . $_POST['id'] . '/?message=la catégorie vue a bien été modifiée');
+                return null;
+            }
+        }
+        return $this->twig->render('Admin/editView.html.twig', [
+            'view' => $view,
+            'viewNameError' => $viewNameError,
+        ]);
     }
 }

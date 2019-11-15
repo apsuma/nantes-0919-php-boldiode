@@ -1,0 +1,35 @@
+<form method="post">
+    <input type="hidden" value="{{ price.id }}" name="id">
+    <div class="form-group">
+        <label for="name">Nom de la catégorie du prix :</label>
+        <input
+                type="text"
+                id="name"
+                class="form-control {{ (priceNameError is null) ? '':'is-invalid' }}"
+                value="{{ (priceNameError is not null) ? '' : post.name|e }}"
+                name="name"
+                required
+        >
+        <label for="priceWinter">Prix hiver : </label>
+        <input
+                type="number"
+                id="priceWinter"
+                class="form-control {{ (priceWinterError is null) ? '':'is-invalid' }}"
+                value="{{ (priceWinterError is not null) ? '' : post.priceWinter|e }}"
+                name="priceWinter"
+                required
+        >
+        <label for="priceSummer">Prix été : </label>
+        <input
+                type="number"
+                id="priceSummer"
+                class="form-control {{ (price_summerError is null) ? '':'is-invalid' }}"
+                value="{{ (priceSummerError is not null) ? '' : post.priceSummer|e }}"
+                name="priceSummer"
+                required
+        >
+    </div>
+    <br>
+    <input type="submit" class="btn btn-primary" value="Valider">
+    <a class="btn btn-secondary" href="/admin/editListPrice/">Back</a>
+</form>

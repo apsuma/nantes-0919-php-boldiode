@@ -1,0 +1,31 @@
+{% extends 'layout.html.twig' %}
+
+{% block navigation %}
+    {% include 'Admin/_navigationAdmin.html.twig' %}
+{% endblock %}
+
+{% block content %}
+    <h1>Liste des thèmes</h1>
+
+    {% if get.message is defined %}
+        <div class="alert alert-primary" role="alert">
+            {{ get.message }}
+        </div>
+    {% endif %}
+
+    <section>
+        {% for theme in themes %}
+            <div class="card col-12 col-sm-4">
+                <div class="card-body">
+                    <h5 class="card-title"><a  class="col-lg-6">{{ theme.name }}</a></h5>
+                    <a href="/admin/editTheme/{{ theme.id }}" class="btn btn-primary col-lg-2">Editer</a>
+                    <a href="#" class="card-link">Another link</a>
+                </div>
+            </div>
+        {% endfor %}
+    </section>
+    <a class="btn btn-success" href="/admin/addTheme">Ajouter un thème</a>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

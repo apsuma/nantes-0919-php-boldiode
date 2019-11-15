@@ -1,0 +1,31 @@
+{% extends 'layout.html.twig' %}
+
+{% block navigation %}
+    {% include 'Admin/_navigationAdmin.html.twig' %}
+{% endblock %}
+
+{% block content %}
+    <h1>Liste des vues</h1>
+
+    {% if get.message is defined %}
+        <div class="alert alert-primary" role="alert">
+            {{ get.message }}
+        </div>
+    {% endif %}
+
+    <section>
+        {% for view in views %}
+            <div class="card col-12 col-sm-4">
+                <div class="card-body">
+                    <h5 class="card-title"><a  class="col-lg-6">{{ view.name }}</a></h5>
+                    <a href="/admin/editView/{{ view.id }}" class="btn btn-primary col-lg-2">Editer</a>
+                    <a href="#" class="card-link"></a>
+                </div>
+            </div>
+        {% endfor %}
+    </section>
+    <a class="btn btn-success" href="/admin/addView">Ajouter une vue</a>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

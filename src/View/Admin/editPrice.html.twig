@@ -1,0 +1,19 @@
+{% extends 'layout.html.twig' %}
+
+{% block navigation %}
+    {% include 'Admin/_navigationAdmin.html.twig' %}
+{% endblock %}
+
+{% block content %}
+<h1>Edition en cours pour {{ price.name }}</h1>
+{% if get.message is defined %}
+    <div class="alert alert-primary" role="alert">
+        {{ get.message }}
+    </div>
+{% endif %}
+    {% include 'Admin/_editPriceForm.html.twig' %}
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

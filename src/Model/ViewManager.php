@@ -16,4 +16,28 @@ class ViewManager extends AbstractManager
     {
         parent::__construct(self::TABLE);
     }
+
+    public function insert(array $view): int
+    {
+        // prepared request
+        $statement = $this->pdo->prepare("INSERT INTO " . self::TABLE .
+            "(name) 
+            VALUES (:name)");
+        $statement->bindValue('name', $view['name'], \PDO::PARAM_STR);
+
+        if ($statement->execute()) {
+            return (int)$this->pdo->lastInsertId();
+        }
+    }
+
+    public function updateView(array $view): bool
+    {
+        $query = "UPDATE " . self::TABLE .
+            " SET name = :name
+            WHERE id=:id";
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue('id', $view['id'], \PDO::PARAM_INT);
+        $statement->bindValue('name', $view['name'], \PDO::PARAM_STR);
+        return $statement->execute();
+    }
 }
