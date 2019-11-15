@@ -271,11 +271,9 @@ class AdminController extends AbstractController
             }
 
             //add all the dates from the previous array into the database
-
             foreach ($dates as $date) {
                 $reservationManager->add($idRoom, $_POST['name'], $date);
             }
-
             header("Location:/admin/planning/$idRoom/?message=La réservation a bien été ajoutée");
             return null;
         }
