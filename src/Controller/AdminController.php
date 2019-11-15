@@ -300,4 +300,56 @@ class AdminController extends AbstractController
             'post' => $_POST,
         ]);
     }
+
+    public function editListView(): ?string
+    {
+        $this->checkAdmin();
+        $viewManager = new ViewManager();
+        $views = $viewManager->selectAll();
+        return $this->twig->render('Admin/editListView.html.twig', ['views' => $views]);
+    }
+
+    public function addView(): ?string
+    {
+        $this->checkAdmin();
+        $viewManager = new ThemeManager();
+        $view = $viewManager->selectAll();
+        $viewNameError = null;
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $formCheck = new FormCheck($_POST);
+            $viewNameError = $formCheck->shortText('name');
+            if ($formCheck->getValid()) {
+                $viewManager = new ViewManager();
+                $viewManager->insert($_POST);
+                header('Location:/Admin/editListView/?message=une nouvelle vue a bien été ajoutéé');
+                return null;
+            }
+        }
+        return $this->twig->render('Admin/addView.html.twig', [
+            'view' => $view,
+            'viewNameError' => $viewNameError,
+            'post' => $_POST,
+        ]);
+    }
+
+    public function editView(int $id): ?string
+    {
+        $this->checkAdmin();
+        $viewEdit = new ViewManager();
+        $view = $viewEdit->selectOneById($id);
+        $viewNameError = null;
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $formEditCheck = new FormCheck($_POST);
+            $viewNameError = $formEditCheck->shortText('name');
+            if ($formEditCheck->getValid()) {
+                $viewEdit->UpdateView($_POST);
+                header('Location:/admin/editView/' . $_POST['id'] . '/?message=la catégorie vue a bien été modifiée');
+                return null;
+            }
+        }
+        return $this->twig->render('Admin/editView.html.twig', [
+            'view' => $view,
+            'viewNameError' => $viewNameError,
+        ]);
+    }
 }

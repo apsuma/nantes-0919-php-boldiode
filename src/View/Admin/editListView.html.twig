@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Liste des thèmes</h1>
+    <h1>Liste des vues</h1>
 
     {% if get.message is defined %}
         <div class="alert alert-primary" role="alert">
@@ -14,17 +14,17 @@
     {% endif %}
 
     <section>
-        {% for theme in themes %}
+        {% for view in views %}
             <div class="card col-12 col-sm-4">
                 <div class="card-body">
-                    <h5 class="card-title"><a  class="col-lg-6">{{ theme.name }}</a></h5>
-                    <a href="/admin/editTheme/{{ theme.id }}" class="btn btn-primary col-lg-2">Editer</a>
-                    <a href="#" class="card-link">Another link</a>
+                    <h5 class="card-title"><a  class="col-lg-6">{{ view.name }}</a></h5>
+                    <a href="/admin/editView/{{ view.id }}" class="btn btn-primary col-lg-2">Editer</a>
+                    <a href="#" class="card-link"></a>
                 </div>
             </div>
         {% endfor %}
     </section>
-    <a class="btn btn-success" href="/admin/addTheme">Ajouter un thème</a>
+    <a class="btn btn-success" href="/admin/addView">Ajouter une vue</a>
 {% endblock %}
 
 {% block footer %}

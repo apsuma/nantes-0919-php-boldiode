@@ -5,14 +5,13 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Ajouter une catégorie de prix : </h1>
+    <h1>Nom de vue à modifier : </h1>
     {% if get.message is defined %}
         <div class="alert alert-primary" role="alert">
             {{ get.message }}
         </div>
     {% endif %}
-    {% include 'Admin/_addPriceForm.html.twig' %}
-
+    {% include 'Admin/_editViewForm.html.twig' %}
 {% endblock %}
 
 {% block footer %}
