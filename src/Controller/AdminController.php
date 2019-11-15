@@ -236,16 +236,19 @@ class AdminController extends AbstractController
     public function planningAdd(int $idRoom): ?string
     {
         $this->checkAdmin();
-
+        //convert the strings from the post into DateTime object in order to have all the dates in between them
         $dateStart = date_create_from_format("Y-m-d", $_POST['tripStart']);
         $dateEnd = date_create_from_format("Y-m-d", $_POST['tripEnd']);
         $dateDiff = date_diff($dateStart, $dateEnd);
         $oneDay = new DateInterval("P1D");
         $dates[1] = $dateStart->format("Y-m-d");
+
+        //generate all the dates in between the reservation into an array
         for ($i = $dateDiff->d; $i > 1; $i--) {
             $dates[$i] = $dateStart->add($oneDay)->format("Y-m-d");
         }
 
+        //add all the dates from the previous array into the database
         $reservationManager = new ReservationManager();
         foreach ($dates as $date) {
             $reservationManager->add($idRoom, $_POST['name'], $date);
