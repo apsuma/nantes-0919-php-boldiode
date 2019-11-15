@@ -10,12 +10,15 @@
     background-color: #2e5266;
     color: aliceblue;
 }
+
 .sand {
     background-color: #f3f9d2;
 }
+
 .grey {
     background-color: #9fb1bc;
 }
+
 .darksand {
     background-color: #e4d6a7;
 }
@@ -23,15 +26,14 @@
 .custom-list {
     flex-direction: row;
     justify-content: space-evenly;
-    width: 30%;
-
-
+    width: 100%;
 }
 
 .navbar {
     position: fixed;
     z-index: 1;
     width: 100vw;
+    top: 0;
 }
 
 .navbar-brand {
@@ -59,4 +61,16 @@
     background-image: url("https://www.tourismebretagne.com/app/uploads/crt-bretagne/2018/10/0-presqu-ile-de-quiberon-surf-yannick-le-gal-1920x1278.jpg");
     background-repeat:no-repeat;
     background-position:center center;
+}
+
+.row m-2 {
+    margin: 2rem!important;
+}
+
+.col {
+    margin-top: 4.5rem;
+}
+
+.row {
+    margin-bottom: 2rem;
 }
