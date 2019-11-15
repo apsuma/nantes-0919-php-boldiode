@@ -12,6 +12,7 @@
     </rule>
     <rule ref="rulesets/codesize.xml" >
         <exclude name="TooManyPublicMethods" />
+        <exclude name="ExcessiveClassComplexity" />
     </rule>
     <rule ref="rulesets/controversial.xml" >
         <exclude name="Superglobals" />
