@@ -107,7 +107,7 @@ class AdminController extends AbstractController
             if ($formUpdateCheck->getValid()) {
                 $roomEdit->updateRoom($_POST);
                 $pictureCount = count($_FILES['image']['name']);
-                for ($i=0; $i < $pictureCount; $i++) {
+                for ($i = 0; $i < $pictureCount; $i++) {
                     $fileTmpName = $_FILES['image']['tmp_name'][$i];
                     $filename = $imageUploader->uploadImage($fileTmpName);
                     $pictureManager->insert($_POST, $id, $filename);
@@ -161,7 +161,7 @@ class AdminController extends AbstractController
             if ($formCheck->getValid()) {
                 $id = $roomManager->insert($_POST);
                 $pictureCount = count($_FILES['image']['name']);
-                for ($i=0; $i < $pictureCount; $i++) {
+                for ($i = 0; $i < $pictureCount; $i++) {
                     $fileTmpName = $_FILES['image']['tmp_name'][$i];
                     $filename = $imageUploader->uploadImage($fileTmpName);
                     $pictureManager->insert($_POST, $id, $filename);
@@ -189,6 +189,11 @@ class AdminController extends AbstractController
     public function delete(int $id): void
     {
         $this->checkAdmin();
+        $reservationManager = new ReservationManager();
+        if (count($reservationManager->selectRoom($id)) > 0) {
+            header('Location:/admin/editList/?message=Chambre réservée, impossible à supprimer');
+            return;
+        }
         $roomManager = new RoomManager();
         $pictureManager = new PictureManager();
         $pictureManager->deleteRoomId($id);
@@ -196,7 +201,7 @@ class AdminController extends AbstractController
         header("Location:/Admin/editList/?message=une chambre a bien été supprimée");
     }
 
-    public function editFrontPage(int $id, int $state, ?string $front = null)
+    public function editFrontPage(int $id, int $state, ?string $front = null): void
     {
         $this->checkAdmin();
         $roomManager = new RoomManager();
@@ -224,7 +229,7 @@ class AdminController extends AbstractController
             "tomorrow" => $tomorrow,
             "idRoom" => $idRoom,
             "name" => $room['name'],
-            ]);
+        ]);
     }
 
     public function planningDelete(int $idRoom, string $date): ?string
@@ -372,11 +377,11 @@ class AdminController extends AbstractController
                 return null;
             }
         }
-            return $this->twig->render('Admin/addTheme.html.twig', [
-                'theme' => $theme,
-                'themeNameError' => $themeNameError,
-                'post' => $_POST,
-            ]);
+        return $this->twig->render('Admin/addTheme.html.twig', [
+            'theme' => $theme,
+            'themeNameError' => $themeNameError,
+            'post' => $_POST,
+        ]);
     }
 
     public function addPrice(): ?string
