@@ -108,9 +108,15 @@ class AdminController extends AbstractController
                 $roomEdit->updateRoom($_POST);
                 $pictureCount = count($_FILES['image']['name']);
                 for ($i=0; $i < $pictureCount; $i++) {
-                    $fileTmpName = $_FILES['image']['tmp_name'][$i];
-                    $filename = $imageUploader->uploadImage($fileTmpName);
-                    $pictureManager->insert($_POST, $id, $filename);
+                    $formUpdateCheck->image($_FILES, $i);
+                    if ($formUpdateCheck->getValid()) {
+                        $fileTmpName = $_FILES['image']['tmp_name'][$i];
+                        $fileName = $_FILES['image']['name'][$i];
+                        $fileExplode = explode('.', $fileName);
+                        $fileActualExt = strtolower(end($fileExplode));
+                        $filename = $imageUploader->uploadImage($fileTmpName, $fileActualExt);
+                        $pictureManager->insert($_POST, $id, $filename);
+                    }
                 }
                 header('Location:/admin/edit/' . $_POST['id'] . '/?message=la chambre a bien été modifiée');
                 return null;
@@ -162,9 +168,15 @@ class AdminController extends AbstractController
                 $id = $roomManager->insert($_POST);
                 $pictureCount = count($_FILES['image']['name']);
                 for ($i=0; $i < $pictureCount; $i++) {
-                    $fileTmpName = $_FILES['image']['tmp_name'][$i];
-                    $filename = $imageUploader->uploadImage($fileTmpName);
-                    $pictureManager->insert($_POST, $id, $filename);
+                    $formCheck->image($_FILES, $i);
+                    if ($formCheck->getValid()) {
+                        $fileTmpName = $_FILES['image']['tmp_name'][$i];
+                        $fileName = $_FILES['image']['name'][$i];
+                        $fileExplode = explode('.', $fileName);
+                        $fileActualExt = strtolower(end($fileExplode));
+                        $filename = $imageUploader->uploadImage($fileTmpName, $fileActualExt);
+                        $pictureManager->insert($_POST, $id, $filename);
+                    }
                 }
                 header('Location:/admin/editList/?message=une chambre a bien été ajoutée');
                 return null;

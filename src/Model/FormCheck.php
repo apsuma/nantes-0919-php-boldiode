@@ -9,6 +9,7 @@ namespace App\Model;
  */
 class FormCheck
 {
+    const ALLOWED_EXTENSION = ['jpg', 'jpeg', 'png', 'gif'];
     /**
      * used to stock the POST of the form that needs to be checked
      * @var array
@@ -84,6 +85,34 @@ class FormCheck
         if (!isset($_POST[$postField]) || (empty($_POST[$postField]
                 || (!filter_var($_POST[$postField], FILTER_VALIDATE_EMAIL))))) {
             $error = "Compléter votre email";
+            $this->valid = false;
+        }
+        return isset($error)? $error: null;
+    }
+
+    public function image(array $fileInfo, int $item): ?string
+    {
+        $fileName = $fileInfo['image']['name'][$item];
+        $fileSize = $fileInfo['image']['size'][$item];
+        $fileError = $fileInfo['image']['error'][$item];
+        $fileExt = explode('.', $fileName);
+        $fileActualExt = strtolower(end($fileExt));
+        $error = null;
+
+        if (in_array($fileActualExt, self::ALLOWED_EXTENSION)) {
+            if ($fileError === 0) {
+                if ($fileSize < 1000000) {
+                    $this->valid = true;
+                } else {
+                    $error = "Your file is too big!";
+                    $this->valid = false;
+                }
+            } else {
+                $error = "There was an error uploading your file!";
+                $this->valid = false;
+            }
+        } else {
+            $error = "You cannot upload files of this type!";
             $this->valid = false;
         }
         return isset($error)? $error: null;
