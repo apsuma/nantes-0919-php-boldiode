@@ -169,7 +169,7 @@ class RoomManager extends AbstractManager
         return $this->pdo->query($query)->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    private function countFrontPages()
+    private function countFrontPages(): array
     {
         return $this->pdo->query('SELECT COUNT(id) AS nombreFront FROM ' . $this->table .
             ' WHERE front_page = 1')->fetch();
