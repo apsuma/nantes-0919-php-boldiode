@@ -1,4 +1,4 @@
-<div class="col">
+<div class="col-lg-10 offset-lg-1 my-4">
     <div class="card d-lg-flex flex-lg-row">
 
         <div class="carousel-large">
@@ -24,12 +24,12 @@
             </div>
         </div>
 
-        <div>
+        <div class="d-lg-flex flex-lg-column flex-lg-fill p-lg-3">
             <h5 class="card-title">{{ room.roomName }}</h5>
             <div class="card-text">
                 <p>{{ room.description }}</p>
             </div>
-            <table class="table">
+            <table class="table mt-auto">
                 <thead>
                 <tr>
                     <th scope="col">Prix été*</th>
@@ -39,7 +39,6 @@
                     <th scope="col">Vue</th>
                 </tr>
                 </thead>
-
                 <tbody>
                 <tr>
                     <td>{{ room.priceSummer }} €</td>
