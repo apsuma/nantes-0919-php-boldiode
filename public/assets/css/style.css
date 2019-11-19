@@ -75,6 +75,10 @@ div .navbar {
     margin-bottom: 2rem;
 }
 
+.row-footer{
+    margin-bottom: 0rem;
+}
+
 .active {
     font-size: 1.2em;
 }
