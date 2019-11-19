@@ -63,14 +63,16 @@
     background-position:center center;
 }
 
-.row m-2 {
-    margin: 2rem!important;
-}
-
 .col {
     margin-top: 4.5rem;
 }
 
 .row {
     margin-bottom: 2rem;
+}
+
+@media screen and (min-width: 992px) {
+    .carousel-large {
+        width: 50%;
+    }
 }
