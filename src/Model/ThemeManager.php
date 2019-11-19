@@ -40,4 +40,11 @@ class ThemeManager extends AbstractManager
         $statement->bindValue('name', $theme['name'], \PDO::PARAM_STR);
         return $statement->execute();
     }
+
+    public function deleteTheme(int $id): void
+    {
+        $query = $this->pdo->prepare("DELETE FROM " . self::TABLE . " WHERE id=:id");
+        $query->bindValue(':id', $id, \PDO::PARAM_INT);
+        $query->execute();
+    }
 }
