@@ -53,6 +53,10 @@
     }
 }
 
+.our-rooms:hover{
+    opacity: 0.85;
+}
+
 .fa-instagram, .fa-facebook, .fa-twitter {
     color: aliceblue;
 }
