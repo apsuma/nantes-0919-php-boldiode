@@ -480,4 +480,28 @@ class AdminController extends AbstractController
             'viewNameError' => $viewNameError,
         ]);
     }
+
+    public function deleteView(int $id): void
+    {
+        $this->checkAdmin();
+        $viewManager = new ViewManager();
+        $viewManager->deleteView($id);
+        header("Location:/admin/editListView/?message=La vue a bien été supprimée");
+    }
+
+    public function deleteTheme(int $id): void
+    {
+        $this->checkAdmin();
+        $themeManager = new ThemeManager();
+        $themeManager->deleteTheme($id);
+        header("Location:/admin/editListTheme/?message=Le thème a bien été supprimé");
+    }
+
+    public function deletePrice(int $id): void
+    {
+        $this->checkAdmin();
+        $priceManager = new PriceManager();
+        $priceManager->deletePrice($id);
+        header("Location:/admin/editListPrice/?message=La catégorie prix a bien été supprimée");
+    }
 }

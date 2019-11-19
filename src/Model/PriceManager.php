@@ -46,4 +46,11 @@ class PriceManager extends AbstractManager
         $statement->bindValue('price_winter', $price['price_winter'], \PDO::PARAM_INT);
         return $statement->execute();
     }
+
+    public function deletePrice(int $id): void
+    {
+        $query = $this->pdo->prepare("DELETE FROM " . self::TABLE . " WHERE id=:id");
+        $query->bindValue(':id', $id, \PDO::PARAM_INT);
+        $query->execute();
+    }
 }
