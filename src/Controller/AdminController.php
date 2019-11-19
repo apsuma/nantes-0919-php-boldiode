@@ -107,6 +107,7 @@ class AdminController extends AbstractController
             if ($formUpdateCheck->getValid()) {
                 $roomEdit->updateRoom($_POST);
                 $pictureCount = count($_FILES['image']['name']);
+
                 for ($i=0; $i < $pictureCount; $i++) {
                     $formUpdateCheck->image($_FILES, $i);
                     if ($formUpdateCheck->getValid()) {
@@ -201,6 +202,11 @@ class AdminController extends AbstractController
     public function delete(int $id): void
     {
         $this->checkAdmin();
+        $reservationManager = new ReservationManager();
+        if (count($reservationManager->selectRoom($id)) > 0) {
+            header('Location:/admin/editList/?message=Chambre réservée, impossible à supprimer');
+            return;
+        }
         $roomManager = new RoomManager();
         $pictureManager = new PictureManager();
         $imageDeleter = new ImageUploader();
@@ -213,7 +219,7 @@ class AdminController extends AbstractController
         header("Location:/Admin/editList/?message=une chambre a bien été supprimée");
     }
 
-    public function editFrontPage(int $id, int $state, ?string $front = null)
+    public function editFrontPage(int $id, int $state, ?string $front = null): void
     {
         $this->checkAdmin();
         $roomManager = new RoomManager();
@@ -241,7 +247,7 @@ class AdminController extends AbstractController
             "tomorrow" => $tomorrow,
             "idRoom" => $idRoom,
             "name" => $room['name'],
-            ]);
+        ]);
     }
 
     public function planningDelete(int $idRoom, string $date): ?string
@@ -389,11 +395,11 @@ class AdminController extends AbstractController
                 return null;
             }
         }
-            return $this->twig->render('Admin/addTheme.html.twig', [
-                'theme' => $theme,
-                'themeNameError' => $themeNameError,
-                'post' => $_POST,
-            ]);
+        return $this->twig->render('Admin/addTheme.html.twig', [
+            'theme' => $theme,
+            'themeNameError' => $themeNameError,
+            'post' => $_POST,
+        ]);
     }
 
     public function addPrice(): ?string
