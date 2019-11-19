@@ -18,7 +18,7 @@ use DateInterval;
  */
 class RoomController extends AbstractController
 {
-    public function show($bed = 0, $priceId = 0, $tripStart = "", $tripEnd = ""): string
+    public function show(int $bed = 0, int $priceId = 0, string $tripStart = "", string $tripEnd = ""): string
     {
         $priceManager = new PriceManager();
         $prices = $priceManager->selectAll();
