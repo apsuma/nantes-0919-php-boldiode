@@ -204,9 +204,7 @@ class AdminController extends AbstractController
         $roomManager = new RoomManager();
         $pictureManager = new PictureManager();
         $imageDeleter = new ImageUploader();
-
         $picturesInRoom = $pictureManager->selectPicturesByRoom($id);
-
         foreach ($picturesInRoom as $picture) {
             $imageDeleter->delete($picture['image']);
         }
