@@ -1,6 +1,7 @@
-<div class="row">
-    <div class="col">
-        <div class="card">
+<div class="col">
+    <div class="card d-lg-flex flex-lg-row">
+
+        <div>
             <div id="carousel{{ room.roomId }}" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
@@ -21,32 +22,34 @@
                     <span class="sr-only">Next</span>
                 </a>
             </div>
-        <h5 class="card-title">{{ room.roomName }}</h5>
-        <div class="card-text">
-            <p>{{ room.description }}</p>
         </div>
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">Prix été*</th>
-                <th scope="col">Prix hiver*</th>
-                <th scope="col">Nb lits</th>
-                <th scope="col">Theme</th>
-                <th scope="col">Vue</th>
-            </tr>
-            </thead>
 
-            <tbody>
-            <tr>
-                <td>{{ room.priceSummer }} €</td>
-                <td>{{ room.priceWinter }} €</td>
-                <td>{{ room.nbBed }}</td>
-                <td>{{ room.themeName }}</td>
-                <td>{{ room.viewName }}</td>
-            </tr>
-            </tbody>
-        </table>
+        <div>
+            <h5 class="card-title">{{ room.roomName }}</h5>
+            <div class="card-text">
+                <p>{{ room.description }}</p>
+            </div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Prix été*</th>
+                    <th scope="col">Prix hiver*</th>
+                    <th scope="col">Nb lits</th>
+                    <th scope="col">Theme</th>
+                    <th scope="col">Vue</th>
+                </tr>
+                </thead>
 
+                <tbody>
+                <tr>
+                    <td>{{ room.priceSummer }} €</td>
+                    <td>{{ room.priceWinter }} €</td>
+                    <td>{{ room.nbBed }}</td>
+                    <td>{{ room.themeName }}</td>
+                    <td>{{ room.viewName }}</td>
+                </tr>
+                </tbody>
+            </table>
             <p style="font-size: small">*les prix sont indiqués par nuit et par personne</p>
         </div>
     </div>
