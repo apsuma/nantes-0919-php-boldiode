@@ -203,6 +203,13 @@ class AdminController extends AbstractController
         $this->checkAdmin();
         $roomManager = new RoomManager();
         $pictureManager = new PictureManager();
+        $imageDeleter = new ImageUploader();
+
+        $picturesInRoom = $pictureManager->selectPicturesByRoom($id);
+
+        foreach ($picturesInRoom as $picture) {
+            $imageDeleter->delete($picture['image']);
+        }
         $pictureManager->deleteRoomId($id);
         $roomManager->delete($id);
         header("Location:/Admin/editList/?message=une chambre a bien été supprimée");

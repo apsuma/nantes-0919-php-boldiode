@@ -15,7 +15,7 @@ class ImageUploader
         return $filename;
     }
 
-    public function delete(string $file): string
+    public function delete(string $file): void
     {
         $route = self::COMPLETE_PATH . $file;
         if (file_exists($route)) {
