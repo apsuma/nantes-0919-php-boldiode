@@ -1,6 +1,6 @@
 <footer class="container-fluid darkblue-bg">
     <div class="row d-flex justify-content-around">
-        <div class="col-12 col-sm text-center darkblue-bg">
+        <div class="col-md-4 text-center darkblue-bg">
             <h3>Hôtel Boldiode </h3>
             <p>3 rue des Pêcheurs</p>
             <p>56170 Quiberon</p>
@@ -10,20 +10,23 @@
                     src="/assets/images/cartoQuiberon.png"
                     alt="Plan de Quiberon avec localisation de l'hôtel rue des pecheurs"
                     width="300px"
-            /></a>
+            />
+            </a>
         </div>
-        <div class="col-12 col-sm darkblue-bg">
+        <div class="col-md-4 darkblue-bg justify-content-center">
             <h3 class="text-center">Contactez-nous</h3>
+            <div class="justify-content-center" >
             {% include "Home/_formfooter.html.twig" %}
+            </div>
         </div>
-        <div class="col-12 col-sm darkblue-bg">
-            <ul class="list-group list-group-flush text-center">
-                <li class="list-group-item darkblue-bg "><a class="text-decoration-none" href="/" title="home">Accueil </a></li>
-                <li class="list-group-item darkblue-bg"><a href="/room/show" title="rooms">Nos chambres</a></li>
-                <li class="list-group-item darkblue-bg"><a href="/History/index" title="hotel">Notre hôtel</a></li>
-                <li class="list-group-item darkblue-bg"><a href="/Contact/sendMail" title="contact">Contact</a></li>
-                <li class="list-group-item darkblue-bg"><a href="/#" title="legal_mentions">Mentions légales</a></li>
-            </ul>
+        <div class="col-md-4 darkblue-bg d-flex flex-column justify-content-around">
+            <div class="d-inline-flex flex-column justify-content-around">
+                <a class="text-center text-decoration-none text-reset" href="/" title="home">Accueil </a></a>
+                <a class="text-center text-decoration-none text-reset" href="/room/show" title="rooms">Nos chambres</a>
+                <a class="text-center text-decoration-none text-reset" href="/History/index" title="hotel">Notre hôtel</a>
+                <a class="text-center text-decoration-none text-reset" href="/Contact/sendMail" title="contact">Contact</a>
+                <a class="text-center text-decoration-none text-reset" href="/#" title="legal_mentions">Mentions légales</a>
+            </div>
             <div>
                 <h5 class="text-center">Réseaux sociaux</h5>
                 <div class="d-flex flex-row justify-content-around">
