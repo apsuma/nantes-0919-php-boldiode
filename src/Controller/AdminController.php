@@ -196,7 +196,7 @@ class AdminController extends AbstractController
         header("Location:/Admin/editList/?message=une chambre a bien été supprimée");
     }
 
-    public function editFrontPage(int $id, ?int $state = null, ?string $front = null)
+    public function editFrontPage(int $id, int $state, ?string $front = null)
     {
         $this->checkAdmin();
         $roomManager = new RoomManager();
