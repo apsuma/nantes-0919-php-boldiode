@@ -11,7 +11,7 @@ class ReservationManager extends AbstractManager
         parent::__construct(self::TABLE);
     }
 
-    public function selectRoomBetween($start, $end): array
+    public function selectRoomBetween(string $start, string $end): array
     {
         $query = "SELECT id_room FROM " . self::TABLE . " 
             WHERE date BETWEEN '$start' AND '$end'";
