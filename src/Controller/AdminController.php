@@ -256,8 +256,18 @@ class AdminController extends AbstractController
             }
 
             //convert the strings from the post into DateTime object in order to have all the dates in between them
-            $dateStart = date_create_from_format("Y-m-d", $_POST['tripStart']);
-            $dateEnd = date_create_from_format("Y-m-d", $_POST['tripEnd']);
+            try {
+                $dateStart = new DateTime($_POST['tripStart']);
+            } catch (\Exception $e) {
+                header("Location:/admin/planning/$idRoom/?message=mauvais format de date d'arrivée");
+                return null;
+            }
+            try {
+                $dateEnd = new DateTime($_POST['tripEnd']);
+            } catch (\Exception $e) {
+                header("Location:/admin/planning/$idRoom/?message=mauvais format de date de départ");
+                return null;
+            }
 
             //check if the date of departure is after the date of arrival
             if ($dateStart > $dateEnd) {
