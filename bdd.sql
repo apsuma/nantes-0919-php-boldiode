@@ -53,23 +53,21 @@ CREATE TABLE picture (
 
 create table reservation
 (
-    id      int auto_increment
-        primary key,
-    id_room int          null,
-    date    varchar(11)  not null,
-    name    varchar(255) null,
+    id int auto_increment primary key,
+    id_room int null,
+    date varchar(11) not null,
+    name varchar(255) null,
     constraint reservation_room
-        foreign key (id_room) references room (id)
+    foreign key (id_room) references room (id)
 );
 
 
 create table reservation_search
 (
-    id      int auto_increment
-        primary key,
+    id int auto_increment primary key,
     id_room int null,
     constraint reservation_search_room_id_fk
-        foreign key (id_room) references room (id)
+    foreign key (id_room) references room (id)
 );
 
 INSERT INTO admin (login,pwd)
