@@ -13,6 +13,7 @@ use App\Model\ViewManager;
 use App\Service\ImageUploader;
 use DateInterval;
 use DateTime;
+use mysql_xdevapi\Exception;
 
 class AdminController extends AbstractController
 {
@@ -485,23 +486,50 @@ class AdminController extends AbstractController
     {
         $this->checkAdmin();
         $viewManager = new ViewManager();
-        $viewManager->deleteView($id);
-        header("Location:/admin/editListView/?message=La vue a bien été supprimée");
+        $deleteViewOption = true;
+        try {
+            $viewManager->deleteView($id);
+        } catch (\PDOException $e) {
+            $deleteViewOption =false;
+        }
+        if ($deleteViewOption) {
+            header("Location:/admin/editListView/?message=La vue a bien été supprimée");
+        } else {
+            header("Location:/admin/editListView/?message=Vue non supprimée car utilisée par des chambres");
+        }
     }
 
     public function deleteTheme(int $id): void
     {
         $this->checkAdmin();
         $themeManager = new ThemeManager();
-        $themeManager->deleteTheme($id);
+        $deleteThemeOption = true;
+        try {
+            $themeManager->deleteTheme($id);
+        } catch (\PDOException $e) {
+            $deleteThemeOption = false;
+        }
+        if ($deleteThemeOption){
         header("Location:/admin/editListTheme/?message=Le thème a bien été supprimé");
+        } else {
+            header("Location:/admin/editListTheme/?message= Thème non supprimé car utilisé pour des chambres");
+        }
     }
 
     public function deletePrice(int $id): void
     {
         $this->checkAdmin();
         $priceManager = new PriceManager();
-        $priceManager->deletePrice($id);
-        header("Location:/admin/editListPrice/?message=La catégorie prix a bien été supprimée");
+        $deletePriceOption = true;
+        try {
+            $priceManager->deletePrice($id);
+        } catch (\PDOException $e) {
+            $deletePriceOption = false;
+        }
+        if ($deletePriceOption) {
+            header("Location:/admin/editListPrice/?message=La catégorie prix a bien été supprimée");
+        } else {
+            header("Location:/admin/editListPrice/?message=Prix non supprimé car utilisé pour des chambres");
+        }
     }
 }
