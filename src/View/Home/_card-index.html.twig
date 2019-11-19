@@ -1,0 +1,11 @@
+<div class="card" style="width: 18rem;">
+    <img src="{{ constant('App\\Service\\ImageUploader::PUBLIC_PATH')~"/"~room.picture.0.image }}" class="card-img-top" alt="image d'une chambre">
+    <div class="card-body">
+        <h5 class="card-title">{{ room.roomName }}</h5>
+        <p>{{ room.description }}</p>
+        <form action="/room/search" method="post">
+            <input type="hidden" value="{{ room.roomName }}" name="roomName">
+            <button type="submit" class="btn btn-primary">découvrez cette chambre</button>
+        </form>
+    </div>
+</div>

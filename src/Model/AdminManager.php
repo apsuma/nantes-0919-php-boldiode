@@ -37,4 +37,15 @@ class AdminManager extends AbstractManager
         }
         return $admin;
     }
+
+    public function selectAllOrderByNameFront(string $front = null): array
+    {
+        $query = 'SELECT * FROM room';
+        if (isset($front) && !empty($front) && $front == 'front') {
+            $query .= ' ORDER BY front_page DESC, name';
+        } else {
+            $query .= ' ORDER BY name';
+        }
+        return $this->pdo->query($query)->fetchAll(\PDO::FETCH_ASSOC);
+    }
 }

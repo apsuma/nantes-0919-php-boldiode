@@ -1,8 +1,8 @@
-<form action="/admin/edit/{{ room.roomId }}" method="post">
+<form action="/admin/edit/{{ room.roomId }}" method="post" enctype="multipart/form-data">
     <input type="hidden" value="{{ room.roomId }}" name="id">
     {% for picture in pictures %}
         <div class="form-group">
-            <img src="{{ picture.image }}" width="300px" alt="">
+            <img src="{{ constant('App\\Service\\ImageUploader::PUBLIC_PATH')~"/"~picture.image }}" width="300px" alt="">
             {% if pictures|length > 1 %}
                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deletePictureConfirmation-{{ picture.id }}">
                     X
@@ -13,7 +13,7 @@
                             <div class="modal-header">
                                 <h5 class="modal-title" id="deleteConfirmationPictureLabel">Etes-vous sûr ?</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
+                                    <span aria-hidden="true">x</span>
                                 </button>
                             </div>
                             <div class="modal-body">
@@ -27,23 +27,18 @@
                     </div>
                 </div>
             {% endif %}
-            <input
-                    type="url"
-                    id="picture"
-                    class="form-control"
-                    value="{{ picture.image }}"
-                    name="image-{{ picture.id }}"
-            >
         </div>
     {% endfor %}
-    <div class="form-group">
-        <label for="picture">Image chambre</label>
+    <div class="custom-file">
         <input
-                type="url"
-                id="picture"
-                class="form-control"
-                name="image"
+                type="file"
+                id="image"
+                class="custom-file-input"
+                name="image[]"
+                multiple="multiple"
+                value="{{ picture.image }}"
         >
+        <label class="custom-file-label" for="image">Image chambre : {{ picture.image }}</label>
     </div>
     <div class="form-group">
         <label for="name">Nom chambre</label>
@@ -130,15 +125,6 @@
             {% endfor %}
         </select>
     </div>
-    <div class="form-check">
-        <input type="checkbox" id="front_page" name="front_page" class="form-check-input" value=1
-               {% if room.frontPage == 1 %}checked{% endif %}>
-        <label class="form-check-label" for="front_page">
-            Chambre du moment
-        </label>
-        <div class="invalid-feedback">Entrez un theme</div>
-    </div>
-    <br>
     <input type="submit" class="btn btn-primary" value="Modifier chambre">
 </form>
 

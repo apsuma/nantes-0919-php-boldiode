@@ -10,61 +10,34 @@
         .text-center {
         }
     </style>
-    <div class="container-fluid card mb-3">
-        <img src="https://via.placeholder.com/1000x250.png" class="card-img-top" alt="...">
+
+    <div class="container-fluid card mb-3 searchIndex p-5">
+        {% include 'Room/_form-search.html.twig' %}
     </div>
-    <div class="container-fluid">
-        <div class="bd-example">
-            <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-                <ol class="carousel-indicators">
-                    <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-                    <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-                    <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-                </ol>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <a href="#">
-                            <img src="https://via.placeholder.com/1000x350.png" class="d-block w-100" alt="...">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h4 class="text-body">Chambre 1</h4>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="carousel-item">
-                        <a href="#">
-                            <img src="https://via.placeholder.com/1000x350.png" class="d-block w-100" alt="...">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h4 class="text-body">Chambre 2</h4>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="carousel-item">
-                        <a href="#">
-                            <img src="https://via.placeholder.com/1000x350.png" class="d-block w-100" alt="...">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h4 class="text-body">Chambre 3</h4>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
+
+    <h2 class="text-center">Découvrez ces chambres incroyables !</h2>
+    <div class="d-flex align-items-center flex-column flex-md-row justify-content-md-around">
+        {% for room in rooms %}
+            {% include "Home/_card-index.html.twig" %}
+        {% endfor %}
+    </div>
+
+    <div class="container-fluid my-5">
+        <div class="row">
+            <div class="col-lg-5 col-sm-12">
+                <p>
+                    <img src="https://www.prideofbritainhotels.com/wp-content/uploads/2016/01/bailiffscourt-hotel-exterior-hsh-bc03_287-1920.jpg"
+                         class="img-fluid" alt="vue extérieure hôtel">
+                </p>
+            </div>
+            <div class="col-lg-7 col-sm-12">
+                <h2 class="text-center py-3">Notre histoire</h2>
+                <p><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad at aut autem consectetur deleniti, ducimus eos excepturi labore molestiae nisi odio, perspiciatis quia quod quos similique, tempora veritatis voluptas?</span>
+                    <span>Beatae consequuntur corporis deserunt eum ex, illo reiciendis reprehenderit veniam? Accusamus ad animi cupiditate, debitis dolore doloribus dolorum, earum error eum fugit ipsam optio quisquam quos ratione rerum sint voluptatum?</span>
+                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad at aut autem consectetur deleniti, ducimus eos excepturi labore molestiae nisi odio, perspiciatis quia quod quos similique, tempora veritatis voluptas?</span>
+                </p>
             </div>
         </div>
-    </div>
-    <div class="container-fluid">
-        <h2 class="text-center">Notre histoire</h2>
-        <p><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad at aut autem consectetur deleniti, ducimus eos excepturi labore molestiae nisi odio, perspiciatis quia quod quos similique, tempora veritatis voluptas?</span>
-            <span>Beatae consequuntur corporis deserunt eum ex, illo reiciendis reprehenderit veniam? Accusamus ad animi cupiditate, debitis dolore doloribus dolorum, earum error eum fugit ipsam optio quisquam quos ratione rerum sint voluptatum?</span>
-            <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad at aut autem consectetur deleniti, ducimus eos excepturi labore molestiae nisi odio, perspiciatis quia quod quos similique, tempora veritatis voluptas?</span>
-            <span>Beatae consequuntur corporis deserunt eum ex, illo reiciendis reprehenderit veniam? Accusamus ad animi cupiditate, debitis dolore doloribus dolorum, earum error eum fugit ipsam optio quisquam quos ratione rerum sint voluptatum?</span>
-        </p>
     </div>
     <div class="container-fluid card mb-3">
         <a href="#">

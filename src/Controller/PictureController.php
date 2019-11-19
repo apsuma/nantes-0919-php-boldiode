@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Model\PictureManager;
+use App\Service\ImageUploader;
 
 class PictureController extends AbstractController
 {

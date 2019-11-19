@@ -1,0 +1,87 @@
+{% extends "layout.html.twig" %}
+
+{% block navigation %}
+{% include "Admin/_navigationAdmin.html.twig" %}
+{% endblock %}
+
+{% block content %}
+    <h2>Planning de la chambre: {{ name }}</h2>
+    {% if get.message is defined %}
+        <div class="alert alert-primary" role="alert">
+            {{ get.message }}
+        </div>
+    {% endif %}
+    <form action="/admin/planningAdd/{{ idRoom }}" method="post" class="d-flex flex-row justify-content-around mt-2 mb-2">
+        <div class="form-group">
+            <label for="name">Nom client</label>
+            <input
+                    type="text"
+                    id="name"
+                    name="name"
+            >
+        </div>
+        <div class="form-group">
+            <label for="start">Date d'arrivée:</label>
+            <input type="date" id="start" name="tripStart"
+                   value="{{ today }}"
+                   min="{{ today }}" max="{{ maxDate }}">
+        </div>
+        <div class="form-group">
+            <label for="start">Date de départ:</label>
+            <input type="date" id="end" name="tripEnd"
+                   value="{{ tomorrow }}"
+                   min="{{ tomorrow }}" max="{{ maxDate }}">
+        </div>
+        <button type="submit" class="btn btn-success">Ajouter réservation</button>
+    </form>
+
+    <a type="button" class="btn btn-secondary" href="/Admin/editList/">Back</a>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Nom</th>
+            <th scope="col">Nuit occupée</th>
+            <th scope="col">Gestion</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for customer in customers %}
+        <tr>
+            <th scope="row">{{ customer.name }}</th>
+            <td>{{ customer.date }}</td>
+            <td>
+                <button type="button" class="btn btn-danger col-lg-2" data-toggle="modal"
+                        data-target="#deleteConfirmation-{{ customer.date }}">
+                    Supprimer
+                </button>
+                <div class="modal fade" id="deleteConfirmation-{{ customer.date }}" tabindex="-1" role="dialog"
+                     aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deleteConfirmationLabel">Etes-vous sûr ?</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Cette suppression est définitive
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler
+                                </button>
+                                <a href="/admin/planningDelete/{{ customer.id_room }}/{{ customer.date }}" class="btn btn-danger">Confirmer</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

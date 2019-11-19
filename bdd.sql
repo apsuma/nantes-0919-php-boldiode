@@ -51,6 +51,25 @@ CREATE TABLE picture (
     CONSTRAINT fk_picture_room FOREIGN KEY (id_room) REFERENCES room(id)
 );
 
+create table reservation
+(
+    id int auto_increment primary key,
+    id_room int null,
+    date varchar(11) not null,
+    name varchar(255) null,
+    constraint reservation_room
+    foreign key (id_room) references room (id)
+);
+
+
+create table reservation_search
+(
+    id int auto_increment primary key,
+    id_room int null,
+    constraint reservation_search_room_id_fk
+    foreign key (id_room) references room (id)
+);
+
 INSERT INTO admin (login,pwd)
 VALUES ('admin','$2y$10$RhIFv70zMDBMkzUPUKUH2u1xSryAb.ZwBm.SRgA/Z0XQOomE8ogrG');
 
@@ -83,21 +102,21 @@ VALUES
 
 INSERT INTO picture (image,id_room)
 VALUES
-('http://www.revedesable.com/wp2017/wp-content/uploads/chambre-vue-mer-5.jpg',1),
-('https://st.hzcdn.com/simgs/759181be05463f02_3-6574/home-design.jpg',2),
-('https://www.hubstairs.com/blog/wp-content/uploads/2018/10/new-300x200.jpg',3),
-('https://www.hotel-les-costans.fr/wp-content/uploads/2018/11/chambre-terrasse-mer-1.jpg',4),
-('https://moncoachdeco.leroymerlin.fr/library/images/planches/covers/chambre-borddemer3.jpg',5),
-('https://www.meublesatlas.fr/wp-content/uploads/2015/09/Chambre.jpg',6),
-('http://www.boutchambre.fr/wp-content/uploads/2017/05/deco-chambre-a-la-mer-4.jpg',1),
-('http://www.kyriadsaintmaloplage.com/images/photos/hotel-saint-malo,_6_Fb9HCA.jpg',2),
-('https://www.story.fr/wp-content/uploads/2018/09/nolte-400x300.jpg',3),
-('https://www.turbulences-deco.fr/wp-content/uploads/2015/05/Chambre-blanche-et-rose-via-VTwonen.jpg',4),
-('https://s2.lmcdn.fr/multimedia/aa1501407780/1302e25acc3742/chambre-pour-adulte-egayee.jpg',5),
-('https://www.hubstairs.com/blog/wp-content/uploads/2017/08/chambre-bleue-canard.jpg',6),
-('http://shakemyblog.fr/wp-content/uploads/2018/12/deco-chambre-parentale-moderne-1.jpg',1),
-('https://www.for-interieur.fr/wp-content/uploads/2016/05/chambre-en-rotin.jpg',2),
-('https://q-xx.bstatic.com/images/hotel/max1024x768/219/219023308.jpg',3),
-('https://www.hotel-les-costans.fr/wp-content/uploads/2018/11/chambre-superieure-mer1.jpg',4),
-('http://www.gazettedunet.fr/medias/chambre-mer.jpg',5),
-('https://media-cdn.tripadvisor.com/media/photo-s/0f/d3/3d/e7/chambre-standard-agapa.jpg',6);
+('image5dce70777b4ec.jpg',1),
+('image5dce70777df19.jpg',2),
+('image5dce707780946.jpg',3),
+('image5dce709493ea5.jpg',4),
+('image5dce709497d6a.jpg',5),
+('image5dce70b2cfaa1.jpg',6),
+('image5dce70c93d05a.jpg',1),
+('image5dce70c93f78d.jpg',2),
+('image5dce70e58fd38.jpg',3),
+('image5dce70e5925b1.jpg',4),
+('image5dce71003a431.jpg',5),
+('image5dce71003f20d.jpg',6),
+('image5dce7100469c6.jpg',1),
+('image5dce7114d41c7.jpg',2),
+('image5dce7120c2ffe.jpg',3),
+('image5dce713645975.jpg',4),
+('image5dce713648075.jpg',5),
+('image5dce7136497ba.jpg',6);

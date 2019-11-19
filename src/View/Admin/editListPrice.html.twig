@@ -1,0 +1,33 @@
+{% extends 'layout.html.twig' %}
+
+{% block navigation %}
+    {% include 'Admin/_navigationAdmin.html.twig' %}
+{% endblock %}
+
+{% block content %}
+<h1>Liste des prix </h1>
+
+{% if get.message is defined %}
+    <div class="alert alert-primary" role="alert">
+        {{ get.message }}
+    </div>
+{% endif %}
+
+<section>
+{% for price in prices %}
+    <div class="card col-12 col-sm-4">
+        <div class="card-body">
+            <h5 class="card-title"><a  class="col-lg-6">{{ price.name }}</a></h5>
+            <p class="card-text">Prix hiver : {{ price.price_winter }}
+            <p class="card-text"> Prix été : {{ price.price_summer }}</p>
+            <a href="/admin/editPrice/{{ price.id }}" class="btn btn-primary col-lg-2">Editer</a>
+            <a href="#" class="card-link"></a>
+        </div>
+    </div>
+{% endfor %}
+</section>
+    <a type="button" href="/admin/addPrice" class="btn btn-success">Ajouter</a>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

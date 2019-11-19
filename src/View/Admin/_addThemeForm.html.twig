@@ -1,0 +1,17 @@
+<form method="post">
+    <input type="hidden" value="{{ theme.id }}" name="id">
+    <div class="form-group">
+        <label for="name">Thème :</label>
+        <input
+                type="text"
+                id="name"
+                class="form-control {{ (themeNameError is null) ? '':'is-invalid' }}"
+                value="{{ (themeNameError is not null) ? '' : post.name|e }}"
+                name="name"
+                required
+        >
+    </div>
+    <br>
+    <input type="submit" class="btn btn-primary" value="Valider">
+</form>
+<a type="button" class="btn btn-secondary" href="/admin/editListTheme/">Back<a/>
