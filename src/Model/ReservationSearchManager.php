@@ -11,7 +11,7 @@ class ReservationSearchManager extends AbstractManager
         parent::__construct(self::TABLE);
     }
 
-    public function add($start, $end): void
+    public function add(string $start, string $end): void
     {
         $reservationManager = new ReservationManager();
         $reservedRoom = $reservationManager->selectRoomBetween($start, $end);

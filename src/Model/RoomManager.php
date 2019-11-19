@@ -169,13 +169,13 @@ class RoomManager extends AbstractManager
         return $this->pdo->query($query)->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    private function countFrontPages()
+    private function countFrontPages(): array
     {
         return $this->pdo->query('SELECT COUNT(id) AS nombreFront FROM ' . $this->table .
             ' WHERE front_page = 1')->fetch();
     }
 
-    public function updateFrontPage(int $id, int $state, ?string $front = null)
+    public function updateFrontPage(int $id, int $state, ?string $front = null): void
     {
         if ($state == 1) {
             $frontPage = null;
@@ -191,6 +191,7 @@ class RoomManager extends AbstractManager
         $countFrontPages = intval($countFrontPages['nombreFront']);
         if ($countFrontPages >= 3 && $frontPage == 1) {
             header('Location:/admin/editList/' . $front . '?message=Pas plus de 3 chambres en avant !');
+            return;
         } else {
             $query = "UPDATE " . self::TABLE .
                 " SET front_page = :frontPage
@@ -200,6 +201,7 @@ class RoomManager extends AbstractManager
             $statement->bindValue("frontPage", $frontPage, \PDO::PARAM_STR);
             $statement->execute();
             header('Location:/admin/editList/' . $front . '?message=Mise en avant modifée');
+            return;
         }
     }
 }
