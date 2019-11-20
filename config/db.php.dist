@@ -19,3 +19,4 @@ define('APP_DB_HOST', 'localhost');
 define('APP_DB_NAME', 'database_name');
 define('GMAIL_USER', 'user@gmail.com');
 define('GMAIL_PWD', 'password');
+define('CONTACT_EMAIL_RECIPIENT', 'user@gmail.com');
