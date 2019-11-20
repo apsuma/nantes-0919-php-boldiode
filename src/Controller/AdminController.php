@@ -13,6 +13,7 @@ use App\Model\ViewManager;
 use App\Service\ImageUploader;
 use DateInterval;
 use DateTime;
+use mysql_xdevapi\Exception;
 
 class AdminController extends AbstractController
 {
@@ -107,10 +108,17 @@ class AdminController extends AbstractController
             if ($formUpdateCheck->getValid()) {
                 $roomEdit->updateRoom($_POST);
                 $pictureCount = count($_FILES['image']['name']);
+
                 for ($i=0; $i < $pictureCount; $i++) {
-                    $fileTmpName = $_FILES['image']['tmp_name'][$i];
-                    $filename = $imageUploader->uploadImage($fileTmpName);
-                    $pictureManager->insert($_POST, $id, $filename);
+                    $formUpdateCheck->image($_FILES, $i);
+                    if ($formUpdateCheck->getValid()) {
+                        $fileTmpName = $_FILES['image']['tmp_name'][$i];
+                        $fileName = $_FILES['image']['name'][$i];
+                        $fileExplode = explode('.', $fileName);
+                        $fileActualExt = strtolower(end($fileExplode));
+                        $filename = $imageUploader->uploadImage($fileTmpName, $fileActualExt);
+                        $pictureManager->insert($_POST, $id, $filename);
+                    }
                 }
                 header('Location:/admin/edit/' . $_POST['id'] . '/?message=la chambre a bien été modifiée');
                 return null;
@@ -162,9 +170,15 @@ class AdminController extends AbstractController
                 $id = $roomManager->insert($_POST);
                 $pictureCount = count($_FILES['image']['name']);
                 for ($i=0; $i < $pictureCount; $i++) {
-                    $fileTmpName = $_FILES['image']['tmp_name'][$i];
-                    $filename = $imageUploader->uploadImage($fileTmpName);
-                    $pictureManager->insert($_POST, $id, $filename);
+                    $formCheck->image($_FILES, $i);
+                    if ($formCheck->getValid()) {
+                        $fileTmpName = $_FILES['image']['tmp_name'][$i];
+                        $fileName = $_FILES['image']['name'][$i];
+                        $fileExplode = explode('.', $fileName);
+                        $fileActualExt = strtolower(end($fileExplode));
+                        $filename = $imageUploader->uploadImage($fileTmpName, $fileActualExt);
+                        $pictureManager->insert($_POST, $id, $filename);
+                    }
                 }
                 header('Location:/admin/editList/?message=une chambre a bien été ajoutée');
                 return null;
@@ -189,14 +203,24 @@ class AdminController extends AbstractController
     public function delete(int $id): void
     {
         $this->checkAdmin();
+        $reservationManager = new ReservationManager();
+        if (count($reservationManager->selectRoom($id)) > 0) {
+            header('Location:/admin/editList/?message=Chambre réservée, impossible à supprimer');
+            return;
+        }
         $roomManager = new RoomManager();
         $pictureManager = new PictureManager();
+        $imageDeleter = new ImageUploader();
+        $picturesInRoom = $pictureManager->selectPicturesByRoom($id);
+        foreach ($picturesInRoom as $picture) {
+            $imageDeleter->delete($picture['image']);
+        }
         $pictureManager->deleteRoomId($id);
         $roomManager->delete($id);
         header("Location:/Admin/editList/?message=une chambre a bien été supprimée");
     }
 
-    public function editFrontPage(int $id, int $state, ?string $front = null)
+    public function editFrontPage(int $id, int $state, ?string $front = null): void
     {
         $this->checkAdmin();
         $roomManager = new RoomManager();
@@ -224,7 +248,7 @@ class AdminController extends AbstractController
             "tomorrow" => $tomorrow,
             "idRoom" => $idRoom,
             "name" => $room['name'],
-            ]);
+        ]);
     }
 
     public function planningDelete(int $idRoom, string $date): ?string
@@ -372,11 +396,11 @@ class AdminController extends AbstractController
                 return null;
             }
         }
-            return $this->twig->render('Admin/addTheme.html.twig', [
-                'theme' => $theme,
-                'themeNameError' => $themeNameError,
-                'post' => $_POST,
-            ]);
+        return $this->twig->render('Admin/addTheme.html.twig', [
+            'theme' => $theme,
+            'themeNameError' => $themeNameError,
+            'post' => $_POST,
+        ]);
     }
 
     public function addPrice(): ?string
@@ -456,5 +480,56 @@ class AdminController extends AbstractController
             'view' => $view,
             'viewNameError' => $viewNameError,
         ]);
+    }
+
+    public function deleteView(int $id): void
+    {
+        $this->checkAdmin();
+        $viewManager = new ViewManager();
+        $deleteViewOption = true;
+        try {
+            $viewManager->deleteView($id);
+        } catch (\PDOException $e) {
+            $deleteViewOption =false;
+        }
+        if ($deleteViewOption) {
+            header("Location:/admin/editListView/?message=La vue a bien été supprimée");
+        } else {
+            header("Location:/admin/editListView/?message=Vue non supprimée car utilisée par des chambres");
+        }
+    }
+
+    public function deleteTheme(int $id): void
+    {
+        $this->checkAdmin();
+        $themeManager = new ThemeManager();
+        $deleteThemeOption = true;
+        try {
+            $themeManager->deleteTheme($id);
+        } catch (\PDOException $e) {
+            $deleteThemeOption = false;
+        }
+        if ($deleteThemeOption) {
+            header("Location:/admin/editListTheme/?message=Le thème a bien été supprimé");
+        } else {
+            header("Location:/admin/editListTheme/?message= Thème non supprimé car utilisé pour des chambres");
+        }
+    }
+
+    public function deletePrice(int $id): void
+    {
+        $this->checkAdmin();
+        $priceManager = new PriceManager();
+        $deletePriceOption = true;
+        try {
+            $priceManager->deletePrice($id);
+        } catch (\PDOException $e) {
+            $deletePriceOption = false;
+        }
+        if ($deletePriceOption) {
+            header("Location:/admin/editListPrice/?message=La catégorie prix a bien été supprimée");
+        } else {
+            header("Location:/admin/editListPrice/?message=Prix non supprimé car utilisé pour des chambres");
+        }
     }
 }

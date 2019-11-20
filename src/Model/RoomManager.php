@@ -175,6 +175,11 @@ class RoomManager extends AbstractManager
             ' WHERE front_page = 1')->fetch();
     }
 
+    /**
+     * @param int $id
+     * @param int $state
+     * @param string|null $front
+     */
     public function updateFrontPage(int $id, int $state, ?string $front = null): void
     {
         if ($state == 1) {

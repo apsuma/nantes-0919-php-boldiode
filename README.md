@@ -1,13 +1,13 @@
 # BOLDIODE
-### A Simple MVC based on PHP MVC Structure from Scratch by WildCodeSchool
+### Discover and manage an hotel in Quiberon.  
+A students project at WildCodeSchool (Nantes).
 
 ## Description
 
-This repository is a simple PHP MVC structure from scratch.
-It uses some cool vendors/libraries such as Twig, Grumphp and Mailer.
+The aim of this website is to manage an hotel (add/modify/highlight/delete rooms - introduce hotel and his owners to the public - contact hotel team by email sendingform).
+The owners of Boldiode Hotel in Quiberon are François and Cecile. They asked us to create this tool for their hotel.
 
-The aim of this website is to manage an Hostel (add/modify/delete rooms - introduce hostel to public - contact hostel team by email sendingform).
-The owners of Boldiode Hostel in Quiberon are François and Cécile. They asked us to create this tool form their hostel. 
+
 
 ## Steps
 
@@ -36,21 +36,44 @@ If you develop on Windows, you should edit you git configuration to change your 
 
 ## URLs availables
 
-* Home page at [localhost:8000/](localhost:8000/)
-* Rooms list at [localhost:8000/room/show](localhost:8000/room/show)
-* Rooms details will be available at [localhost:8000/item/index/show/:id](localhost:8000/item/show/2) - for next version
-* Administration Login Page at [http://localhost:8000/admin/login](localhost:8000/admin/login)
-* Add a new admin at [localhost:8000/admin/addAdmin](localhost:8000/admin/addAdmin)
-* Room edit list at [localhost:8000/admin/editlist/](localhost:8000/admin/editlist/)
-* Room edit or delete at [localhost:8000/admin/edit/:id](localhost:8000/admin/edit/1)
-* Room add at [localhost:8000/admin/add](localhost:8000/admin/add)
-* Contact Informations and access [localhost:8000/Contact/sendMail](localhost:8000/Contact/SendMail)
+### Public access of this website :
 
+* Home page at [http://localhost:8000/](http://localhost:8000/)
+* Rooms list at [http://localhost:8000/room/show](http://localhost:8000/room/show)
+* History of the hostel at [http://localhost:8000/History/index](http://localhost:8000/History/index)
+* Contact information and access at [http://localhost:8000/Contact/sendMail](http://localhost:8000/Contact/sendMail) 
 
+### For administration of this website :
+* Administration Login Page at [http://localhost:8000/admin/login](http://localhost:8000/admin/login)
+* Add a new admin at [http://localhost:8000/admin/addAdmin](http://localhost:8000/admin/addAdmin)
+* Room edit list, highlight room to frontPage and delete at [http://localhost:8000/admin/editlist/](http://localhost:8000/admin/editlist/)
+* Room edit and delete at [http://localhost:8000/admin/edit/:id](http://localhost:8000/admin/edit/1)
+* Room add at [http://localhost:8000/admin/add](http://localhost:8000/admin/add)
+* Theme list add, edit and delete at [http://localhost:8000/admin/editlistTheme](http://localhost:8000/admin/editListPrice)
+* View list add, edit and delete at [http://localhost:8000/admin/editlistView](http://localhost:8000/admin/editlistView)
+* Price list add, edit and delete at [http://localhost:8000/admin/editListPrice](http://localhost:8000/admin/editListPrice)
+
+### Picture manager
+You can add / delete pictures within the administration part of this website. 
+You can upload any picture (.jpeg, .jpg, .gif  and .png format accepted - 950 ko size max for each file).
+You can upload more than one picture at the same time.
+All your uploaded files are in `/public/uploads/images` folder.
+
+## Dev informations
+This repository is a based on a simple PHP MVC structure from scratch created by WildCodeSchool.
+It uses some cool vendors/libraries such as `Twig`, `Grumphp` and `Mailer`.
+
+### Languages
+ `HTML5`, `CSS3`, `PHP7.2`, `Mysql`.
+ 
+### Project Methodology
+We used SCRUM method for all this project realization with `Trello` and `Slack` tools, in 4 sprints (6 weeks).
+ 
 ## Project team : 
-Benjamin Jaud [@armoredbrain](https://github.com/Armoredbrain) / 
-Julien Guibert [@kimor44](https://github.com/kimor44) / 
-Martin Cazamajor [@martincazamajor](https://github.com/MartinCazamajor) / 
-Alexandre Barré [@barre-alex44](https://github.com/barre-alex44) / 
-Delphine Belet [@apsuma](https://github.com/apsuma)
-Wild Code School Nantes 2019, October-November. 
+
+##### Martin Cazamajor [@martincazamajor](https://github.com/MartinCazamajor) 
+##### Julien Guibert [@kimor44](https://github.com/kimor44)
+##### Benjamin Jaud [@armoredbrain](https://github.com/Armoredbrain)
+##### Alexandre Barré [@barre-alex44](https://github.com/barre-alex44)
+##### Delphine Belet [@apsuma](https://github.com/apsuma) 
+##### Wild Code School Nantes 2019, October-November. 
