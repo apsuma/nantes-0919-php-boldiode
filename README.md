@@ -37,21 +37,22 @@ If you develop on Windows, you should edit you git configuration to change your 
 ## URLs availables
 
 ### Public access of this website :
-* Home page at [localhost:8000/](localhost:8000/)
-* Rooms list at [localhost:8000/room/show](localhost:8000/room/show)
-* Rooms details at [localhost:8000/item/index/show/:id](localhost:8000/item/show/2)
-* History of the hostel at [localhost:8000/History/index](http://localhost:8000/History/index)
-* Contact information and access at [localhost:8000/Contact/sendMail](http://localhost:8000/Contact/sendMail) 
+
+* Home page at [http://localhost:8000/](http://localhost:8000/)
+* Rooms list at [http://localhost:8000/room/show](http://localhost:8000/room/show)
+* Rooms details at [http://localhost:8000/item/index/show/:id](http://localhost:8000/item/show/2)
+* History of the hostel at [http://localhost:8000/History/index](http://localhost:8000/History/index)
+* Contact information and access at [http://localhost:8000/Contact/sendMail](http://localhost:8000/Contact/sendMail) 
 
 ### For administration of this website :
-* Administration Login Page at [localhost:8000/admin/login](localhost:8000/admin/login)
-* Add a new admin at [localhost:8000/admin/addAdmin](localhost:8000/admin/addAdmin)
-* Room edit list, highlight room to frontPage and delete at [http://localhost:8000/admin/editlist/](localhost:8000/admin/editlist/)
-* Room edit and delete at [localhost:8000/admin/edit/:id](localhost:8000/admin/edit/1)
-* Room add at [localhost:8000/admin/add](localhost:8000/admin/add)
-* Theme list add, edit and delete at [localhost:8000/admin/editlistTheme](localhost:8000/admin/editListPrice)
-* View list add, edit and delete at [localhost:8000/admin/editlistView](localhost:8000/admin/editlistView)
-* Price list add, edit and delete at [localhost:8000/admin/editListPrice](localhost:8000/admin/editListPrice)
+* Administration Login Page at [http://localhost:8000/admin/login](http://localhost:8000/admin/login)
+* Add a new admin at [http://localhost:8000/admin/addAdmin](http://localhost:8000/admin/addAdmin)
+* Room edit list, highlight room to frontPage and delete at [http://localhost:8000/admin/editlist/](http://localhost:8000/admin/editlist/)
+* Room edit and delete at [http://localhost:8000/admin/edit/:id](http://localhost:8000/admin/edit/1)
+* Room add at [http://localhost:8000/admin/add](http://localhost:8000/admin/add)
+* Theme list add, edit and delete at [http://localhost:8000/admin/editlistTheme](http://localhost:8000/admin/editListPrice)
+* View list add, edit and delete at [http://localhost:8000/admin/editlistView](http://localhost:8000/admin/editlistView)
+* Price list add, edit and delete at [http://localhost:8000/admin/editListPrice](http://localhost:8000/admin/editListPrice)
 
 ### Picture manager
 You can add / delete pictures within the administration part of this website. 
@@ -69,12 +70,11 @@ It uses some cool vendors/libraries such as `Twig`, `Grumphp` and `Mailer`.
 ### Project Methodology
 We used SCRUM method for all this project realization with `Trello` and `Slack` tools, in 4 sprints (6 weeks).
  
-
-
 ## Project team : 
-Benjamin Jaud [@armoredbrain](https://github.com/Armoredbrain) / 
-Julien Guibert [@kimor44](https://github.com/kimor44) / 
-Martin Cazamajor [@martincazamajor](https://github.com/MartinCazamajor) / 
-Alexandre Barré [@barre-alex44](https://github.com/barre-alex44) / 
-Delphine Belet [@apsuma](https://github.com/apsuma) /
-Wild Code School Nantes 2019, October-November. 
+
+##### Martin Cazamajor [@martincazamajor](https://github.com/MartinCazamajor) 
+##### Julien Guibert [@kimor44](https://github.com/kimor44)
+##### Benjamin Jaud [@armoredbrain](https://github.com/Armoredbrain)
+##### Alexandre Barré [@barre-alex44](https://github.com/barre-alex44)
+##### Delphine Belet [@apsuma](https://github.com/apsuma) 
+##### Wild Code School Nantes 2019, October-November. 
