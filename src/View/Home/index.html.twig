@@ -1,11 +1,7 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    {% if get.message is defined %}
-        <div class="alert alert-primary" role="alert">
-            {{ get.message }}
-        </div>
-    {% endif %}
+
     <style type="text/css">
         .text-center {
         }
@@ -15,14 +11,17 @@
             {% include 'Room/_form-search.html.twig' %}
         </div>
     </div>
-
+    {% if get.message is defined %}
+        <div class="alert alert-primary" role="alert">
+            {{ get.message }}
+        </div>
+    {% endif %}
     <h2 class="text-center">Découvrez ces chambres incroyables !</h2>
     <div class="d-flex align-items-center flex-column flex-md-row justify-content-md-around">
         {% for room in rooms %}
             {% include "Home/_card-index.html.twig" %}
         {% endfor %}
     </div>
-
     <section class="container-fluid my-5">
         <div class="row">
             <div class="col-lg-5 col-sm-12">
