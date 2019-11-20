@@ -96,12 +96,12 @@ div .navbar {
     height: 100%;
 }
 
-.content-link a{
+.content-link a {
     height: 15%;
 }
 
-.networks{
-
+.row-date, .row-price-beds {
+    margin-bottom: 0.5rem;
 }
 
 @media screen and (min-width: 992px) {
