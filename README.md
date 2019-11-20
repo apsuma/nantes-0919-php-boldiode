@@ -64,7 +64,7 @@ This repository is a based on a simple PHP MVC structure from scratch created by
 It uses some cool vendors/libraries such as `Twig`, `Grumphp` and `Mailer`.
 
 ### Languages
- `HTML5`, ![CSS3](https://tinyurl.com/wjzydv4), `PHP7.2`, `Mysql`.
+ `HTML5`, `CSS3`, `PHP7.2`, `Mysql`.
  
 ### Project Methodology
 We used SCRUM method for all this project realization with `Trello` and `Slack` tools, in 4 sprints (6 weeks).
