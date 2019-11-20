@@ -109,3 +109,9 @@ div .navbar {
         width: 30%;
     }
 }
+
+@media screen and (max-width: 450px){
+    .table {
+        font-size: xx-small;
+    }
+}
