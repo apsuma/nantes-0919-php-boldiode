@@ -18,7 +18,7 @@ use DateInterval;
  */
 class RoomController extends AbstractController
 {
-    public function show(int $bed = 0, int $priceId = 0, string $tripStart = "", string $tripEnd = ""): string
+    public function show(int $bed = 0, int $priceId = 0, string $tripStart = "", string $tripEnd = ""): ?string
     {
         $priceManager = new PriceManager();
         $prices = $priceManager->selectAll();
@@ -38,7 +38,8 @@ class RoomController extends AbstractController
         $roomManager = new RoomManager();
         $rooms = $roomManager->selectAllRooms($bed, $priceId);
         if (empty($rooms)) {
-            $rooms = $roomManager->selectAllRooms();
+            header("Location:/room/emptysearch");
+            return null;
         }
 
         $reservationSManager->clear();
@@ -62,7 +63,8 @@ class RoomController extends AbstractController
         if (isset($_POST['roomName'])) {
             $rooms = $roomManager->selectRoomByName($_POST['roomName']);
             if (empty($rooms)) {
-                $rooms = $roomManager->selectAllRooms();
+                header("Location:/room/emptysearch");
+                return null;
             }
             $rooms = $this->selectPicture($rooms);
             $maxBed = $roomManager->maxBed();
@@ -107,5 +109,25 @@ class RoomController extends AbstractController
             $rooms['images'] = $pictureManager->selectPicturesByRoom($rooms['roomId']);
         }
         return $rooms;
+    }
+
+    public function emptySearch(): string
+    {
+        $roomManager = new RoomManager();
+        $priceManager = new PriceManager();
+        $maxBed = $roomManager->maxBed();
+        $prices = $priceManager->selectAll();
+        $date = new DateTime();
+        $today = $date->format("Y-m-d");
+        $tomorrow = $date->add(DateInterval::createFromDateString("1 day"))->format("Y-m-d");
+        $maxDate = $date->add(DateInterval::createFromDateString("1 year"))->format("Y-m-d");
+
+        return $this->twig->render("Room/empty.html.twig", [
+            'maxBed' => $maxBed,
+            'prices' => $prices,
+            'today' => $today,
+            'maxDate' => $maxDate,
+            'tomorrow' => $tomorrow,
+        ]);
     }
 }
