@@ -108,4 +108,9 @@ class RoomController extends AbstractController
         }
         return $rooms;
     }
+
+    public function emptySearch(): string
+    {
+        return $this->twig->render("Room/empty.html;twig");
+    }
 }
