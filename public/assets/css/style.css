@@ -96,11 +96,11 @@ div .navbar {
     height: 100%;
 }
 
-.content-link a{
+.content-link a {
     height: 15%;
 }
 
-.row-date, .row-price-beds, .row-button{
+.row-date, .row-price-beds {
     margin-bottom: 0.5rem;
 }
 

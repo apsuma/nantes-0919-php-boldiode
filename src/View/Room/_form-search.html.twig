@@ -8,7 +8,6 @@
                            value="{{ today }}"
                            min="{{ today }}" max="{{ maxDate }}">
                 </div>
-
                 <div class="form-group col-6">
                     <label for="start" class="darksand p-1 rounded-pill w-100">Date de départ:</label>
                     <input type="date" id="end" name="tripEnd" class="w-100"
@@ -27,7 +26,6 @@
                         {% endfor %}
                     </select>
                 </div>
-
                 <div class="form-group col-6">
                     <label for="bedSelect" class="darksand p-1 rounded-pill w-100">Nombre de lits minimum</label>
                     <select class="form-control sand w-100" id="bedSelect" name="bed">
@@ -39,9 +37,8 @@
                 </div>
             </div>
 
-            <div class="row row-button">
-                <button type="submit" class="btn align-self-center darkblue-bg col-lg-6 offset-lg-3">Rechercher</button>
-            </div>
+            <button type="submit" class="btn darkblue-bg col-lg-6 offset-lg-3">Rechercher</button>
+
         </form>
     </div>
 
