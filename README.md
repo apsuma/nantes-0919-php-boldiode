@@ -71,8 +71,8 @@ We used SCRUM method for all this project realization with `Trello` and `Slack` 
 
 ## Project team : 
 ##### Martin Cazamajor [@martincazamajor](https://github.com/MartinCazamajor) 
-##### Benjamin Jaud [@armoredbrain](https://github.com/Armoredbrain)
 ##### Julien Guibert [@kimor44](https://github.com/kimor44)
+##### Benjamin Jaud [@armoredbrain](https://github.com/Armoredbrain)
 ##### Alexandre Barré [@barre-alex44](https://github.com/barre-alex44)
 ##### Delphine Belet [@apsuma](https://github.com/apsuma) 
 ##### Wild Code School Nantes 2019, October-November. 
