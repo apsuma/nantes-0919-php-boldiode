@@ -1,7 +1,7 @@
 <div class="row mb-2">
     <div class="col-lg-10 offset-lg-1 mt-3 pt-3">
         <form method="post" action="/room/search">
-            <div class="row">
+            <div class="row row-date">
                 <div class="form-group col-6">
                     <label for="start" class="darksand p-1 rounded-pill w-100">Date d'arrivée:</label>
                     <input type="date" id="start" name="tripStart" class="w-100"
@@ -17,7 +17,7 @@
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row row-price-beds">
                 <div class="form-group col-6">
                     <label for="priceSelect" class="darksand p-1 rounded-pill w-100">Catégorie de prix</label>
                     <select class="form-control sand w-100" id="priceSelect" name="priceId">
@@ -39,7 +39,7 @@
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row row-button">
                 <button type="submit" class="btn align-self-center darkblue-bg col-lg-6 offset-lg-3">Rechercher</button>
             </div>
         </form>
@@ -48,10 +48,10 @@
     <div class="col-lg-10 offset-lg-1">
         <form method="post" action="/room/search">
             <div class="form-group">
-                <label for="roomName" class="darksand p-1 rounded-pill">Nom de la chambre</label>
-                <input class="form-control sand" id="roomName" type="text" name="roomName">
+                <label for="roomName" class="darksand p-1 rounded-pill w-100">Nom de la chambre</label>
+                <input class="form-control sand w-100" id="roomName" type="text" name="roomName">
             </div>
-            <button type="submit" class="btn darkblue-bg">Rechercher une chambre</button>
+            <button type="submit" class="btn darkblue-bg col-lg-6 offset-lg-3">Rechercher une chambre</button>
         </form>
     </div>
 

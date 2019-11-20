@@ -100,8 +100,8 @@ div .navbar {
     height: 15%;
 }
 
-.networks{
-
+.row-date, .row-price-beds, .row-button{
+    margin-bottom: 0.5rem;
 }
 
 @media screen and (min-width: 992px) {
