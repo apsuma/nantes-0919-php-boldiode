@@ -111,6 +111,6 @@ class RoomController extends AbstractController
 
     public function emptySearch(): string
     {
-        return $this->twig->render("Room/empty.html;twig");
+        return $this->twig->render("Room/empty.html.twig");
     }
 }
