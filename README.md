@@ -40,7 +40,6 @@ If you develop on Windows, you should edit you git configuration to change your 
 
 * Home page at [http://localhost:8000/](http://localhost:8000/)
 * Rooms list at [http://localhost:8000/room/show](http://localhost:8000/room/show)
-* Rooms details at [http://localhost:8000/item/index/show/:id](http://localhost:8000/item/show/2)
 * History of the hostel at [http://localhost:8000/History/index](http://localhost:8000/History/index)
 * Contact information and access at [http://localhost:8000/Contact/sendMail](http://localhost:8000/Contact/sendMail) 
 
