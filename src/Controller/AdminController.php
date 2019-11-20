@@ -509,8 +509,8 @@ class AdminController extends AbstractController
         } catch (\PDOException $e) {
             $deleteThemeOption = false;
         }
-        if ($deleteThemeOption){
-        header("Location:/admin/editListTheme/?message=Le thème a bien été supprimé");
+        if ($deleteThemeOption) {
+            header("Location:/admin/editListTheme/?message=Le thème a bien été supprimé");
         } else {
             header("Location:/admin/editListTheme/?message= Thème non supprimé car utilisé pour des chambres");
         }
