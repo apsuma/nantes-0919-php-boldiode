@@ -1,0 +1,10 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <div class="container pt-5 px-5 pb-3">
+        {% include 'Room/_form-search.html.twig' %}
+        {% for room in rooms %}
+            {% include 'Room/_room-card.html.twig' %}
+        {% endfor %}
+    </div>
+{% endblock %}

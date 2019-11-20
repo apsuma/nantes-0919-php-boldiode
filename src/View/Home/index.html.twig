@@ -1,5 +1,46 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    <h1>Hello Wilder !</h1>
+    <div class="searchIndex">
+        <div class="container mb-3 pt-5 px-5 pb-3">
+            {% include 'Room/_form-search.html.twig' %}
+        </div>
+    </div>
+    {% if get.message is defined %}
+        <div class="alert alert-primary" role="alert">
+            {{ get.message }}
+        </div>
+    {% endif %}
+    <h2 class="text-center">Découvrez ces chambres incroyables !</h2>
+    <div class="d-flex align-items-center flex-column flex-md-row justify-content-md-around">
+        {% for room in rooms %}
+            {% include "Home/_card-index.html.twig" %}
+        {% endfor %}
+    </div>
+    <section class="container-fluid my-5">
+        <div class="row">
+            <div class="col-lg-5 col-sm-12">
+                <a href="/History/index" class="stretched-link">
+                    <img src="https://www.prideofbritainhotels.com/wp-content/uploads/2016/01/bailiffscourt-hotel-exterior-hsh-bc03_287-1920.jpg"
+                         class="img-fluid" alt="vue extérieure hôtel">
+                </a>
+            </div>
+            <div class="col-lg-7 col-sm-12">
+                <h2 class="text-center pb-3">Notre histoire</h2>
+                <p><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad at aut autem consectetur deleniti, ducimus eos excepturi labore molestiae nisi odio, perspiciatis quia quod quos similique, tempora veritatis voluptas?</span>
+                    <span>Beatae consequuntur corporis deserunt eum ex, illo reiciendis reprehenderit veniam? Accusamus ad animi cupiditate, debitis dolore doloribus dolorum, earum error eum fugit ipsam optio quisquam quos ratione rerum sint voluptatum?</span>
+                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad at aut autem consectetur deleniti, ducimus eos excepturi labore molestiae nisi odio, perspiciatis quia quod quos similique, tempora veritatis voluptas?</span><br>
+                    <a href="/History/index" class="stretched-link text-body"></a>
+                </p>
+            </div>
+        </div>
+    </section>
+    <section class="card my-5 our-rooms">
+        <a href="/room/show">
+            <img alt="image lit oreillers" class="card-img" src="/assets/images/image_nos_chambres.jpg">
+            <div class="card-img-overlay d-flex flex-column align-items-center">
+                <h2 class="text-center my-auto text-light darkblue-bg p-3 rounded">Nos chambres</h2>
+            </div>
+        </a>
+    </section>
 {% endblock %}

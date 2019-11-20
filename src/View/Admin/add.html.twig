@@ -1,0 +1,17 @@
+{% extends 'layout.html.twig' %}
+
+{% block navigation %}
+    {% include 'Admin/_navigationAdmin.html.twig' %}
+{% endblock %}
+
+
+{% block content %}
+    <div class="container-fluid">
+        <h1>Ajouter une nouvelle chambre</h1>
+        {% include 'Admin/_addForm.html.twig' %}
+    </div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+

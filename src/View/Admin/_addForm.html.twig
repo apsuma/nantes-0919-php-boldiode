@@ -1,0 +1,139 @@
+<form method="POST" enctype="multipart/form-data">
+    <input type="hidden" value="{{ room.id }}" name="id">
+    <div class="custom-file">
+        <input
+            type="file"
+            id="image"
+            class="custom-file-input"
+            name="image[]"
+            multiple="multiple"
+            value=""
+            required
+        >
+        <label class="custom-file-label" for="image">Image chambre</label>
+    </div>
+
+    <div class="form-group">
+        <label for="name">Nom chambre</label>
+        <input
+            type="text"
+            id="name"
+            class="form-control {{ (nameError is null) ? '':'is-invalid' }}"
+            value="{{ (nameError is null) ? post.name :'' }}"
+            name="name"
+            required
+        >
+        <div class="invalid-feedback">Entrez un nom de chambre</div>
+    </div>
+
+    <div class="form-group">
+        <label for="description">Description Chambre</label>
+        <input
+            type="text"
+            id="description"
+            class="form-control {{ (descriptionError is null) ? '':'is-invalid' }}"
+            value="{{ (descriptionError is null) ? post.description :'' }}"
+            name="description"
+            required
+        >
+        <div class="invalid-feedback">Entrez une description de chambre</div>
+    </div>
+
+    <div class="form-group">
+        <label for="nb_bed">Nombre de lits</label>
+        <input
+            type="text"
+            id="nb_bed"
+            class="form-control {{ (nbBedError is null) ? '':'is-invalid' }}"
+            value="{{ (nbBedError is null) ? post.nb_bed :'' }}"
+            name="nb_bed"
+            required
+        >
+        <div class="invalid-feedback">Entrez un nombre de lit</div>
+    </div>
+
+    <div class="form-group">
+        <label for="surface">Surface</label>
+        <input
+            type="text"
+            id="surface"
+            class="form-control  {{ (surfaceError is null) ? '':'is-invalid' }}"
+            value="{{ (surfaceError is null) ? post.surface :'' }}"
+            name="surface"
+            required
+        >
+        <div class="invalid-feedback">Entrez une surface</div>
+    </div>
+
+    <div class="form-group">
+        <label for="id_price">Prix</label>
+        <select
+            id="id_price"
+            name="id_price"
+            class="form-control {{ (idPriceError is null) ? '':'is-invalid' }}"
+            required
+        >
+            <option value="" disabled selected>
+                Choisir un prix
+            </option>
+            {% for price in prices %}
+                <option value="{{ price.id }}" {{ (price.id == post.id_price) ? 'selected' : '' }}>
+                    {{ price.name }}
+                </option>
+            {% endfor %}
+        </select>
+        <div class="invalid-feedback">Entrez un prix</div>
+    </div>
+
+    <div class="form-group">
+        <label for="id_view">Vue</label>
+        <select
+            id="id_view"
+            name="id_view"
+            class="form-control {{ (idViewError is null) ? '':'is-invalid' }}"
+            required
+        >
+            <option value="" disabled selected>
+                Choisir une vue
+            </option>
+            {% for view in views %}
+                <option value="{{ view.id }}" {{ (view.id == post.id_view) ? 'selected' : '' }}>
+                    {{ view.name }}
+                </option>
+            {% endfor %}
+        </select>
+        <div class="invalid-feedback">Entrez une vue</div>
+    </div>
+
+    <div class="form-group">
+        <label for="id_theme">Theme</label>
+        <select
+            id="id_theme"
+            name="id_theme"
+            class="form-control {{ (idThemeError is null) ? '':'is-invalid' }}"
+            required
+        >
+            <option value="" disabled selected>
+                Choisir un theme
+            </option>
+            {% for theme in themes %}
+                <option value="{{ theme.id }}" {{ (theme.id == post.id_theme) ? 'selected' : '' }}>
+                    {{ theme.name }}
+                </option>
+            {% endfor %}
+        </select>
+        <div class="invalid-feedback">Entrez un theme</div>
+    </div>
+
+    <div class="form-check">
+        <input type="checkbox" id="front_page" name="front_page" class="form-check-input" value=1>
+        <label class="form-check-label" for="front_page">
+            Chambre du moment
+        </label>
+    </div>
+
+    <br>
+
+    <input type="submit" class="btn btn-primary" value="Valider">
+</form>
+

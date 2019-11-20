@@ -1,0 +1,60 @@
+{% extends 'layout.html.twig' %}
+
+{% block navigation %}
+    {% include 'Admin/_navigationAdmin.html.twig' %}
+{% endblock %}
+
+{% block content %}
+    <h1>Liste des chambres à éditer</h1>
+    {% if get.message is defined %}
+        <div class="alert alert-primary" role="alert">
+            {{ get.message }}
+        </div>
+    {% endif %}
+    <section>
+        <div class="row">
+            <div class="col-lg-4"><a href="/admin/editList">Nom</a></div>
+            <div class="col-lg-2 offset-lg-2"><a href="/admin/editList/front">Chambres en avant</a></div>
+        </div>
+        {% for room in roomList %}
+            <div class="card">
+                <div class="card-body row">
+                    <a href="/admin/edit/{{ room.id }}" class="col-lg-4">{{ room.name }}</a><br>
+                    <a href="/admin/planning/{{ room.id }}" class="btn btn-dark col-lg-2">Planning réservation</a><br>
+                    <a href="/admin/editFrontPage/{{ room.id }}/{{ (room.front_page == 1) ? room.front_page : 0 }}/{{ front }}"
+                       {{ (room.front_page == 1) ? 'class="btn btn-success col-lg-2">Mis en avant' : 'class="btn btn-secondary col-lg-2">Mettre en avant' }}</a><br>
+                    <a href="/admin/edit/{{ room.id }}" class="btn btn-primary col-lg-2">&Eacute;diter</a><br>
+                    <button type="button" class="btn btn-danger col-lg-2" data-toggle="modal"
+                            data-target="#deleteConfirmation-{{ room.id }}">
+                        Supprimer
+                    </button>
+                    <div class="modal fade" id="deleteConfirmation-{{ room.id }}" tabindex="-1" role="dialog"
+                         aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteConfirmationLabel">Etes-vous sûr ?</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Cette suppression est définitive et supprimera également toutes les images liées à
+                                    la chambre
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler
+                                    </button>
+                                    <a href="/admin/delete/{{ room.id }}" class="btn btn-danger">Confirmer</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </section>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

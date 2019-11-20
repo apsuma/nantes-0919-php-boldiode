@@ -1,0 +1,55 @@
+<div class="row mb-2">
+    <div class="col-lg-10 offset-lg-1 mt-3 pt-3 pb-2">
+        <form method="post" action="/room/search">
+            <div class="row row-date">
+                <div class="form-group col-6">
+                    <label for="start" class="darksand p-1 rounded-pill w-100">Date d'arrivée:</label>
+                    <input type="date" id="start" name="tripStart" class="w-100"
+                           value="{{ today }}"
+                           min="{{ today }}" max="{{ maxDate }}">
+                </div>
+                <div class="form-group col-6">
+                    <label for="start" class="darksand p-1 rounded-pill w-100">Date de départ:</label>
+                    <input type="date" id="end" name="tripEnd" class="w-100"
+                           value="{{ tomorrow }}"
+                           min="{{ tomorrow }}" max="{{ maxDate }}">
+                </div>
+            </div>
+
+            <div class="row row-price-beds">
+                <div class="form-group col-6">
+                    <label for="priceSelect" class="darksand p-1 rounded-pill w-100">Catégorie de prix</label>
+                    <select class="form-control sand w-100" id="priceSelect" name="priceId">
+                        <option value="0">Choisissez une catégorie de prix</option>
+                        {% for price in prices %}
+                            <option value="{{ price.id }}" class="sand">{{ price.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group col-6">
+                    <label for="bedSelect" class="darksand p-1 rounded-pill w-100">Nombre de lits minimum</label>
+                    <select class="form-control sand w-100" id="bedSelect" name="bed">
+                        <option value="0">Choisissez un nombre minimum de lits</option>
+                        {% for bed in 1 .. maxBed %}
+                            <option value="{{ bed }}" class="sand">{{ bed }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" class="btn darkblue-bg col-lg-6 offset-lg-3">Rechercher</button>
+
+        </form>
+    </div>
+
+    <div class="col-lg-10 offset-lg-1">
+        <form method="post" action="/room/search">
+            <div class="form-group">
+                <label for="roomName" class="darksand p-1 rounded-pill w-100">Nom de la chambre</label>
+                <input class="form-control sand w-100" id="roomName" type="text" name="roomName">
+            </div>
+            <button type="submit" class="btn darkblue-bg col-lg-6 offset-lg-3">Rechercher une chambre</button>
+        </form>
+    </div>
+
+</div>

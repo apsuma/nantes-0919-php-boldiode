@@ -1,0 +1,41 @@
+<footer class="container-fluid darkblue-bg footer-pb">
+    <div class="row d-flex justify-content-around row-footer">
+        <div class="col-md-4 text-center darkblue-bg">
+            <h3>Hôtel Boldiode </h3>
+            <p>3 rue des Pêcheurs</p>
+            <p>56170 Quiberon</p>
+            <p>Tel. 02 77 77 77 77</p>
+            <a href="/Contact/sendMail">
+            <img
+                    src="/assets/images/cartoQuiberon.png"
+                    alt="Plan de Quiberon avec localisation de l'hôtel rue des pecheurs"
+                    width="300px"
+            />
+            </a>
+        </div>
+        <div class="col-md-4 darkblue-bg justify-content-center">
+            <h3 class="text-center">Contactez-nous</h3>
+            <div class="justify-content-center" >
+            {% include "Home/_formfooter.html.twig" %}
+            </div>
+        </div>
+        <div class="col-md-4 darkblue-bg d-flex flex-column justify-content-around">
+            <div class="d-inline-flex flex-column content-link">
+                <a class="text-center text-decoration-none text-reset" href="/" target="_blank" title="home">Accueil </a></a>
+                <a class="text-center text-decoration-none text-reset" href="/room/show" target="_blank" title="rooms">Nos chambres</a>
+                <a class="text-center text-decoration-none text-reset" href="/History/index" target="_blank" title="hotel">Notre hôtel</a>
+                <a class="text-center text-decoration-none text-reset" href="/Contact/sendMail" target="_blank" title="contact">Contact</a>
+
+            </div>
+            <div class="pb-3">
+                <h5 class="text-center">Réseaux sociaux</h5>
+                <div class="d-flex flex-row justify-content-around">
+                    <a href="https://www.instagram.com/boldiode.hotel/" target="_blank" title="instagram"><i class="fab fa-instagram fa-2x"></i></a>
+                    <a href="https://www.facebook.com/" target="_blank" title="facebook"><i class="fab fa-facebook fa-2x"></i></a>
+                    <a href="https://twitter.com/HBoldiode" target="_blank" title="twitter"><i class="fab fa-twitter fa-2x"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+

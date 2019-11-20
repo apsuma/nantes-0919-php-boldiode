@@ -1,0 +1,16 @@
+<form action="/Admin/editView/{{ view.id }}" method="post">
+    <input type="hidden" value="{{ view.id }}" name="id">
+    <div class="form-group">
+        <label for="name">Vue :</label>
+        <input
+                type="text"
+                id="name"
+                class="form-control {{ (viewNameError is null) ? '':'is-invalid' }}"
+                value="{{ (viewNameError is not null) ? '' : view.name|e }}"
+                name="name"
+        >
+    </div>
+    <br>
+    <input type="submit" class="btn btn-primary" value="Valider">
+    <a type="button" class="btn btn-secondary" href="/Admin/editListView/">Back</a>
+</form>

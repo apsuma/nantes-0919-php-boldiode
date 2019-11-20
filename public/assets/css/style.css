@@ -1,0 +1,117 @@
+
+.lightblue {
+    background-color: #46b1c9;
+}
+
+.darkblue {
+    color: #2e5266;
+}
+
+.darkblue-bg {
+    background-color: #2e5266;
+    color: aliceblue;
+}
+
+.sand {
+    background-color: #f3f9d2;
+}
+
+.grey {
+    background-color: #9fb1bc;
+}
+
+.darksand {
+    background-color: #e4d6a7;
+}
+
+.custom-list {
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+div .navbar {
+    position: fixed;
+    z-index: 1;
+    width: 100vw;
+    top: 0;
+}
+
+.navbar-brand {
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.nav-item {
+    display: flex;
+    border-radius: 5px;
+}
+
+@media all and (max-width: 992px) {
+    .navbar-collapse {
+        margin-top: 1rem;
+        margin-bottom: 2px;
+    }
+}
+
+.our-rooms:hover {
+    opacity: 0.85;
+}
+
+.footer-pb {
+    padding-top: 1em;
+}
+
+.fa-instagram, .fa-facebook, .fa-twitter {
+    color: aliceblue;
+}
+
+.searchIndex {
+    background-image: url("https://www.tourismebretagne.com/app/uploads/crt-bretagne/2018/10/0-presqu-ile-de-quiberon-surf-yannick-le-gal-1920x1278.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.col {
+    margin-top: 4.5rem;
+}
+
+.row {
+    margin-bottom: 2rem;
+}
+
+.row-footer {
+    margin-bottom: 0rem;
+}
+
+.active {
+    font-size: 1.2em;
+}
+
+.content-link {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.content-link a {
+    height: 15%;
+}
+
+.row-date, .row-price-beds {
+    margin-bottom: 0.5rem;
+}
+
+@media screen and (min-width: 992px) {
+    .carousel-large {
+        width: 30%;
+    }
+}
+
+@media screen and (max-width: 450px){
+    .table {
+        font-size: xx-small;
+    }
+}

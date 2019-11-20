@@ -1,0 +1,24 @@
+{% extends "layout.html.twig" %}
+
+{% block navigation %}
+    {% include 'Admin/_navigationAdmin.html.twig' %}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <form method="post" action="/Admin/addAdmin">
+            <div class="form-group">
+                <label for="userName">Utilisateur</label>
+                <input type="text" class="form-control" id="userName" placeholder="Utilisateur" name="login">
+            </div>
+            <div class="form-group">
+                <label for="password">Mot de passe</label>
+                <input type="password" class="form-control" id="password" placeholder="Mot de Passe" name="pwd">
+            </div>
+            <button type="submit" class="btn btn-primary">Entrer</button>
+        </form>
+    </div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

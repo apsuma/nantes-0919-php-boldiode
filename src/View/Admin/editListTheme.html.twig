@@ -1,0 +1,54 @@
+{% extends 'layout.html.twig' %}
+
+{% block navigation %}
+    {% include 'Admin/_navigationAdmin.html.twig' %}
+{% endblock %}
+
+{% block content %}
+    <h1>Liste des thèmes</h1>
+
+    {% if get.message is defined %}
+        <div class="alert alert-primary" role="alert">
+            {{ get.message }}
+        </div>
+    {% endif %}
+    <a class="btn btn-success" href="/admin/addTheme">Ajouter un thème</a>
+    <section>
+        {% for theme in themes %}
+            <div class="card col-12 col-sm-4">
+                <div class="card-body">
+                    <h5 class="card-title"><a  class="col-lg-6">{{ theme.name }}</a></h5>
+                    <a href="/admin/editTheme/{{ theme.id }}" class="btn btn-primary">Modifier</a>
+                    <button type="button"
+                            class="btn btn-danger"
+                            data-toggle="modal"
+                            data-target="#deleteConfirmation-{{ theme.id }}"
+                    >Supprimer</button>
+                    <div class="modal fade" id="deleteConfirmation-{{ theme.id }}" tabindex="-1" role="dialog"
+                         aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteConfirmationLabel">Etes-vous sûr ?</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">Cette suppression est définitive</div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler
+                                    </button>
+                                    <a href="/admin/deleteTheme/{{ theme.id }}" class="btn btn-danger">Confirmer</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </section>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

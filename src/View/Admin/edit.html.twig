@@ -1,0 +1,50 @@
+{% extends 'layout.html.twig' %}
+
+{% block navigation %}
+    {% include 'Admin/_navigationAdmin.html.twig' %}
+{% endblock %}
+
+
+{% block content %}
+<div class="container-fluid">
+    <h1>Editer la chambre "{{ room.roomName }}"</h1>
+    {% if get.message is defined %}
+        <div class="alert alert-primary" role="alert">
+            {{ get.message }}
+        </div>
+    {% endif %}
+    {% include 'Admin/_editForm.html.twig' %}
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteConfirmation">
+        Supprimer
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="deleteConfirmation" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteConfirmationLabel">Etes-vous sûr ?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Cette suppression est définitive et supprimera également toutes les images liées à la chambre
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                    <a href="/admin/delete/{{ room.roomId }}" class="btn btn-danger">Confirmer</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="/admin/editList">Back</a>
+
+</div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

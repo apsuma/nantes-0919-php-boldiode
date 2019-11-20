@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav custom-list">
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/logout">Déconnexion</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ server.REQUEST_URI == "/admin/editList" ? "active" }}" href="/admin/editList">Liste chambres</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ server.REQUEST_URI == "/admin/add" ? "active" }}" href="/admin/add">Ajouter chambre</a>
+            </li>
+            {% if session.admin == 'admin' %}
+                <li class="nav-item">
+                    <a class="nav-link {{ server.REQUEST_URI == "/admin/addAdmin" ? "active" }}" href="/admin/addAdmin">Ajouter un nouvel administrateur</a>
+                </li>
+            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link {{ server.REQUEST_URI == "/admin/editListPrice" ? "active" }}" href="/admin/editListPrice">Liste des prix</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ server.REQUEST_URI == "/admin/editListTheme" ? "active" }}" href="/admin/editlistTheme">Liste des thèmes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ server.REQUEST_URI == "/admin/editListView" ? "active" }}" href="/admin/editlistView">Liste des vues</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
